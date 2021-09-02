@@ -86,13 +86,13 @@ size_t libinput_discover(bool match(struct libinput_device *), char devices[][32
     struct libinput_device * device = libinput_path_add_device(context, path);
     if(!device) {
       perror("unable to add device to libinput context:");
-      return false;
+      continue;
     }
 
     device = libinput_device_ref(device);
     if(!device) {
       perror("unable to reference device within libinput context:");
-      return false;
+      continue;
     }
 
     if (match(device)) {
