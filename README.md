@@ -33,6 +33,7 @@ Upstreamed contributions so far:
 
 - [Add support for pointer devices to libinput driver] (in review)
 - [Add support for keypads to libinput driver] (in review)
+- [Don't compile example assets when disabled in lv_conf.h] (in review)
 
 # Operation
 
@@ -67,3 +68,4 @@ Unl0kr is licensed under the GNU General Public License as published by the Free
 [libinput]: https://gitlab.freedesktop.org/libinput/libinput
 [Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
 [Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
+[Don't compile example assets when disabled in lv_conf.h]: https://github.com/lvgl/lvgl/pull/2523
