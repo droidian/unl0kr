@@ -31,9 +31,9 @@ As far as feasible and sensible, [lvgl] and [lv_driver] fixes and enhancements a
 
 Upstreamed contributions so far:
 
-- [Add support for pointer devices to libinput driver] (in review)
-- [Add support for keypads to libinput driver] (in review)
-- [Don't compile example assets when disabled in lv_conf.h] (in review)
+- [Add support for pointer devices to libinput driver] (⏳ in review)
+- [Add support for keypads to libinput driver] (⏳ in review)
+- [Don't compile example assets when disabled in lv_conf.h] (✅ merged)
 
 # Operation
 
