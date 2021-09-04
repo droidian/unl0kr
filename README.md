@@ -17,9 +17,10 @@ The biggest obstacle is input processing. [lv_drivers] provides an evdev interfa
 
 - Password-entry UI including on-screen keyboard on the framebuffer
 - Input device discovery for keyboards, mice and trackpads
-- On-screen keyboard control via mouse or trackpad (including cursor)
+- On-screen keyboard control via one or more mouse / trackpad (including cursor)
+- On-screen keyboard control via one or more hardware keyboard (including support for multiple layouts using XKB)
+  - Works great on my laptop keyboard but occasionally drops keys on my Ergodox EZ)
 - On-screen keyboard control via touchscreen (tested on PinePhone)
-- Halfway functional text input via keyboard devices (US layout only, works great on my laptop keyboard but drops keys on my Ergodox EZ)
 
 ## To do
 
@@ -34,6 +35,7 @@ Upstreamed contributions so far:
 - [Add support for pointer devices to libinput driver] (⏳ in review)
 - [Add support for keypads to libinput driver] (✅ merged)
 - [Don't compile example assets when disabled in lv_conf.h] (✅ merged)
+- [Add full keyboard support to libinput/evdev driver]: (⏳ in review)
 
 # Operation
 
@@ -69,3 +71,4 @@ Unl0kr is licensed under the GNU General Public License as published by the Free
 [Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
 [Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
 [Don't compile example assets when disabled in lv_conf.h]: https://github.com/lvgl/lvgl/pull/2523
+[Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
