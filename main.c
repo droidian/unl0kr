@@ -8,6 +8,7 @@
 
 #include "libinput_device_discovery.h"
 #include "libinput_multi.h"
+#include "libinput_xkb.h"
 
 // Mouse cursor image (from https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c)
 
@@ -135,9 +136,10 @@ void keyboard_event_cancel_cb(lv_event_t *e) {
 
 int main(void)
 {
-    // Initialise lvgl & framebuffer driver
+    // Initialise lvgl, framebuffer driver and XKB system
     lv_init(); 
     fbdev_init();
+    libinput_xkb_init();
 
     // Query display size
     uint32_t hor_res;

@@ -383,14 +383,14 @@
 #endif
 
 #if USE_LIBINPUT || USE_BSD_LIBINPUT
-#  define LIBINPUT_NAME   "?"        /*You can use the "evtest" Linux tool to get the list of devices and test them*/
+#  define LIBINPUT_NAME   "/dev/input/event4"        /*You can use the "evtest" Linux tool to get the list of devices and test them*/
 #endif  /*USE_LIBINPUT*/
 
 /*-------------------------------------------------
  * Mouse or touchpad as evdev interface (for Linux based systems)
  *------------------------------------------------*/
 #ifndef USE_EVDEV
-#  define USE_EVDEV           0
+#  define USE_EVDEV           1
 #endif
 
 #ifndef USE_BSD_EVDEV
@@ -398,7 +398,7 @@
 #endif
 
 #if USE_EVDEV || USE_BSD_EVDEV
-#  define EVDEV_NAME   "/dev/input/event8"        /*You can use the "evtest" Linux tool to get the list of devices and test them*/
+#  define EVDEV_NAME   "/dev/input/event4"        /*You can use the "evtest" Linux tool to get the list of devices and test them*/
 #  define EVDEV_SWAP_AXES         0               /*Swap the x and y axes of the touchscreen*/
 
 #  define EVDEV_CALIBRATE         1               /*Scale and offset the touchscreen coordinates by using maximum and minimum values for each axis*/

@@ -65,7 +65,7 @@ bool libinput_multi_set_file(lv_indev_drv_t * indev_drv, char* dev_name);
  * @param data store the libinput data here
  * @return false: because the points are not buffered, so no more data to be read
  */
-bool libinput_multi_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data);
+void libinput_multi_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data);
 
 
 /**********************

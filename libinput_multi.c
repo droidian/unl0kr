@@ -24,7 +24,7 @@
 #include <linux/input.h>
 #endif
 
-#include "libinput_keymap.h"
+#include "libinput_xkb.h"
 
 /*********************
  *      DEFINES
@@ -44,6 +44,7 @@ typedef struct {
   int button;
   int libinput_key_val;
   struct libinput_device *device;
+  void *keyboard_state;
 
   int libinput_fd;
   struct libinput *libinput_context;
@@ -56,7 +57,6 @@ typedef struct {
 static const int timeout = 0; // do not block
 static const nfds_t nfds = 1;
 static lv_point_t most_recent_touch_point = { .x = 0, .y = 0};
-static bool shift_down = false;
 
 static const struct libinput_interface interface = {
   .open_restricted = open_restricted,
@@ -127,6 +127,8 @@ void libinput_multi_init_driver(lv_indev_drv_t * indev_drv) {
   state->fds[0].events = POLLIN;
   state->fds[0].revents = 0;
 
+  state->keyboard_state = libinput_xkb_create_state();
+
   indev_drv->user_data = (void *)state;
 }
 
@@ -143,6 +145,8 @@ void libinput_multi_deinit_driver(lv_indev_drv_t * indev_drv) {
     
     libinput_unref(state->libinput_context);
 
+    // TODO: dealloc keyboard state
+
     free(indev_drv->user_data);
     indev_drv->user_data = NULL;
   }
@@ -154,12 +158,12 @@ void libinput_multi_deinit_driver(lv_indev_drv_t * indev_drv) {
  * @param data store the libinput data here
  * @return false: because the points are not buffered, so no more data to be read
  */
-bool libinput_multi_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
+void libinput_multi_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 {
   libinput_multi_state *state = (libinput_multi_state *)indev_drv->user_data;
   if (!state) {
     perror("unable to read state from driver:");
-    return false;
+    return;
   }
 
   struct libinput_event *event;
@@ -209,43 +213,9 @@ bool libinput_multi_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
         keyboard_event = libinput_event_get_keyboard_event(event);
         enum libinput_key_state key_state = libinput_event_keyboard_get_key_state(keyboard_event);
         uint32_t code = libinput_event_keyboard_get_key(keyboard_event);
-        if (code == KEY_LEFTSHIFT || code == KEY_RIGHTSHIFT) {
-          shift_down = key_state == LIBINPUT_KEY_STATE_PRESSED;
-          break;
-        }
-        state->button = (key_state == LIBINPUT_KEY_STATE_RELEASED) ? LV_INDEV_STATE_REL : LV_INDEV_STATE_PR;
-        switch(code) {
-          case KEY_BACKSPACE:
-            state->libinput_key_val = LV_KEY_BACKSPACE;
-            break;
-          case KEY_ENTER:
-            state->libinput_key_val = LV_KEY_ENTER;
-            break;
-          case KEY_PREVIOUS:
-            state->libinput_key_val = LV_KEY_PREV;
-            break;
-          case KEY_NEXT:
-            state->libinput_key_val = LV_KEY_NEXT;
-            break;
-          case KEY_UP:
-            state->libinput_key_val = LV_KEY_UP;
-            break;
-          case KEY_LEFT:
-            state->libinput_key_val = LV_KEY_LEFT;
-            break;
-          case KEY_RIGHT:
-            state->libinput_key_val = LV_KEY_RIGHT;
-            break;
-          case KEY_DOWN:
-            state->libinput_key_val = LV_KEY_DOWN;
-            break;
-          default:
-            if (code < LV_NUM_KEYS && mapped_keys[code] != LV_MAPPED_KEY_NONE) {
-              state->libinput_key_val = (shift_down ? keymap_upper : keymap_lower)[mapped_keys[code]];
-            } else {
-              state->libinput_key_val = 0;
-            }
-            break;
+        state->libinput_key_val = libinput_xkb_process_key(code, key_state == LIBINPUT_KEY_STATE_PRESSED, state->keyboard_state);
+        if (state->libinput_key_val != 0) {
+          state->button = (key_state == LIBINPUT_KEY_STATE_RELEASED) ? LV_INDEV_STATE_REL : LV_INDEV_STATE_PR; //
         }
         break;
       default:
@@ -258,8 +228,6 @@ report_most_recent_state:
   data->point.y = most_recent_touch_point.y;
   data->state = state->button;
   data->key = state->libinput_key_val;
-
-  return false;
 }
 
 
