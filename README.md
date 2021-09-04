@@ -35,7 +35,7 @@ Upstreamed contributions so far:
 - [Add support for pointer devices to libinput driver] (⏳ in review)
 - [Add support for keypads to libinput driver] (✅ merged)
 - [Don't compile example assets when disabled in lv_conf.h] (✅ merged)
-- [Add full keyboard support to libinput/evdev driver]: (⏳ in review)
+- [Add full keyboard support to libinput/evdev driver] (⏳ in review)
 
 # Operation
 
