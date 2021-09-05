@@ -28,7 +28,7 @@ The biggest obstacle is input processing. [lv_drivers] provides an evdev interfa
 
 # Upstreaming
 
-As far as feasible and sensible, [lvgl] and [lv_driver] fixes and enhancements are being upstreamed. Ideally all code outside of `main.c` should be contributed back but I'm not yet sure if that will be possible.
+As far as feasible and sensible, [lvgl] and [lv_drivers] fixes and enhancements are being upstreamed. Ideally all code outside of `main.c` should be contributed back but I'm not yet sure if that will be possible.
 
 Upstreamed contributions so far:
 
