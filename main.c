@@ -11,6 +11,14 @@
 #include "libinput_xkb.h"
 #include "layouts.h"
 
+// Custom fonts
+
+LV_FONT_DECLARE(montserrat_extended_32);
+
+// Custom symbols
+
+#define SYMBOL_ADJUST "\xef\x81\x82" // 0xF042 https://fontawesome.com/v5.15/icons/adjust?style=solid
+
 // Mouse cursor image (from https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c)
 
 const uint8_t mouse_cursor_icon_map[] = {
@@ -116,9 +124,19 @@ lv_img_dsc_t mouse_cursor_icon = {
     .data = mouse_cursor_icon_map,
 };
 
-// Global widgets
+// Global variables
 
+bool is_dark_theme = false;
 lv_obj_t *keyboard = NULL;
+
+// Theming
+
+void set_theme(bool is_dark);
+
+void set_theme(bool is_dark) {
+    lv_theme_default_init(
+            NULL, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_CYAN), is_dark, &montserrat_extended_32);
+}
 
 // Event callbacks
 
@@ -137,7 +155,18 @@ void keyboard_event_cancel_cb(lv_event_t *e) {
     abort();
 }
 
-void keymap_dropdown_event_cb(lv_event_t * e) {
+void theme_switcher_event_cb(lv_event_t *e);
+
+void theme_switcher_event_cb(lv_event_t *e) {
+    if(lv_event_get_code(e) == LV_EVENT_VALUE_CHANGED) {
+        is_dark_theme = !is_dark_theme;
+        set_theme(is_dark_theme);
+    }
+}
+
+void keymap_dropdown_event_cb(lv_event_t *e);
+
+void keymap_dropdown_event_cb(lv_event_t *e) {
     if(lv_event_get_code(e) != LV_EVENT_VALUE_CHANGED) {
         return;
     }
@@ -232,8 +261,8 @@ int main(void)
 
     // Build the UI...
 
-    // Register fonts
-    LV_FONT_DECLARE(montserrat_extended_32);
+    // Initialise theme
+    set_theme(is_dark_theme);
     
     // Figure out a few numbers for sizing and positioning
     int row_height = ver_res / 6;
@@ -293,6 +322,20 @@ int main(void)
     // Set up handlers for keyboard events
     lv_obj_add_event_cb(keyboard, keyboard_event_cancel_cb, LV_EVENT_CANCEL, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_event_ready_cb, LV_EVENT_READY, NULL);
+
+    // Theme switcher
+    lv_obj_t *theme_switcher = lv_btn_create(lv_scr_act());
+    lv_obj_align(theme_switcher, LV_ALIGN_TOP_LEFT, 20, 20);
+    lv_obj_add_flag(theme_switcher, LV_OBJ_FLAG_CHECKABLE);
+    lv_obj_set_height(theme_switcher, LV_SIZE_CONTENT);
+    lv_obj_t *theme_switcher_label = lv_label_create(theme_switcher);
+    lv_style_t style_theme_switcher_label;
+    lv_style_init(&style_theme_switcher_label);
+    lv_style_set_text_font(&style_theme_switcher_label, &montserrat_extended_32);
+    lv_obj_add_style(theme_switcher_label, &style_theme_switcher_label, 0);
+    lv_obj_center(theme_switcher_label);
+    lv_label_set_text(theme_switcher_label, SYMBOL_ADJUST);
+    lv_obj_add_event_cb(theme_switcher, theme_switcher_event_cb, LV_EVENT_ALL, NULL);
 
     // Keymap dropdown
     lv_obj_t *dropdown = lv_dropdown_create(lv_scr_act());
