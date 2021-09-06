@@ -185,10 +185,18 @@ void theme_switcher_event_cb(lv_event_t *e) {
 void keymap_dropdown_event_cb(lv_event_t *e);
 
 void keymap_dropdown_event_cb(lv_event_t *e) {
-    if(lv_event_get_code(e) != LV_EVENT_VALUE_CHANGED) {
-        return;
+    switch (lv_event_get_code(e)) {
+        case LV_EVENT_READY: {
+            lv_obj_t *list = lv_dropdown_get_list(lv_event_get_target(e));
+            lv_obj_set_style_text_font(list, &montserrat_extended_32, 0);
+            break;
+        }
+        case LV_EVENT_VALUE_CHANGED:
+            apply_layout(keyboard, lv_dropdown_get_selected(lv_event_get_target(e)));
+            break;
+        default:
+            break;
     }
-    apply_layout(keyboard, lv_dropdown_get_selected(lv_event_get_target(e)));
 }
 
 // Main
@@ -373,7 +381,12 @@ int main(void)
     // Keymap dropdown
     lv_obj_t *dropdown = lv_dropdown_create(lv_scr_act());
     lv_dropdown_set_options(dropdown, get_layout_names());
+    lv_obj_set_width(dropdown, 300);
     lv_obj_align(dropdown, LV_ALIGN_TOP_RIGHT, -20, 20);
+    lv_style_t style_dropdown;
+    lv_style_init(&style_dropdown);
+    lv_style_set_text_font(&style_dropdown, &montserrat_extended_32);
+    lv_obj_add_style(dropdown, &style_dropdown, 0);
     lv_obj_add_event_cb(dropdown, keymap_dropdown_event_cb, LV_EVENT_ALL, NULL);
 
     // Run lvgl in tickless mode

@@ -101,8 +101,8 @@
  **/
 
 static const char * const names =
-    NAME_ENGLISH_US "\n"
-    NAME_GERMAN;
+    LV_SYMBOL_KEYBOARD " " NAME_ENGLISH_US "\n"
+    LV_SYMBOL_KEYBOARD " " NAME_GERMAN;
 
 static const char ** const keys_lower[] = {
     (const char * const [])KEYS_LOWER_ENGLISH_US,
