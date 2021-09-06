@@ -132,6 +132,8 @@ bool is_password_hidden = true;
 lv_obj_t *textarea = NULL;
 lv_obj_t *keyboard = NULL;
 
+lv_style_t style_text_normal;
+
 // Helpers
 
 void set_theme(bool is_dark);
@@ -187,8 +189,7 @@ void keymap_dropdown_event_cb(lv_event_t *e);
 void keymap_dropdown_event_cb(lv_event_t *e) {
     switch (lv_event_get_code(e)) {
         case LV_EVENT_READY: {
-            lv_obj_t *list = lv_dropdown_get_list(lv_event_get_target(e));
-            lv_obj_set_style_text_font(list, &montserrat_extended_32, 0);
+            lv_obj_add_style(lv_dropdown_get_list(lv_event_get_target(e)), &style_text_normal, 0);
             break;
         }
         case LV_EVENT_VALUE_CHANGED:
@@ -289,7 +290,11 @@ int main(void)
 
     // Initialise theme
     set_theme(is_dark_theme);
-    
+
+    // Initialise styles
+    lv_style_init(&style_text_normal);
+    lv_style_set_text_font(&style_text_normal, &montserrat_extended_32);
+
     // Figure out a few numbers for sizing and positioning
     int row_height = ver_res / 6;
     if (4 * row_height > ver_res / 2) {
@@ -302,10 +307,7 @@ int main(void)
     lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
     lv_obj_set_pos(keyboard, 0, 0);
     lv_obj_set_size(keyboard, hor_res, keyboard_height);
-    lv_style_t style_keyboard;
-    lv_style_init(&style_keyboard);
-    lv_style_set_text_font(&style_keyboard, &montserrat_extended_32);
-    lv_obj_add_style(keyboard, &style_keyboard, 0);
+    lv_obj_add_style(keyboard, &style_text_normal, 0);
 
     // Label
     lv_obj_t *spangroup = lv_spangroup_create(lv_scr_act());
@@ -313,10 +315,7 @@ int main(void)
     lv_spangroup_set_mode(spangroup, LV_SPAN_MODE_BREAK);
     lv_obj_set_size(spangroup, hor_res * 2 / 3, row_height);
     lv_obj_align(spangroup, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height);
-    static lv_style_t style_spangroup;
-    lv_style_init(&style_spangroup);
-    lv_style_set_text_font(&style_spangroup, &montserrat_extended_32);
-    lv_obj_add_style(spangroup, &style_spangroup, 0);
+    lv_obj_add_style(spangroup, &style_text_normal, 0);
     lv_span_t *span1 = lv_spangroup_new_span(spangroup);
     lv_span_set_text(span1, "Password required to unlock ");
     lv_span_t *span2 = lv_spangroup_new_span(spangroup);
@@ -331,10 +330,7 @@ int main(void)
     lv_obj_set_size(textarea, hor_res / 2, 64);
     lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 -keyboard_height - row_height);
     lv_obj_add_state(textarea, LV_STATE_FOCUSED);
-    lv_style_t style_textarea;
-    lv_style_init(&style_textarea);
-    lv_style_set_text_font(&style_textarea, &montserrat_extended_32);
-    lv_obj_add_style(textarea, &style_textarea, 0);
+    lv_obj_add_style(textarea, &style_text_normal, 0);
 
     // Disclosure button
     lv_obj_t *discloser = lv_btn_create(lv_scr_act());
@@ -342,13 +338,10 @@ int main(void)
     lv_obj_add_flag(discloser, LV_OBJ_FLAG_CHECKABLE);
     lv_obj_set_size(discloser, 64, 64);
     lv_obj_t *discloser_label = lv_label_create(discloser);
-    lv_style_t style_discloser_label;
-    lv_style_init(&style_discloser_label);
-    lv_style_set_text_font(&style_discloser_label, &montserrat_extended_32);
-    lv_obj_add_style(discloser_label, &style_discloser_label, 0);
     lv_obj_center(discloser_label);
     lv_label_set_text(discloser_label, LV_SYMBOL_EYE_OPEN);
     lv_obj_add_event_cb(discloser, discloser_event_cb, LV_EVENT_ALL, NULL);
+    lv_obj_add_style(discloser_label, &style_text_normal, 0);
     set_password_hidden(is_password_hidden);
     
     // Route keyboard input into textarea
@@ -370,10 +363,7 @@ int main(void)
     lv_obj_add_flag(theme_switcher, LV_OBJ_FLAG_CHECKABLE);
     lv_obj_set_height(theme_switcher, LV_SIZE_CONTENT);
     lv_obj_t *theme_switcher_label = lv_label_create(theme_switcher);
-    lv_style_t style_theme_switcher_label;
-    lv_style_init(&style_theme_switcher_label);
-    lv_style_set_text_font(&style_theme_switcher_label, &montserrat_extended_32);
-    lv_obj_add_style(theme_switcher_label, &style_theme_switcher_label, 0);
+    lv_obj_add_style(theme_switcher_label, &style_text_normal, 0);
     lv_obj_center(theme_switcher_label);
     lv_label_set_text(theme_switcher_label, SYMBOL_ADJUST);
     lv_obj_add_event_cb(theme_switcher, theme_switcher_event_cb, LV_EVENT_ALL, NULL);
@@ -383,10 +373,7 @@ int main(void)
     lv_dropdown_set_options(dropdown, get_layout_names());
     lv_obj_set_width(dropdown, 300);
     lv_obj_align(dropdown, LV_ALIGN_TOP_RIGHT, -20, 20);
-    lv_style_t style_dropdown;
-    lv_style_init(&style_dropdown);
-    lv_style_set_text_font(&style_dropdown, &montserrat_extended_32);
-    lv_obj_add_style(dropdown, &style_dropdown, 0);
+    lv_obj_add_style(dropdown, &style_text_normal, 0);
     lv_obj_add_event_cb(dropdown, keymap_dropdown_event_cb, LV_EVENT_ALL, NULL);
 
     // Run lvgl in tickless mode
