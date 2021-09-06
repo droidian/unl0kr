@@ -23,6 +23,7 @@ The biggest obstacle is input processing. [lv_drivers] provides an evdev interfa
 - On-screen keyboard control via touchscreen (tested on PinePhone)
 - Switching on-screen keyboard layout at runtime (layouts still to be refined, currently only supports US English and German)
 - Switching between light and dark theme at runtime
+- Disclosing and hiding entered password at runtime
 
 ## To do
 

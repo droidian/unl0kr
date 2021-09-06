@@ -127,9 +127,12 @@ lv_img_dsc_t mouse_cursor_icon = {
 // Global variables
 
 bool is_dark_theme = false;
+bool is_password_hidden = true;
+
+lv_obj_t *textarea = NULL;
 lv_obj_t *keyboard = NULL;
 
-// Theming
+// Helpers
 
 void set_theme(bool is_dark);
 
@@ -138,13 +141,19 @@ void set_theme(bool is_dark) {
             NULL, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_CYAN), is_dark, &montserrat_extended_32);
 }
 
+void set_password_hidden(bool is_disclosed);
+
+void set_password_hidden(bool is_disclosed) {
+    lv_textarea_set_password_mode(textarea, is_password_hidden);
+}
+
 // Event callbacks
 
 void keyboard_event_ready_cb(lv_event_t *e);
 
 void keyboard_event_ready_cb(lv_event_t *e) {
-    lv_obj_t *textarea = lv_keyboard_get_textarea(lv_event_get_target(e));
-    char *password = lv_textarea_get_text(textarea);
+    lv_obj_t *obj = lv_keyboard_get_textarea(lv_event_get_target(e));
+    char *password = lv_textarea_get_text(obj);
     printf("You entered %s\n", password);
     abort();
 }
@@ -153,6 +162,15 @@ void keyboard_event_cancel_cb(lv_event_t *e);
 
 void keyboard_event_cancel_cb(lv_event_t *e) {
     abort();
+}
+
+void discloser_event_cb(lv_event_t *e);
+
+void discloser_event_cb(lv_event_t *e) {
+    if(lv_event_get_code(e) == LV_EVENT_VALUE_CHANGED) {
+        is_password_hidden = !is_password_hidden;
+        set_password_hidden(is_password_hidden);
+    }
 }
 
 void theme_switcher_event_cb(lv_event_t *e);
@@ -298,17 +316,32 @@ int main(void)
     lv_style_set_text_color(&span2->style, lv_palette_main(LV_PALETTE_RED));
 
     // Textarea
-    lv_obj_t *textarea = lv_textarea_create(lv_scr_act());
+    textarea = lv_textarea_create(lv_scr_act());
     lv_textarea_set_one_line(textarea, true);
     lv_textarea_set_password_mode(textarea, true);
     lv_textarea_set_placeholder_text(textarea, "Enter password...");
-    lv_obj_set_size(textarea, hor_res / 2, 64);  
+    lv_obj_set_size(textarea, hor_res / 2, 64);
     lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 -keyboard_height - row_height);
     lv_obj_add_state(textarea, LV_STATE_FOCUSED);
     lv_style_t style_textarea;
     lv_style_init(&style_textarea);
     lv_style_set_text_font(&style_textarea, &montserrat_extended_32);
     lv_obj_add_style(textarea, &style_textarea, 0);
+
+    // Disclosure button
+    lv_obj_t *discloser = lv_btn_create(lv_scr_act());
+    lv_obj_align(discloser, LV_ALIGN_CENTER, hor_res / 4 + 32, ver_res / 2 -keyboard_height - row_height);
+    lv_obj_add_flag(discloser, LV_OBJ_FLAG_CHECKABLE);
+    lv_obj_set_size(discloser, 64, 64);
+    lv_obj_t *discloser_label = lv_label_create(discloser);
+    lv_style_t style_discloser_label;
+    lv_style_init(&style_discloser_label);
+    lv_style_set_text_font(&style_discloser_label, &montserrat_extended_32);
+    lv_obj_add_style(discloser_label, &style_discloser_label, 0);
+    lv_obj_center(discloser_label);
+    lv_label_set_text(discloser_label, LV_SYMBOL_EYE_OPEN);
+    lv_obj_add_event_cb(discloser, discloser_event_cb, LV_EVENT_ALL, NULL);
+    set_password_hidden(is_password_hidden);
     
     // Route keyboard input into textarea
     lv_group_t *group = lv_group_create();
