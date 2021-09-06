@@ -9,6 +9,7 @@
 #include "libinput_device_discovery.h"
 #include "libinput_multi.h"
 #include "libinput_xkb.h"
+#include "layouts.h"
 
 // Mouse cursor image (from https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c)
 
@@ -115,7 +116,11 @@ lv_img_dsc_t mouse_cursor_icon = {
     .data = mouse_cursor_icon_map,
 };
 
-// Keyboard event callbacks
+// Global widgets
+
+lv_obj_t *keyboard = NULL;
+
+// Event callbacks
 
 void keyboard_event_ready_cb(lv_event_t *e);
 
@@ -130,6 +135,13 @@ void keyboard_event_cancel_cb(lv_event_t *e);
 
 void keyboard_event_cancel_cb(lv_event_t *e) {
     abort();
+}
+
+void keymap_dropdown_event_cb(lv_event_t * e) {
+    if(lv_event_get_code(e) != LV_EVENT_VALUE_CHANGED) {
+        return;
+    }
+    apply_layout(keyboard, lv_dropdown_get_selected(lv_event_get_target(e)));
 }
 
 // Main
@@ -219,6 +231,9 @@ int main(void)
     }
 
     // Build the UI...
+
+    // Register fonts
+    LV_FONT_DECLARE(montserrat_extended_32);
     
     // Figure out a few numbers for sizing and positioning
     int row_height = ver_res / 6;
@@ -228,13 +243,13 @@ int main(void)
     const int keyboard_height = 4 * row_height;
 
     // Keyboard
-    lv_obj_t *keyboard = lv_keyboard_create(lv_scr_act());
+    keyboard = lv_keyboard_create(lv_scr_act());
     lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
     lv_obj_set_pos(keyboard, 0, 0);
     lv_obj_set_size(keyboard, hor_res, keyboard_height);
     lv_style_t style_keyboard;
     lv_style_init(&style_keyboard);
-    lv_style_set_text_font(&style_keyboard, &lv_font_montserrat_32);
+    lv_style_set_text_font(&style_keyboard, &montserrat_extended_32);
     lv_obj_add_style(keyboard, &style_keyboard, 0);
 
     // Label
@@ -245,7 +260,7 @@ int main(void)
     lv_obj_align(spangroup, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height);
     static lv_style_t style_spangroup;
     lv_style_init(&style_spangroup);
-    lv_style_set_text_font(&style_spangroup, &lv_font_montserrat_32);
+    lv_style_set_text_font(&style_spangroup, &montserrat_extended_32);
     lv_obj_add_style(spangroup, &style_spangroup, 0);
     lv_span_t *span1 = lv_spangroup_new_span(spangroup);
     lv_span_set_text(span1, "Password required to unlock ");
@@ -263,7 +278,7 @@ int main(void)
     lv_obj_add_state(textarea, LV_STATE_FOCUSED);
     lv_style_t style_textarea;
     lv_style_init(&style_textarea);
-    lv_style_set_text_font(&style_textarea, &lv_font_montserrat_32);
+    lv_style_set_text_font(&style_textarea, &montserrat_extended_32);
     lv_obj_add_style(textarea, &style_textarea, 0);
     
     // Route keyboard input into textarea
@@ -278,6 +293,12 @@ int main(void)
     // Set up handlers for keyboard events
     lv_obj_add_event_cb(keyboard, keyboard_event_cancel_cb, LV_EVENT_CANCEL, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_event_ready_cb, LV_EVENT_READY, NULL);
+
+    // Keymap dropdown
+    lv_obj_t *dropdown = lv_dropdown_create(lv_scr_act());
+    lv_dropdown_set_options(dropdown, get_layout_names());
+    lv_obj_align(dropdown, LV_ALIGN_TOP_RIGHT, -20, 20);
+    lv_obj_add_event_cb(dropdown, keymap_dropdown_event_cb, LV_EVENT_ALL, NULL);
 
     // Run lvgl in tickless mode
     while(1) {

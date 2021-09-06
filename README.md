@@ -21,6 +21,7 @@ The biggest obstacle is input processing. [lv_drivers] provides an evdev interfa
 - On-screen keyboard control via one or more hardware keyboard (including support for multiple layouts using XKB)
   - Works great on my laptop keyboard but occasionally drops keys on my Ergodox EZ)
 - On-screen keyboard control via touchscreen (tested on PinePhone)
+- Switching on-screen keyboard layout at runtime (layouts still to be refined, currently only supports US English and German)
 
 ## To do
 
@@ -38,7 +39,7 @@ Upstreamed contributions so far:
 - [Add full keyboard support to libinput/evdev driver] (⏳ in review)
 - [Automatic device discovery via libinput] (⏳ in review)
 
-# Operation
+# Development
 
 ## Dependencies
 
@@ -47,7 +48,7 @@ Upstreamed contributions so far:
 - [libinput]
 - [libxkbcommon]
 
-## Testing
+## Building & running
 
 For development and testing you can run the app in a VT. `sudo` is needed to access input device files.
 
@@ -55,6 +56,14 @@ For development and testing you can run the app in a VT. `sudo` is needed to acc
 $ make
 $ sudo chvt 2
 $ sudo ./unl0kr
+```
+
+## Changing fonts
+
+Fonts need to be converted to C arrays before they can be used with [lvgl]. This is most conveniently done using the official [online font converter]. Useful unicode ranges for the conversion are 0x0020-0x007F (basic Latin) and 0x00A0-0x00FF (Latin-1 supplement). For the various `LV_SYMBOL_...` glyphs, make sure to also add [Font Awesome] with the following code points:
+
+```
+0xF001, 0xF008, 0xF00B, 0xF00C, 0xF00D, 0xF011, 0xF013, 0xF015, 0xF019, 0xF01C, 0xF021, 0xF026, 0xF027, 0xF028, 0xF03E, 0xF0E0, 0xF304, 0xF043, 0xF048, 0xF04B, 0xF04C, 0xF04D, 0xF051, 0xF052, 0xF053, 0xF054, 0xF067, 0xF068, 0xF06E, 0xF070, 0xF071, 0xF074, 0xF077, 0xF078, 0xF079, 0xF07B, 0xF093, 0xF095, 0xF0C4, 0xF0C5, 0xF0C7, 0xF0C9, 0xF0E7, 0xF0EA, 0xF0F3, 0xF11C, 0xF124, 0xF158, 0xF1EB, 0xF240, 0xF241, 0xF242, 0xF243, 0xF244, 0xF287, 0xF293, 0xF2ED, 0xF55A, 0xF7C2, 0xF8A2
 ```
 
 # Acknowledgements
@@ -71,6 +80,8 @@ Unl0kr is licensed under the GNU General Public License as published by the Free
 [lv_sim_emscripten]: https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c]
 [libinput]: https://gitlab.freedesktop.org/libinput/libinput
 [libxkbcommon]: https://github.com/xkbcommon/libxkbcommon
+[online font converter]: https://lvgl.io/tools/fontconverter
+[Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
 [Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
 [Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
 [Don't compile example assets when disabled in lv_conf.h]: https://github.com/lvgl/lvgl/pull/2523
