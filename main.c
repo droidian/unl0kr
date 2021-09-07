@@ -256,6 +256,7 @@ int main(void)
         lv_indev_drv_init(&pointer_indev_drvs[i]);
         pointer_indev_drvs[i].type = LV_INDEV_TYPE_POINTER;
         pointer_indev_drvs[i].read_cb = libinput_multi_read;
+        pointer_indev_drvs[i].long_press_repeat_time = USHRT_MAX;
         libinput_multi_init_driver(&pointer_indev_drvs[i]);
         libinput_multi_set_file(&pointer_indev_drvs[i], pointer_devices[i]);
         pointer_indevs[i] = lv_indev_drv_register(&pointer_indev_drvs[i]);
@@ -272,6 +273,7 @@ int main(void)
         lv_indev_drv_init(&touchscreen_indev_drvs[i]);
         touchscreen_indev_drvs[i].type = LV_INDEV_TYPE_POINTER;
         touchscreen_indev_drvs[i].read_cb = libinput_multi_read;
+        touchscreen_indev_drvs[i].long_press_repeat_time = USHRT_MAX;
         libinput_multi_init_driver(&touchscreen_indev_drvs[i]);
         libinput_multi_set_file(&touchscreen_indev_drvs[i], touchscreens[i]);
         touchscreen_indevs[i] = lv_indev_drv_register(&touchscreen_indev_drvs[i]);
