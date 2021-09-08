@@ -78,6 +78,18 @@ Fonts need to be converted to C arrays before they can be used with [lvgl]. This
 
 as well as `0xF042` for the [adjust] icon.
 
+It's also possible to do the conversion on the commandline, e.g.
+
+```
+$ npx lv_font_conv --bpp 4 --size 32 --no-compress -o montserrat_extended_32.c --format lvgl \
+    --font Montserrat-Regular.ttf \
+      --range '0x0020-0x007F' \
+      --range '0x00A0-0x00FF' \
+    --font FontAwesome5-Solid+Brands+Regular.woff \
+      --range '0xF001,0xF008,0xF00B,0xF00C,0xF00D,0xF011,0xF013,0xF015,0xF019,0xF01C,0xF021,0xF026,0xF027,0xF028,0xF03E,0xF0E0,0xF304,0xF043,0xF048,0xF04B,0xF04C,0xF04D,0xF051,0xF052,0xF053,0xF054,0xF067,0xF068,0xF06E,0xF070,0xF071,0xF074,0xF077,0xF078,0xF079,0xF07B,0xF093,0xF095,0xF0C4,0xF0C5,0xF0C7,0xF0C9,0xF0E7,0xF0EA,0xF0F3,0xF11C,0xF124,0xF158,0xF1EB,0xF240,0xF241,0xF242,0xF243,0xF244,0xF287,0xF293,0xF2ED,0xF55A,0xF7C2,0xF8A2' \
+      --range '0xF042'
+```
+
 # Acknowledgements
 
 The [lv_port_linux_frame_buffer] project served as a starting point for the codebase. The mouse cursor image was taken from [lv_sim_emscripten].
@@ -85,6 +97,10 @@ The [lv_port_linux_frame_buffer] project served as a starting point for the code
 # License
 
 Unl0kr is licensed under the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+The Montserrat font is licensed under the Open Font License.
+
+The Font Awesome font is licensed under the Open Font License version 1.1.
 
 [lvgl]: https://github.com/lvgl/lvgl
 [lv_drivers]: https://github.com/lvgl/lv_drivers
