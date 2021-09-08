@@ -21,9 +21,10 @@ The biggest obstacle is input processing. [lv_drivers] provides an evdev interfa
 - On-screen keyboard control via one or more hardware keyboard (including support for multiple layouts using XKB)
   - Works great on my laptop keyboard but occasionally drops keys on my Ergodox EZ)
 - On-screen keyboard control via touchscreen (tested on PinePhone)
-- Switching on-screen keyboard layout at runtime (layouts still to be refined, currently only supports US English and German)
+- Switching on-screen keyboard layout at runtime (layouts still to be refined, currently based on squeekboard subset)
 - Switching between light and dark theme at runtime
 - Disclosing and hiding entered password at runtime
+- Powering off via soft button
 
 ## To do
 
