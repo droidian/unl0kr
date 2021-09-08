@@ -40,6 +40,7 @@ Upstreamed contributions so far:
 - [Don't compile example assets when disabled in lv_conf.h] (✅ merged)
 - [Add full keyboard support to libinput/evdev driver] (⏳ in review)
 - [Automatic device discovery via libinput] (⏳ in review)
+- [Add option to show popovers on button press] (⏳ in review)
 
 # Development
 
@@ -92,3 +93,4 @@ Unl0kr is licensed under the GNU General Public License as published by the Free
 [Don't compile example assets when disabled in lv_conf.h]: https://github.com/lvgl/lvgl/pull/2523
 [Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
 [Automatic device discovery via libinput]: https://github.com/lvgl/lv_drivers/pull/157
+[Add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
