@@ -388,14 +388,14 @@ int main(void)
     static lv_coord_t btn_row_col_dsc[] = { 64, 300, LV_GRID_FR(1), 64, LV_GRID_TEMPLATE_LAST };
     static lv_coord_t btn_row_row_dsc[] = { 64, LV_GRID_TEMPLATE_LAST };
     lv_obj_t *btn_row = lv_obj_create(lv_scr_act());
-    lv_obj_set_size(btn_row, hor_res, LV_SIZE_CONTENT);
+    lv_obj_set_size(btn_row, LV_PCT(100), LV_SIZE_CONTENT);
     lv_obj_align(btn_row, LV_ALIGN_TOP_MID, 0, 0);
     lv_obj_set_grid_dsc_array(btn_row, btn_row_col_dsc, btn_row_row_dsc);
 
     // Theme switcher
     lv_obj_t *theme_switcher = lv_btn_create(btn_row);
     lv_obj_add_flag(theme_switcher, LV_OBJ_FLAG_CHECKABLE);
-    lv_obj_set_height(theme_switcher, 64);
+    lv_obj_set_size(theme_switcher, 64, 64);
     lv_obj_set_grid_cell(theme_switcher, LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_t *theme_switcher_label = lv_label_create(theme_switcher);
     lv_obj_add_style(theme_switcher_label, &style_text_normal, 0);
@@ -414,7 +414,7 @@ int main(void)
 
     // Power button
     lv_obj_t *power_btn = lv_btn_create(btn_row);
-    lv_obj_set_height(power_btn, 64);
+    lv_obj_set_size(power_btn, 64, 64);
     lv_obj_set_grid_cell(power_btn, LV_GRID_ALIGN_CENTER, 3, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_t *power_btn_label = lv_label_create(power_btn);
     lv_obj_add_style(power_btn_label, &style_text_normal, 0);
