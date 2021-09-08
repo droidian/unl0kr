@@ -167,6 +167,24 @@ void keyboard_event_cancel_cb(lv_event_t *e) {
     abort();
 }
 
+void keyboard_event_value_changed_cb(lv_event_t * e);
+
+void keyboard_event_value_changed_cb(lv_event_t * e) {
+    lv_obj_t *obj = lv_event_get_target(e);
+
+    uint16_t btn_id = lv_btnmatrix_get_selected_btn(obj);
+    if(btn_id == LV_BTNMATRIX_BTN_NONE) return;
+
+    const char * txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
+    if(txt == NULL) return;
+
+    if(strcmp(txt, "àéö") == 0) {
+        lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_NUMBER);
+    } else {
+        lv_keyboard_def_event_cb(e);
+    }
+}
+
 void discloser_event_cb(lv_event_t *e);
 
 void discloser_event_cb(lv_event_t *e) {
@@ -381,6 +399,8 @@ int main(void)
     lv_keyboard_set_textarea(keyboard, textarea); // Connect keyboard and textarea
 
     // Set up handlers for keyboard events
+    lv_obj_remove_event_cb(keyboard, lv_keyboard_def_event_cb);
+    lv_obj_add_event_cb(keyboard, keyboard_event_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_event_cancel_cb, LV_EVENT_CANCEL, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_event_ready_cb, LV_EVENT_READY, NULL);
 
@@ -421,6 +441,8 @@ int main(void)
     lv_obj_center(power_btn_label);
     lv_label_set_text(power_btn_label, LV_SYMBOL_POWER);
     lv_obj_add_event_cb(power_btn, power_btn_event_cb, LV_EVENT_CLICKED, NULL);
+
+    apply_layout(keyboard, 0); // Apply default layout
 
     // Run lvgl in tickless mode
     while(1) {
