@@ -35,12 +35,19 @@ As far as feasible and sensible, [lvgl] and [lv_drivers] fixes and enhancements 
 
 Upstreamed contributions so far:
 
+## lvgl
+
+- [fix(examples) don't compile assets unless needed] (✅ merged)
+- [feat(btnmatrix): add option to show popovers on button press] (⏳ in review)
+- [feat(msgbox): add function to get selected button index] (⏳ in review)
+- [feat(msgbox): omit title label unless needed] (⏳ in review)
+
+## lv_drivers
+
 - [Add support for pointer devices to libinput driver] (✅ merged)
 - [Add support for keypads to libinput driver] (✅ merged)
-- [Don't compile example assets when disabled in lv_conf.h] (✅ merged)
 - [Add full keyboard support to libinput/evdev driver] (⏳ in review)
 - [Automatic device discovery via libinput] (⏳ in review)
-- [Add option to show popovers on button press] (⏳ in review)
 
 # Development
 
@@ -88,9 +95,11 @@ Unl0kr is licensed under the GNU General Public License as published by the Free
 [online font converter]: https://lvgl.io/tools/fontconverter
 [Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
+[fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
+[feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
+[feat(msgbox): add function to get selected button index]: https://github.com/lvgl/lvgl/pull/2538
+[feat(msgbox): omit title label unless needed]: https://github.com/lvgl/lvgl/pull/2539
 [Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
 [Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
-[Don't compile example assets when disabled in lv_conf.h]: https://github.com/lvgl/lvgl/pull/2523
 [Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
 [Automatic device discovery via libinput]: https://github.com/lvgl/lv_drivers/pull/157
-[Add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537

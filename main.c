@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/reboot.h>
 #include <sys/time.h>
 
 #include "lvgl/lvgl.h"
@@ -200,6 +201,29 @@ void keymap_dropdown_event_cb(lv_event_t *e) {
     }
 }
 
+void mbox_event_cb(lv_event_t *e);
+
+void mbox_event_cb(lv_event_t *e) {
+    lv_obj_t *obj = lv_event_get_current_target(e);
+    if (strcmp(lv_msgbox_get_active_btn_text(obj), "Yes") == 0) {
+        abort();
+        // TODO: actually shut down
+        // sync();
+        // reboot(RB_POWER_OFF);
+    }
+    lv_msgbox_close(obj);
+}
+
+void power_btn_event_cb(lv_event_t *e);
+
+void power_btn_event_cb(lv_event_t *e) {
+    static const char *btns[] ={ "Yes", "No", "" };
+    lv_obj_t * mbox = lv_msgbox_create(NULL, NULL, "Do you want to shutdown the device?", btns, false);
+    lv_obj_add_event_cb(mbox, mbox_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_center(mbox);
+}
+
+
 // Main
 
 int main(void)
@@ -361,17 +385,12 @@ int main(void)
     lv_obj_add_event_cb(keyboard, keyboard_event_ready_cb, LV_EVENT_READY, NULL);
 
     // Button row
-    static lv_coord_t btn_row_col_dsc[] = { 64, 300, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST };
+    static lv_coord_t btn_row_col_dsc[] = { 64, 300, LV_GRID_FR(1), 64, LV_GRID_TEMPLATE_LAST };
     static lv_coord_t btn_row_row_dsc[] = { 64, LV_GRID_TEMPLATE_LAST };
     lv_obj_t *btn_row = lv_obj_create(lv_scr_act());
     lv_obj_set_size(btn_row, hor_res, LV_SIZE_CONTENT);
     lv_obj_align(btn_row, LV_ALIGN_TOP_MID, 0, 0);
     lv_obj_set_grid_dsc_array(btn_row, btn_row_col_dsc, btn_row_row_dsc);
-
-    // lv_obj_t *btn_row = lv_obj_create(lv_scr_act());
-    // lv_obj_set_size(btn_row, hor_res, LV_SIZE_CONTENT);
-    // lv_obj_align(btn_row, LV_ALIGN_TOP_MID, 0, 0);
-    // lv_obj_set_flex_flow(btn_row, LV_FLEX_FLOW_ROW);
 
     // Theme switcher
     lv_obj_t *theme_switcher = lv_btn_create(btn_row);
@@ -392,6 +411,16 @@ int main(void)
     lv_obj_set_grid_cell(dropdown, LV_GRID_ALIGN_CENTER, 1, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_add_style(dropdown, &style_text_normal, 0);
     lv_obj_add_event_cb(dropdown, keymap_dropdown_event_cb, LV_EVENT_ALL, NULL);
+
+    // Power button
+    lv_obj_t *power_btn = lv_btn_create(btn_row);
+    lv_obj_set_height(power_btn, 64);
+    lv_obj_set_grid_cell(power_btn, LV_GRID_ALIGN_CENTER, 3, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_obj_t *power_btn_label = lv_label_create(power_btn);
+    lv_obj_add_style(power_btn_label, &style_text_normal, 0);
+    lv_obj_center(power_btn_label);
+    lv_label_set_text(power_btn_label, LV_SYMBOL_POWER);
+    lv_obj_add_event_cb(power_btn, power_btn_event_cb, LV_EVENT_CLICKED, NULL);
 
     // Run lvgl in tickless mode
     while(1) {
