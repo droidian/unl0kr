@@ -304,12 +304,15 @@ int main(void)
     }
     const int keyboard_height = 4 * row_height;
 
-    // Keyboard
-    keyboard = lv_keyboard_create(lv_scr_act());
-    lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
-    lv_obj_set_pos(keyboard, 0, 0);
-    lv_obj_set_size(keyboard, hor_res, keyboard_height);
-    lv_obj_add_style(keyboard, &style_text_normal, 0);
+    // Textarea
+    textarea = lv_textarea_create(lv_scr_act());
+    lv_textarea_set_one_line(textarea, true);
+    lv_textarea_set_password_mode(textarea, true);
+    lv_textarea_set_placeholder_text(textarea, "Enter password...");
+    lv_obj_set_size(textarea, hor_res / 2, 64);
+    lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 -keyboard_height - row_height);
+    lv_obj_add_state(textarea, LV_STATE_FOCUSED);
+    lv_obj_add_style(textarea, &style_text_normal, 0);
 
     // Label
     lv_obj_t *spangroup = lv_spangroup_create(lv_scr_act());
@@ -324,15 +327,13 @@ int main(void)
     lv_span_set_text(span2, "/dev/sda1");
     lv_style_set_text_color(&span2->style, lv_palette_main(LV_PALETTE_RED));
 
-    // Textarea
-    textarea = lv_textarea_create(lv_scr_act());
-    lv_textarea_set_one_line(textarea, true);
-    lv_textarea_set_password_mode(textarea, true);
-    lv_textarea_set_placeholder_text(textarea, "Enter password...");
-    lv_obj_set_size(textarea, hor_res / 2, 64);
-    lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 -keyboard_height - row_height);
-    lv_obj_add_state(textarea, LV_STATE_FOCUSED);
-    lv_obj_add_style(textarea, &style_text_normal, 0);
+    // Keyboard (after textarea / label to draw key popovers over them)
+    keyboard = lv_keyboard_create(lv_scr_act());
+    lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
+    // lv_btnmatrix_set_popovers(keyboard, true);
+    lv_obj_set_pos(keyboard, 0, 0);
+    lv_obj_set_size(keyboard, hor_res, keyboard_height);
+    lv_obj_add_style(keyboard, &style_text_normal, 0);
 
     // Disclosure button
     lv_obj_t *discloser = lv_btn_create(lv_scr_act());
