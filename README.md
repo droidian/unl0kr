@@ -135,6 +135,8 @@ The Font Awesome font is licensed under the Open Font License version 1.1.
 [online font converter]: https://lvgl.io/tools/fontconverter
 [Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
+[layouts.c]: layouts.c
+[unsqu33kr/unsqu33kr.py]: unsqu33kr/unsqu33kr.py
 [squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
 [fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
 [feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
