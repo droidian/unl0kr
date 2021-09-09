@@ -261,6 +261,8 @@ int main(void)
     uint32_t ver_res;
 	fbdev_get_sizes(&hor_res, &ver_res);
 
+    // hor_res = ver_res * 0.6; /* To simulate mobile screen */
+
     // Prepare display buffer
     const size_t buf_size = hor_res * ver_res / 10; // At least 1/10 of the display size is recommended
     lv_disp_draw_buf_t disp_buf;
@@ -345,19 +347,16 @@ int main(void)
     lv_style_set_text_font(&style_text_normal, &montserrat_extended_32);
 
     // Figure out a few numbers for sizing and positioning
-    int row_height = ver_res / 6;
-    if (4 * row_height > ver_res / 2) {
-        row_height = ver_res / 2 / 4;
-    }
-    const int keyboard_height = 4 * row_height;
+    const int keyboard_height = ver_res / 3;
+    const int row_height = keyboard_height / 4;
 
     // Textarea
     textarea = lv_textarea_create(lv_scr_act());
     lv_textarea_set_one_line(textarea, true);
     lv_textarea_set_password_mode(textarea, true);
     lv_textarea_set_placeholder_text(textarea, "Enter password...");
-    lv_obj_set_size(textarea, hor_res / 2, 64);
-    lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 -keyboard_height - row_height);
+    lv_obj_set_size(textarea, hor_res - 60 > 512 ? 512 : hor_res - 60, 64);
+    lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height - 3 * row_height / 2);
     lv_obj_add_state(textarea, LV_STATE_FOCUSED);
     lv_obj_add_style(textarea, &style_text_normal, 0);
 
@@ -365,7 +364,7 @@ int main(void)
     lv_obj_t *spangroup = lv_spangroup_create(lv_scr_act());
     lv_spangroup_set_align(spangroup, LV_TEXT_ALIGN_CENTER);
     lv_spangroup_set_mode(spangroup, LV_SPAN_MODE_BREAK);
-    lv_obj_set_size(spangroup, hor_res * 2 / 3, row_height);
+    lv_obj_set_size(spangroup, hor_res - 40, 2 * row_height);
     lv_obj_align(spangroup, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height);
     lv_obj_add_style(spangroup, &style_text_normal, 0);
     lv_span_t *span1 = lv_spangroup_new_span(spangroup);
@@ -384,7 +383,7 @@ int main(void)
 
     // Disclosure button
     lv_obj_t *discloser = lv_btn_create(lv_scr_act());
-    lv_obj_align(discloser, LV_ALIGN_CENTER, hor_res / 4 + 32, ver_res / 2 -keyboard_height - row_height);
+    lv_obj_align(discloser, LV_ALIGN_CENTER, (hor_res - 60 > 512 ? 512 : hor_res - 60) / 2 + 32, ver_res / 2 -keyboard_height - 3 * row_height / 2);
     lv_obj_add_flag(discloser, LV_OBJ_FLAG_CHECKABLE);
     lv_obj_set_size(discloser, 64, 64);
     lv_obj_t *discloser_label = lv_label_create(discloser);
