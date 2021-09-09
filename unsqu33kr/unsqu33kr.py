@@ -121,7 +121,7 @@ if __name__ == '__main__':
             for layer in layer_whitelist:
                 print(f'/* {layer_to_description[layer]} */')
                 if layer not in data['views']:
-                    print(f'#define TRIGGER_{map_layer(layer).upper()}_{name.upper()} NULL')
+                    print(f'#define TRIGGER_{map_layer(layer).upper()}_{name.upper()} ""')
                     print(f'#define KEYS_{map_layer(layer).upper()}_{name.upper()} ' + '{ NULL }')
                     print(f'#define ATTRIBUTES_{map_layer(layer).upper()}_{name.upper()} ' + '{ 0 }\n')
                     continue

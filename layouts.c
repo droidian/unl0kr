@@ -49,7 +49,7 @@
 }
 
 /* Special characters */
-#define TRIGGER_SPECIAL_US NULL
+#define TRIGGER_SPECIAL_US ""
 #define KEYS_SPECIAL_US { NULL }
 #define ATTRIBUTES_SPECIAL_US { 0 }
 
