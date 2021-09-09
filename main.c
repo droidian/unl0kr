@@ -7,8 +7,8 @@
 
 #include "lvgl/lvgl.h"
 #include "lv_drivers/display/fbdev.h"
+#include "lv_drivers/indev/libinput_drv.h"
 
-#include "libinput_device_discovery.h"
 #include "libinput_multi.h"
 #include "libinput_xkb.h"
 #include "layouts.h"
@@ -312,10 +312,10 @@ int main(void)
 
     // Connect keyboards
     #define MAX_KEYBOARDS 3
-    char keyboard_devices[MAX_KEYBOARDS][32] = { "", "", "" };
+    char *keyboard_devices[MAX_KEYBOARDS] = { NULL, NULL, NULL };
     lv_indev_drv_t keyboard_indev_drvs[MAX_KEYBOARDS];
-    lv_indev_t *keyboard_indevs[MAX_KEYBOARDS] = { 0, 0, 0 };
-    int num_keyboards = libinput_discover_keyboards(keyboard_devices, MAX_KEYBOARDS);
+    lv_indev_t *keyboard_indevs[MAX_KEYBOARDS] = { NULL, NULL, NULL };
+    size_t num_keyboards = libinput_find_devs(LIBINPUT_CAPABILITY_KEYBOARD, keyboard_devices, MAX_KEYBOARDS, false);
     for (int i = 0; i < num_keyboards; ++i) {
         printf("found keyboard device %s\n", keyboard_devices[i]);
         lv_indev_drv_init(&keyboard_indev_drvs[i]);
@@ -328,10 +328,10 @@ int main(void)
 
     // Connect mice and trackpads
     #define MAX_POINTER_DEVICES 4
-    char pointer_devices[MAX_POINTER_DEVICES][32] = { "", "", "", "" };
+    char *pointer_devices[MAX_POINTER_DEVICES] = { NULL, NULL, NULL, NULL };
     lv_indev_drv_t pointer_indev_drvs[MAX_POINTER_DEVICES];
-    lv_indev_t *pointer_indevs[MAX_POINTER_DEVICES] = { 0, 0, 0, 0 };
-    int num_pointer_devices = libinput_discover_pointer_devices(pointer_devices, MAX_POINTER_DEVICES);
+    lv_indev_t *pointer_indevs[MAX_POINTER_DEVICES] = { NULL, NULL, NULL, NULL };
+    size_t num_pointer_devices = libinput_find_devs(LIBINPUT_CAPABILITY_POINTER, pointer_devices, MAX_POINTER_DEVICES, false);
     for (int i = 0; i < num_pointer_devices; ++i) {
         printf("found pointer device %s\n", pointer_devices[i]);
         lv_indev_drv_init(&pointer_indev_drvs[i]);
@@ -345,10 +345,10 @@ int main(void)
 
     // Connect touchscreens
     #define MAX_TOUCHSCREENS 1
-    char touchscreens[MAX_TOUCHSCREENS][32] = { "" };
+    char *touchscreens[MAX_TOUCHSCREENS] = { NULL };
     lv_indev_drv_t touchscreen_indev_drvs[MAX_TOUCHSCREENS];
-    lv_indev_t *touchscreen_indevs[MAX_TOUCHSCREENS] = { 0 };
-    int num_touchscreens = libinput_discover_touchscreens(touchscreens, MAX_TOUCHSCREENS);
+    lv_indev_t *touchscreen_indevs[MAX_TOUCHSCREENS] = { NULL };
+    size_t num_touchscreens = libinput_find_devs(LIBINPUT_CAPABILITY_TOUCH, touchscreens, MAX_TOUCHSCREENS, false);
     for (int i = 0; i < num_touchscreens; ++i) {
         printf("found touchscreen %s\n", touchscreens[i]);
         lv_indev_drv_init(&touchscreen_indev_drvs[i]);
