@@ -23,7 +23,11 @@ key_map = {
         'base': 'ABC',
         'upper': 'abc'
     },
-    'show_eschars': 'àéö',
+    'show_eschars': {
+        'de': 'äöü',
+        'es': 'áéí',
+        'fr': 'àéô'
+    },
     'show_letters': 'abc',
     'show_numbers': '1#',
     'show_numbers_from_symbols': '1#',
@@ -67,7 +71,12 @@ def load_yaml(path):
 def map_key(key, layer, name):
     mapped = key_map[key] if key in key_map else key
     if isinstance(mapped, dict):
-        mapped = mapped[layer] if layer in mapped else None
+        if layer in mapped:
+            mapped = mapped[layer]
+        elif name in mapped:
+            mapped = mapped[name]
+        else:
+            None
     if not mapped:
         return []
     if isinstance(mapped, list):
@@ -112,9 +121,14 @@ if __name__ == '__main__':
             for layer in layer_whitelist:
                 print(f'/* {layer_to_description[layer]} */')
                 if layer not in data['views']:
+                    print(f'#define TRIGGER_{map_layer(layer).upper()}_{name.upper()} NULL')
                     print(f'#define KEYS_{map_layer(layer).upper()}_{name.upper()} ' + '{ NULL }')
                     print(f'#define ATTRIBUTES_{map_layer(layer).upper()}_{name.upper()} ' + '{ 0 }\n')
                     continue
+
+                if layer == 'eschars':
+                    key = map_key('show_eschars', layer, name)[0]
+                    print(f'#define TRIGGER_{map_layer(layer).upper()}_{name.upper()} "{key}"')
 
                 rows = data['views'][layer]
                 keys_by_row = []
@@ -156,15 +170,22 @@ if __name__ == '__main__':
         print(f'    LV_SYMBOL_KEYBOARD " " NAME_{name.upper()}{suffix}')
 
     for layer in layer_whitelist:
+        if layer == 'eschars':
+            print(f'static const char * const triggers_{map_layer(layer)}[] = ' + '{')
+            for i, name in enumerate(layouts):
+                suffix = ',' if i < len(layouts) - 1 else ''
+                print(f'    (const char * const)TRIGGER_{map_layer(layer).upper()}_{name.upper()}{suffix}')
+            print('};')
+
         print(f'static const char ** const keys_{map_layer(layer)}[] = ' + '{')
         for i, name in enumerate(layouts):
-            suffix = ', \\' if i < len(layouts) - 1 else ' \\'
+            suffix = ',' if i < len(layouts) - 1 else ''
             print(f'    (const char * const [])KEYS_{map_layer(layer).upper()}_{name.upper()}{suffix}')
         print('};')
         print()
         print(f'static const lv_btnmatrix_ctrl_t * const attributes_{map_layer(layer)}[] = ' + '{')
         for i, name in enumerate(layouts):
-            suffix = ', \\' if i < len(layouts) - 1 else ' \\'
+            suffix = ',' if i < len(layouts) - 1 else ''
             print(f'    (lv_btnmatrix_ctrl_t[])ATTRIBUTES_{map_layer(layer).upper()}_{name.upper()}{suffix}')
         print('};')
         print()

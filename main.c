@@ -135,6 +135,8 @@ lv_obj_t *keyboard = NULL;
 
 lv_style_t style_text_normal;
 
+char *special_layer_trigger = NULL;
+
 // Helpers
 
 void set_theme(bool is_dark);
@@ -178,7 +180,7 @@ void keyboard_event_value_changed_cb(lv_event_t * e) {
     const char * txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
     if(txt == NULL) return;
 
-    if(strcmp(txt, "àéö") == 0) {
+    if(strcmp(txt, special_layer_trigger) == 0) {
         lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_NUMBER);
     } else {
         lv_keyboard_def_event_cb(e);
@@ -211,9 +213,12 @@ void keymap_dropdown_event_cb(lv_event_t *e) {
             lv_obj_add_style(lv_dropdown_get_list(lv_event_get_target(e)), &style_text_normal, 0);
             break;
         }
-        case LV_EVENT_VALUE_CHANGED:
-            apply_layout(keyboard, lv_dropdown_get_selected(lv_event_get_target(e)));
+        case LV_EVENT_VALUE_CHANGED: {
+            uint16_t idx = lv_dropdown_get_selected(lv_event_get_target(e));
+            apply_layout(keyboard, idx);
+            special_layer_trigger = get_special_layer_trigger(idx);
             break;
+        }
         default:
             break;
     }
@@ -442,7 +447,9 @@ int main(void)
     lv_label_set_text(power_btn_label, LV_SYMBOL_POWER);
     lv_obj_add_event_cb(power_btn, power_btn_event_cb, LV_EVENT_CLICKED, NULL);
 
-    apply_layout(keyboard, 0); // Apply default layout
+    // Apply default layout
+    apply_layout(keyboard, 0);
+    special_layer_trigger = get_special_layer_trigger(0);
 
     // Run lvgl in tickless mode
     while(1) {

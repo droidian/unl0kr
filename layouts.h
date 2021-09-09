@@ -13,6 +13,7 @@ typedef enum {
 #define NUM_LAYOUTS 4
 
 char *get_layout_names(void);
+char *get_special_layer_trigger(layout_t layout);
 void apply_layout(lv_obj_t *keyboard, layout_t layout);
 
 #endif /* LAYOUTS_H */
