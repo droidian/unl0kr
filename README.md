@@ -31,6 +31,11 @@ The biggest obstacle is input processing. [lv_drivers] provides an evdev interfa
 
 ... everything else ...
 
+## Discovered shortcomings compared to SDL2
+
+- Fonts cannot be loaded at runtime. In order for LVGL to render them, they have to be converted to static and font-size-dependent bitmaps first. That means osk-sdl's font configuration option cannot be replicated.
+- A corollary of the above: Required font sizes need to be known at compile time. In order to support the larger and smaller end of the mobile screen spectrum, bitmaps of the same font at different font sizes might have to be included.
+
 # Upstreaming
 
 As far as feasible and sensible, [lvgl] and [lv_drivers] fixes and enhancements are being upstreamed. Ideally all code outside of `main.c` should be contributed back but I'm not yet sure if that will be possible.
