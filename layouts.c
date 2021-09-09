@@ -4,7 +4,7 @@
  * English (US)
  **/
 
-#define NAME_US "English (US)"
+#define NAME_US "us"
 
 /* Lowercase layer */
 #define KEYS_LOWER_US { \
@@ -57,7 +57,7 @@
  * French
  **/
 
-#define NAME_FR "French"
+#define NAME_FR "fr"
 
 /* Lowercase layer */
 #define KEYS_LOWER_FR { \
@@ -120,7 +120,7 @@
  * Spanish
  **/
 
-#define NAME_ES "Spanish"
+#define NAME_ES "es"
 
 /* Lowercase layer */
 #define KEYS_LOWER_ES { \
@@ -183,7 +183,7 @@
  * German
  **/
 
-#define NAME_DE "German"
+#define NAME_DE "de"
 
 /* Lowercase layer */
 #define KEYS_LOWER_DE { \

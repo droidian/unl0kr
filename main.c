@@ -440,7 +440,7 @@ int main(void)
     lv_obj_add_event_cb(keyboard, keyboard_event_ready_cb, LV_EVENT_READY, NULL);
 
     // Button row
-    static lv_coord_t btn_row_col_dsc[] = { 64, 64, 300, LV_GRID_FR(1), 64, LV_GRID_TEMPLATE_LAST };
+    static lv_coord_t btn_row_col_dsc[] = { 64, 64, LV_GRID_FR(1), 64, LV_GRID_TEMPLATE_LAST };
     static lv_coord_t btn_row_row_dsc[] = { 64, LV_GRID_TEMPLATE_LAST };
     lv_obj_t *btn_row = lv_obj_create(lv_scr_act());
     lv_obj_set_size(btn_row, LV_PCT(100), LV_SIZE_CONTENT);
@@ -473,15 +473,15 @@ int main(void)
     lv_obj_t *dropdown = lv_dropdown_create(btn_row);
     lv_dropdown_set_options(dropdown, get_layout_names());
     lv_obj_set_height(dropdown, 64);
-    lv_obj_set_width(dropdown, 300);
-    lv_obj_set_grid_cell(dropdown, LV_GRID_ALIGN_CENTER, 2, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_obj_set_width(dropdown, 160);
+    lv_obj_set_grid_cell(dropdown, LV_GRID_ALIGN_START, 2, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_add_style(dropdown, &style_text_normal, 0);
     lv_obj_add_event_cb(dropdown, keymap_dropdown_event_cb, LV_EVENT_ALL, NULL);
 
     // Power button
     lv_obj_t *power_btn = lv_btn_create(btn_row);
     lv_obj_set_size(power_btn, 64, 64);
-    lv_obj_set_grid_cell(power_btn, LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_obj_set_grid_cell(power_btn, LV_GRID_ALIGN_CENTER, 3, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_t *power_btn_label = lv_label_create(power_btn);
     lv_obj_add_style(power_btn_label, &style_text_normal, 0);
     lv_obj_center(power_btn_label);

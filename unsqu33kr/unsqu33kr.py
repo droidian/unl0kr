@@ -116,7 +116,7 @@ if __name__ == '__main__':
             buttons = data['buttons'] if 'buttons' in data else {}
 
             print(f'/**\n * {name_map[name]}\n **/\n')
-            print(f'#define NAME_{name.upper()} "{name_map[name]}"\n')
+            print(f'#define NAME_{name.upper()} "{name}"\n')
 
             for layer in layer_whitelist:
                 print(f'/* {layer_to_description[layer]} */')
