@@ -49,7 +49,7 @@ Upstreamed contributions so far:
 - [Add support for pointer devices to libinput driver] (✅ merged)
 - [Add support for keypads to libinput driver] (✅ merged)
 - [Add full keyboard support to libinput/evdev driver] (⏳ in review)
-- [Automatic device discovery via libinput] (⏳ in review)
+- [Automatic device discovery via libinput] (✅ merged)
 
 # Development
 
