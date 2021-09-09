@@ -97,15 +97,11 @@ $ npx lv_font_conv --bpp 4 --size 32 --no-compress -o montserrat_extended_32.c -
 
 ## Changing layouts
 
-The layouts in [layouts.c] are generated from [squeekboard layouts] using the [unsqu33kr/unsqu33kr.py] script. To run the script use the following commands
+The layouts in [uskr_layouts.h] and [uskr_layouts.c] are generated from [squeekboard layouts] using the [unsqu33kr/unsqu33kr.py] script. To regenerate the files, run
 
 ```
-$ cd unsqu33kr
-$ pipenv install
-$ pipenv run python unsqu33kr.py
+$ ./generate-keymaps.sh
 ```
-
-Then copy the output into [layouts.c].
 
 ## Screen recording
 
@@ -136,7 +132,8 @@ The Font Awesome font is licensed under the Open Font License version 1.1.
 [online font converter]: https://lvgl.io/tools/fontconverter
 [Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
-[layouts.c]: layouts.c
+[uskr_layouts.h]: uskr_layouts.h
+[uskr_layouts.c]: uskr_layouts.c
 [unsqu33kr/unsqu33kr.py]: unsqu33kr/unsqu33kr.py
 [squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
 [fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
