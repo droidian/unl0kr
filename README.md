@@ -94,6 +94,26 @@ $ npx lv_font_conv --bpp 4 --size 32 --no-compress -o montserrat_extended_32.c -
       --range '0xF042'
 ```
 
+## Changing layouts
+
+The layouts in [layouts.c] are generated from [squeekboard layouts] using the [unsqu33kr/unsqu33kr.py] script. To run the script use the following commands
+
+```
+$ cd unsqu33kr
+$ pipenv install
+$ pipenv run python unsqu33kr.py
+```
+
+Then copy the output into [layouts.c].
+
+## Screen recording
+
+For demonstration purposes you can record the framebuffer device, e.g. with ffmpeg:
+
+```
+$ sudo ffmpeg -f fbdev -i /dev/fb0 -r 24 -c:v libx264 -b:v 500k demo.avi
+```
+
 # Acknowledgements
 
 The [lv_port_linux_frame_buffer] project served as a starting point for the codebase. The mouse cursor image was taken from [lv_sim_emscripten].
@@ -115,6 +135,7 @@ The Font Awesome font is licensed under the Open Font License version 1.1.
 [online font converter]: https://lvgl.io/tools/fontconverter
 [Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
+[squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
 [fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
 [feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
 [feat(msgbox): add function to get selected button index]: https://github.com/lvgl/lvgl/pull/2538
