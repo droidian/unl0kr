@@ -152,6 +152,14 @@ void set_password_hidden(bool is_disclosed) {
     lv_textarea_set_password_mode(textarea, is_password_hidden);
 }
 
+// Animations
+
+void keyboard_anim_y_cb(void *obj, int32_t value);
+
+void keyboard_anim_y_cb(void *obj, int32_t value) {
+    lv_obj_set_y(obj, value);
+}
+
 // Event callbacks
 
 void keyboard_event_ready_cb(lv_event_t *e);
@@ -202,6 +210,29 @@ void theme_switcher_event_cb(lv_event_t *e) {
     if(lv_event_get_code(e) == LV_EVENT_VALUE_CHANGED) {
         is_dark_theme = !is_dark_theme;
         set_theme(is_dark_theme);
+    }
+}
+
+void keyboard_toggle_event_cb(lv_event_t *e);
+
+void keyboard_toggle_event_cb(lv_event_t *e) {
+    if(lv_event_get_code(e) == LV_EVENT_VALUE_CHANGED) {
+        lv_anim_t keyboard_anim;
+        lv_anim_init(&keyboard_anim);
+        lv_anim_set_var(&keyboard_anim, keyboard);
+
+        lv_obj_t *btn = lv_event_get_target(e);
+        if (lv_obj_has_state(btn, LV_STATE_CHECKED)) {
+            lv_anim_set_values(&keyboard_anim, 0, lv_obj_get_y(keyboard));
+            lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_ease_in_out);
+        } else {
+            lv_anim_set_values(&keyboard_anim, lv_obj_get_height(keyboard), 0);
+            lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_overshoot);
+        }
+
+        lv_anim_set_time(&keyboard_anim, 500);
+        lv_anim_set_exec_cb(&keyboard_anim, keyboard_anim_y_cb);
+        lv_anim_start(&keyboard_anim);
     }
 }
 
@@ -409,7 +440,7 @@ int main(void)
     lv_obj_add_event_cb(keyboard, keyboard_event_ready_cb, LV_EVENT_READY, NULL);
 
     // Button row
-    static lv_coord_t btn_row_col_dsc[] = { 64, 300, LV_GRID_FR(1), 64, LV_GRID_TEMPLATE_LAST };
+    static lv_coord_t btn_row_col_dsc[] = { 64, 64, 300, LV_GRID_FR(1), 64, LV_GRID_TEMPLATE_LAST };
     static lv_coord_t btn_row_row_dsc[] = { 64, LV_GRID_TEMPLATE_LAST };
     lv_obj_t *btn_row = lv_obj_create(lv_scr_act());
     lv_obj_set_size(btn_row, LV_PCT(100), LV_SIZE_CONTENT);
@@ -427,19 +458,30 @@ int main(void)
     lv_label_set_text(theme_switcher_label, SYMBOL_ADJUST);
     lv_obj_add_event_cb(theme_switcher, theme_switcher_event_cb, LV_EVENT_ALL, NULL);
 
+    // Keyboard toggle
+    lv_obj_t *keyboard_toggle = lv_btn_create(btn_row);
+    lv_obj_add_flag(keyboard_toggle, LV_OBJ_FLAG_CHECKABLE);
+    lv_obj_set_size(keyboard_toggle, 64, 64);
+    lv_obj_set_grid_cell(keyboard_toggle, LV_GRID_ALIGN_CENTER, 1, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_obj_t *keyboard_toggle_label = lv_label_create(keyboard_toggle);
+    lv_obj_add_style(keyboard_toggle_label, &style_text_normal, 0);
+    lv_obj_center(keyboard_toggle_label);
+    lv_label_set_text(keyboard_toggle_label, LV_SYMBOL_KEYBOARD);
+    lv_obj_add_event_cb(keyboard_toggle, keyboard_toggle_event_cb, LV_EVENT_ALL, NULL);
+
     // Keymap dropdown
     lv_obj_t *dropdown = lv_dropdown_create(btn_row);
     lv_dropdown_set_options(dropdown, get_layout_names());
     lv_obj_set_height(dropdown, 64);
     lv_obj_set_width(dropdown, 300);
-    lv_obj_set_grid_cell(dropdown, LV_GRID_ALIGN_CENTER, 1, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_obj_set_grid_cell(dropdown, LV_GRID_ALIGN_CENTER, 2, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_add_style(dropdown, &style_text_normal, 0);
     lv_obj_add_event_cb(dropdown, keymap_dropdown_event_cb, LV_EVENT_ALL, NULL);
 
     // Power button
     lv_obj_t *power_btn = lv_btn_create(btn_row);
     lv_obj_set_size(power_btn, 64, 64);
-    lv_obj_set_grid_cell(power_btn, LV_GRID_ALIGN_CENTER, 3, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_obj_set_grid_cell(power_btn, LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_t *power_btn_label = lv_label_create(power_btn);
     lv_obj_add_style(power_btn_label, &style_text_normal, 0);
     lv_obj_center(power_btn_label);

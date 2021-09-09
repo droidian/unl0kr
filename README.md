@@ -25,6 +25,7 @@ The biggest obstacle is input processing. [lv_drivers] provides an evdev interfa
 - Switching between light and dark theme at runtime
 - Disclosing and hiding entered password at runtime
 - Powering off via soft button
+- Toggling on-screen keyboard via soft button
 
 ## To do
 
