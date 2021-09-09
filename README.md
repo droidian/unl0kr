@@ -41,8 +41,8 @@ Upstreamed contributions so far:
 
 - [fix(examples) don't compile assets unless needed] (✅ merged)
 - [feat(btnmatrix): add option to show popovers on button press] (⏳ in review)
-- [feat(msgbox): add function to get selected button index] (⏳ in review)
-- [feat(msgbox): omit title label unless needed] (⏳ in review)
+- [feat(msgbox): add function to get selected button index] (✅ merged)
+- [feat(msgbox): omit title label unless needed] (✅ merged)
 
 ## lv_drivers
 
