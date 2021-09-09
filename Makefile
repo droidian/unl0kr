@@ -7,10 +7,12 @@ LVGL_DIR ?= ${shell pwd}
 CFLAGS ?= -O3 -g0 -I$(LVGL_DIR)/ -Wall -Wshadow -Wundef -Wmissing-prototypes -Wno-discarded-qualifiers -Wall -Wextra -Wno-unused-function -Wno-error=strict-prototypes -Wpointer-arith -fno-strict-aliasing -Wno-error=cpp -Wuninitialized -Wmaybe-uninitialized -Wno-unused-parameter -Wno-missing-field-initializers -Wtype-limits -Wsizeof-pointer-memaccess -Wno-format-nonliteral -Wno-cast-qual -Wunreachable-code -Wno-switch-default -Wreturn-type -Wmultichar -Wformat-security -Wno-ignored-qualifiers -Wno-error=pedantic -Wno-sign-compare -Wno-error=missing-prototypes -Wdouble-promotion -Wclobbered -Wdeprecated -Wempty-body -Wtype-limits -Wshift-negative-value -Wstack-usage=2048 -Wno-unused-value -Wno-unused-parameter -Wno-missing-field-initializers -Wuninitialized -Wmaybe-uninitialized -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wtype-limits -Wsizeof-pointer-memaccess -Wno-format-nonliteral -Wpointer-arith -Wno-cast-qual -Wmissing-prototypes -Wunreachable-code -Wno-switch-default -Wreturn-type -Wmultichar -Wno-discarded-qualifiers -Wformat-security -Wno-ignored-qualifiers -Wno-sign-compare
 LDFLAGS ?= -lm -linput -lxkbcommon
 BIN = unl0kr
+FBKBBIN = fbkb
 
 
 #Collect the files to compile
 MAINSRC = ./main.c ./libinput_multi.c ./libinput_xkb.c ./layouts.c ./montserrat_extended_32.c ./uskr_layouts.c
+FBKBSRC = ./main-fbkb.c ./libinput_multi.c ./libinput_xkb.c ./layouts.c ./montserrat_extended_32.c ./uskr_layouts.c
 
 include $(LVGL_DIR)/lvgl/lvgl.mk
 include $(LVGL_DIR)/lv_drivers/lv_drivers.mk
@@ -21,6 +23,7 @@ AOBJS = $(ASRCS:.S=$(OBJEXT))
 COBJS = $(CSRCS:.c=$(OBJEXT))
 
 MAINOBJ = $(MAINSRC:.c=$(OBJEXT))
+FBKBOBJ = $(FBKBSRC:.c=$(OBJEXT))
 
 SRCS = $(ASRCS) $(CSRCS) $(MAINSRC)
 OBJS = $(AOBJS) $(COBJS)
@@ -36,6 +39,9 @@ all: default
 default: $(AOBJS) $(COBJS) $(MAINOBJ)
 	$(CC) -o $(BIN) $(MAINOBJ) $(AOBJS) $(COBJS) $(LDFLAGS)
 
+fbkb: $(AOBJS) $(COBJS) $(FBKBOBJ)
+	$(CC) -o $(FBKBBIN) $(FBKBOBJ) $(AOBJS) $(COBJS) $(LDFLAGS)
+
 clean: 
-	rm -f $(BIN) $(AOBJS) $(COBJS) $(MAINOBJ)
+	rm -f $(FBKBBIN) $(BIN) $(AOBJS) $(COBJS) $(MAINOBJ)
 
