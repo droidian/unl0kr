@@ -131,12 +131,48 @@ lv_img_dsc_t mouse_cursor_icon = {
 
 // Key map (for US lower only)
 
-const int num_scan_codes = 34;
-const int scan_codes[] = { \
+const int num_scan_codes = 58;
+
+const int scan_codes_lower[] = { \
     KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T, KEY_Y, KEY_U, KEY_I, KEY_O, KEY_P, /*"\n",*/ \
     KEY_A, KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L, /*"\n",*/ \
-    KEY_LEFTSHIFT, KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B, KEY_N, KEY_M, KEY_BACKSPACE, /*"\n",*/ \
-    -1, KEY_LEFT, KEY_SPACE, KEY_RIGHT, KEY_DOT, KEY_ENTER/*, ""*/ \
+    /*-1,*/ KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B, KEY_N, KEY_M, KEY_BACKSPACE, /*"\n",*/ \
+    /*-1,*/ KEY_LEFT, KEY_SPACE, KEY_RIGHT, KEY_DOT, KEY_ENTER/*, ""*/ \
+};
+
+const int num_scan_codes_lower[] = {
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1,
+    0, 1, 1, 1, 1, 1, 1, 1, 1,
+    0, 1, 1, 1, 1, 1
+};
+
+const int idx_scan_codes_lower[] = {
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    10, 11, 12, 13, 14, 15, 16, 17, 18
+    -1, 19, 20, 21, 22, 23, 24, 25, 26,
+    -1, 27, 28, 29, 30, 31
+};
+
+const int scan_codes_upper[] = { \
+    KEY_LEFTSHIFT, KEY_Q, KEY_LEFTSHIFT, KEY_W, KEY_LEFTSHIFT, KEY_E, KEY_LEFTSHIFT, KEY_R, KEY_LEFTSHIFT, KEY_T, KEY_LEFTSHIFT, KEY_Y, KEY_LEFTSHIFT, KEY_U, KEY_LEFTSHIFT, KEY_I, KEY_LEFTSHIFT, KEY_O, KEY_LEFTSHIFT, KEY_P, /*"\n",*/ \
+    KEY_LEFTSHIFT, KEY_A, KEY_LEFTSHIFT, KEY_S, KEY_LEFTSHIFT, KEY_D, KEY_LEFTSHIFT, KEY_F, KEY_LEFTSHIFT, KEY_G, KEY_LEFTSHIFT, KEY_H, KEY_LEFTSHIFT, KEY_J, KEY_LEFTSHIFT, KEY_K, KEY_LEFTSHIFT, KEY_L, /*"\n",*/ \
+    /*-1,*/ KEY_LEFTSHIFT, KEY_Z, KEY_LEFTSHIFT, KEY_X, KEY_LEFTSHIFT, KEY_C, KEY_LEFTSHIFT, KEY_V, KEY_LEFTSHIFT, KEY_B, KEY_LEFTSHIFT, KEY_N, KEY_LEFTSHIFT, KEY_M, KEY_BACKSPACE, /*"\n",*/ \
+    /*-1,*/ KEY_LEFT, KEY_SPACE, KEY_RIGHT, KEY_DOT, KEY_ENTER/*, ""*/ \
+};
+
+const int num_scan_codes_upper[] = {
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2,
+    0, 2, 2, 2, 2, 2, 2, 2, 1,
+    0, 1, 1, 1, 1, 1
+};
+
+const int idx_scan_codes_upper[] = {
+    0, 2, 4, 6, 8, 10, 12, 14, 16, 18,
+    20, 22, 24, 26, 28, 30, 32, 34, 36
+    -1, 38, 40, 42, 44, 46, 48, 50, 52,
+    -1, 53, 54, 55, 56, 57
 };
 
 // Global variables
@@ -180,22 +216,47 @@ void keyboard_event_value_changed_cb(lv_event_t * e) {
     uint16_t btn_id = lv_btnmatrix_get_selected_btn(obj);
     if(btn_id == LV_BTNMATRIX_BTN_NONE) return;
 
-    int scan_code = scan_codes[btn_id];
+    // int scan_code = scan_codes[btn_id];
     //printf("%d\n", scan_code);
 
+    int modifiers[4];
+    int num_modifiers = 0;
     struct input_event ie;
-	ie.type = EV_KEY;
-	ie.code = scan_code;
-	ie.value = 1;
-	if (write(fduinput, &ie, sizeof(ie)) != sizeof(ie))
-		fprintf(stderr, "error: sending uinput event\n");
-	ie.value = 0;
-	if (write(fduinput, &ie, sizeof(ie)) != sizeof(ie))
-		fprintf(stderr, "error: sending uinput event\n");
-	ie.type = EV_SYN;
-	ie.code = SYN_REPORT;
-	if (write(fduinput, &ie, sizeof(ie)) != sizeof(ie))
-		fprintf(stderr, "error: sending uinput event\n");
+    for (int i = 0; i < num_scan_codes_upper[btn_id]; ++i) {
+        int code = scan_codes_upper[idx_scan_codes_upper[btn_id] + i];
+        bool is_modifier = code == KEY_LEFTSHIFT;
+
+        // Key down
+        ie.type = EV_KEY;
+        ie.code = code;
+        ie.value = 1;
+        if (write(fduinput, &ie, sizeof(ie)) != sizeof(ie))
+            fprintf(stderr, "error: sending uinput event\n");
+
+        // Key up (non mods)
+        if (!is_modifier) {
+            ie.value = 0;
+            if (write(fduinput, &ie, sizeof(ie)) != sizeof(ie))
+                fprintf(stderr, "error: sending uinput event\n");
+        } else {
+            modifiers[num_modifiers] = code;
+            num_modifiers++;
+        }
+    }
+
+    for (int i = num_modifiers - 1; i > 0; --i) {
+        // Key up (mods)
+        ie.type = EV_KEY;
+        ie.code = modifiers[i];
+        ie.value = 0;
+        if (write(fduinput, &ie, sizeof(ie)) != sizeof(ie))
+            fprintf(stderr, "error: sending uinput event\n");
+    }
+
+    ie.type = EV_SYN;
+    ie.code = SYN_REPORT;
+    if (write(fduinput, &ie, sizeof(ie)) != sizeof(ie))
+        fprintf(stderr, "error: sending uinput event\n");
     
     /*const char * txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
     if(txt == NULL) return;
@@ -296,8 +357,8 @@ int main(void)
 		exit(-1);
 	}
 	for (int i = 0; i < num_scan_codes; ++i) {
-        if (scan_codes[i] > -1) {
-	        ioctl(fduinput, UI_SET_KEYBIT, scan_codes[i]);
+        if (scan_codes_upper[i] > -1) {
+	        ioctl(fduinput, UI_SET_KEYBIT, scan_codes_upper[i]);
         }
     }
     struct uinput_user_dev uidev;
