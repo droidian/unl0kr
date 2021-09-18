@@ -55,6 +55,7 @@ Upstreamed contributions so far:
 - [Add support for keypads to libinput driver] (✅ merged)
 - [Add full keyboard support to libinput/evdev driver] (✅ merged)
 - [Automatic device discovery via libinput] (✅ merged)
+- [Make it possible to use multiple devices with the libinput and XKB drivers] (⏳ in review)
 
 # Development
 
@@ -149,3 +150,4 @@ The Font Awesome font is licensed under the Open Font License version 1.1.
 [Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
 [Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
 [Automatic device discovery via libinput]: https://github.com/lvgl/lv_drivers/pull/157
+[Make it possible to use multiple devices with the libinput and XKB drivers]: https://github.com/lvgl/lv_drivers/pull/165
