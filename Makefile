@@ -11,7 +11,7 @@ FBKBBIN = fbkb
 
 
 #Collect the files to compile
-MAINSRC = ./main.c ./libinput_multi.c ./libinput_xkb.c ./layouts.c ./montserrat_extended_32.c ./uskr_layouts.c
+MAINSRC = ./cursor.c ./main.c ./libinput_multi.c ./libinput_xkb.c ./layouts.c ./montserrat_extended_32.c ./uskr_layouts.c
 FBKBSRC = ./main-fbkb.c ./libinput_multi.c ./libinput_xkb.c ./layouts.c ./montserrat_extended_32.c ./uskr_layouts.c
 
 include $(LVGL_DIR)/lvgl/lvgl.mk
