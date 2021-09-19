@@ -10,7 +10,7 @@ BIN = unl0kr
 
 
 #Collect the files to compile
-MAINSRC = ./cursor.c ./main.c ./libinput_multi.c ./libinput_xkb.c ./layouts.c ./montserrat_extended_32.c ./uskr_layouts.c
+MAINSRC = ./cursor.c ./main.c ./libinput_multi.c ./libinput_xkb.c ./montserrat_extended_32.c ./sq2lv_layouts.c ./squeek2lvgl/sq2lv.c
 
 include $(LVGL_DIR)/lvgl/lvgl.mk
 include $(LVGL_DIR)/lv_drivers/lv_drivers.mk

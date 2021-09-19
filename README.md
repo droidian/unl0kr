@@ -103,11 +103,13 @@ $ npx lv_font_conv --bpp 4 --size 32 --no-compress -o montserrat_extended_32.c -
 
 ## Changing layouts
 
-The layouts in [uskr_layouts.h] and [uskr_layouts.c] are generated from [squeekboard layouts] using the [unsqu33kr/unsqu33kr.py] script. To regenerate the files, run
+Unl0kr uses [squeekboard layouts] converted to C via [squeek2lvgl]. To regenerate the layouts, run
 
 ```
-$ ./generate-keymaps.sh
+$ ./regenerate-layouts.sh
 ```
+
+from the root of the repository.
 
 ## Screen recording
 
@@ -131,17 +133,15 @@ The Font Awesome font is licensed under the Open Font License version 1.1.
 
 [lvgl]: https://github.com/lvgl/lvgl
 [lv_drivers]: https://github.com/lvgl/lv_drivers
-[lv_port_linux_frame_buffer]: https://github.com/lvgl/lv_port_linux_frame_buffer]
-[lv_sim_emscripten]: https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c]
+[lv_port_linux_frame_buffer]: https://github.com/lvgl/lv_port_linux_frame_buffer
+[lv_sim_emscripten]: https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c
 [libinput]: https://gitlab.freedesktop.org/libinput/libinput
 [libxkbcommon]: https://github.com/xkbcommon/libxkbcommon
 [online font converter]: https://lvgl.io/tools/fontconverter
 [Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
-[uskr_layouts.h]: uskr_layouts.h
-[uskr_layouts.c]: uskr_layouts.c
-[unsqu33kr/unsqu33kr.py]: unsqu33kr/unsqu33kr.py
 [squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
+[squeek2lvgl]: https://gitlab.com/cherrypicker/squeek2lvgl
 [fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
 [feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
 [feat(msgbox): add function to get selected button index]: https://github.com/lvgl/lvgl/pull/2538

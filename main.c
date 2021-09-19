@@ -12,7 +12,8 @@
 #include "cursor.h"
 #include "libinput_multi.h"
 #include "libinput_xkb.h"
-#include "layouts.h"
+
+#include "squeek2lvgl/sq2lv.h"
 
 // Custom fonts
 
@@ -31,8 +32,6 @@ lv_obj_t *textarea = NULL;
 lv_obj_t *keyboard = NULL;
 
 lv_style_t style_text_normal;
-
-char *special_layer_trigger = NULL;
 
 // Helpers
 
@@ -80,16 +79,16 @@ void keyboard_event_value_changed_cb(lv_event_t * e) {
     lv_obj_t *obj = lv_event_get_target(e);
 
     uint16_t btn_id = lv_btnmatrix_get_selected_btn(obj);
-    if(btn_id == LV_BTNMATRIX_BTN_NONE) return;
-
-    const char * txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
-    if(txt == NULL) return;
-
-    if(strcmp(txt, special_layer_trigger) == 0) {
-        lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_NUMBER);
-    } else {
-        lv_keyboard_def_event_cb(e);
+    if (btn_id == LV_BTNMATRIX_BTN_NONE) {
+        return;
     }
+
+    if (sq2lv_is_layer_switcher(obj, btn_id)) {
+        sq2lv_switch_layer(obj, btn_id);
+        return;
+    }
+
+    lv_keyboard_def_event_cb(e);
 }
 
 void discloser_event_cb(lv_event_t *e);
@@ -143,8 +142,7 @@ void keymap_dropdown_event_cb(lv_event_t *e) {
         }
         case LV_EVENT_VALUE_CHANGED: {
             uint16_t idx = lv_dropdown_get_selected(lv_event_get_target(e));
-            apply_layout(keyboard, idx);
-            special_layer_trigger = get_special_layer_trigger(idx);
+            sq2lv_switch_layout(keyboard, idx);
             break;
         }
         default:
@@ -368,7 +366,7 @@ int main(void)
 
     // Keymap dropdown
     lv_obj_t *dropdown = lv_dropdown_create(btn_row);
-    lv_dropdown_set_options(dropdown, get_layout_names());
+    lv_dropdown_set_options(dropdown, sq2lv_layout_short_names);
     lv_obj_set_height(dropdown, 64);
     lv_obj_set_width(dropdown, 160);
     lv_obj_set_grid_cell(dropdown, LV_GRID_ALIGN_START, 2, 1, LV_GRID_ALIGN_CENTER, 0, 1);
@@ -385,9 +383,8 @@ int main(void)
     lv_label_set_text(power_btn_label, LV_SYMBOL_POWER);
     lv_obj_add_event_cb(power_btn, power_btn_event_cb, LV_EVENT_CLICKED, NULL);
 
-    // Apply default layout
-    apply_layout(keyboard, 0);
-    special_layer_trigger = get_special_layer_trigger(0);
+    /* Apply default keyboard layout */
+    sq2lv_switch_layout(keyboard, 0);
 
     // Run lvgl in tickless mode
     while(1) {

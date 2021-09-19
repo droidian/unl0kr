@@ -4,3 +4,6 @@
 [submodule "lvgl"]
 	path = lvgl
 	url = https://github.com/littlevgl/lvgl.git
+[submodule "squeek2lvgl"]
+	path = squeek2lvgl
+	url = https://gitlab.com/cherrypicker/squeek2lvgl.git
