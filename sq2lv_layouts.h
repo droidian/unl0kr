@@ -1,5 +1,5 @@
 /**
- * Auto-generated with unsqu33kr
+ * Auto-generated with squeek2lvgl
  **/
 
 #ifndef SQ2LV_LAYOUTS_H

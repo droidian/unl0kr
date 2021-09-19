@@ -1,5 +1,5 @@
 /**
- * Auto-generated with unsqu33kr
+ * Auto-generated with squeek2lvgl
  **/
 
 #include "sq2lv_layouts.h"
