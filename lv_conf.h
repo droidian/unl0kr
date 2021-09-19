@@ -68,11 +68,11 @@
 
 /*Use a custom tick source that tells the elapsed time in milliseconds.
  *It removes the need to manually update the tick with `lv_tick_inc()`)*/
-uint32_t custom_tick_get(void);
+uint32_t ul_get_tick(void);
 #define LV_TICK_CUSTOM     1
 #if LV_TICK_CUSTOM
 #define LV_TICK_CUSTOM_INCLUDE  <stdint.h>         /*Header for the system time function*/
-#define LV_TICK_CUSTOM_SYS_TIME_EXPR (custom_tick_get())     /*Expression evaluating to current system time in ms*/
+#define LV_TICK_CUSTOM_SYS_TIME_EXPR (ul_get_tick())     /*Expression evaluating to current system time in ms*/
 #endif   /*LV_TICK_CUSTOM*/
 
 /*Default Dot Per Inch. Used to initialize default sizes such as widgets sized, style paddings.
