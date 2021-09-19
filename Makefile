@@ -1,6 +1,21 @@
+# Copyright 2021 Johannes Marbach
 #
-# Makefile
+# This file is part of unl0kr, hereafter referred to as the program.
 #
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+
 CC ?= gcc
 LVGL_DIR_NAME ?= lvgl
 LVGL_DIR ?= ${shell pwd}
@@ -8,8 +23,6 @@ CFLAGS ?= -O3 -g0 -I$(LVGL_DIR)/ -Wall -Wshadow -Wundef -Wmissing-prototypes -Wn
 LDFLAGS ?= -lm -linput -lxkbcommon
 BIN = unl0kr
 
-
-#Collect the files to compile
 MAINSRC = ./cursor.c ./main.c ./libinput_multi.c ./libinput_xkb.c ./montserrat_extended_32.c ./sq2lv_layouts.c ./squeek2lvgl/sq2lv.c
 
 include $(LVGL_DIR)/lvgl/lvgl.mk
@@ -25,8 +38,6 @@ MAINOBJ = $(MAINSRC:.c=$(OBJEXT))
 SRCS = $(ASRCS) $(CSRCS) $(MAINSRC)
 OBJS = $(AOBJS) $(COBJS)
 
-## MAINOBJ -> OBJFILES
-
 all: default
 
 %.o: %.c
@@ -38,4 +49,3 @@ default: $(AOBJS) $(COBJS) $(MAINOBJ)
 
 clean: 
 	rm -f $(BIN) $(AOBJS) $(COBJS) $(MAINOBJ)
-
