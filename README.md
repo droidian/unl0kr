@@ -48,6 +48,7 @@ Upstreamed contributions so far:
 - [feat(btnmatrix): add option to show popovers on button press] (⏳ in review)
 - [feat(msgbox): add function to get selected button index] (✅ merged)
 - [feat(msgbox): omit title label unless needed] (✅ merged)
+- [fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl] (⏳ in review)
 
 ## lv_drivers
 
@@ -146,6 +147,7 @@ The Font Awesome font is licensed under the Open Font License version 1.1.
 [feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
 [feat(msgbox): add function to get selected button index]: https://github.com/lvgl/lvgl/pull/2538
 [feat(msgbox): omit title label unless needed]: https://github.com/lvgl/lvgl/pull/2539
+[fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl]: https://github.com/lvgl/lvgl/pull/2571
 [Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
 [Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
 [Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
