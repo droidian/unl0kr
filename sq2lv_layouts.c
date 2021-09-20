@@ -4,6 +4,8 @@
 
 #include "sq2lv_layouts.h"
 
+#define SQ2LV_SYMBOL_SHIFT "\xef\x8d\x9b"
+
 /**
  * Layout: US English - generated from us
  **/
@@ -18,7 +20,7 @@ static const int num_keys_lower_us = 34;
 static const char * const keycaps_lower_us[] = { \
     "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\n", \
     "a", "s", "d", "f", "g", "h", "j", "k", "l", "\n", \
-    "ABC", "z", "x", "c", "v", "b", "n", "m", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "z", "x", "c", "v", "b", "n", "m", LV_SYMBOL_BACKSPACE, "\n", \
     "123", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, ".", LV_SYMBOL_OK, "" \
 };
 
@@ -52,7 +54,7 @@ static const int num_keys_upper_us = 34;
 static const char * const keycaps_upper_us[] = { \
     "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "\n", \
     "A", "S", "D", "F", "G", "H", "J", "K", "L", "\n", \
-    "abc", "Z", "X", "C", "V", "B", "N", "M", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "Z", "X", "C", "V", "B", "N", "M", LV_SYMBOL_BACKSPACE, "\n", \
     "123", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, ".", LV_SYMBOL_OK, "" \
 };
 
@@ -164,7 +166,7 @@ static const int num_keys_lower_de = 36;
 static const char * const keycaps_lower_de[] = { \
     "q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "\n", \
     "a", "s", "d", "f", "g", "h", "j", "k", "l", "\n", \
-    "ABC", "y", "x", "c", "v", "b", "n", "m", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "y", "x", "c", "v", "b", "n", "m", LV_SYMBOL_BACKSPACE, "\n", \
     "123", "äÄ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, ",", ".", LV_SYMBOL_OK, "" \
 };
 
@@ -198,7 +200,7 @@ static const int num_keys_upper_de = 36;
 static const char * const keycaps_upper_de[] = { \
     "Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "\n", \
     "A", "S", "D", "F", "G", "H", "J", "K", "L", "\n", \
-    "abc", "Y", "X", "C", "V", "B", "N", "M", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "Y", "X", "C", "V", "B", "N", "M", LV_SYMBOL_BACKSPACE, "\n", \
     "123", "äÄ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "!", "?", LV_SYMBOL_OK, "" \
 };
 
@@ -354,7 +356,7 @@ static const int num_keys_lower_es = 37;
 static const char * const keycaps_lower_es[] = { \
     "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\n", \
     "a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ", "\n", \
-    "ABC", "z", "x", "c", "v", "b", "n", "m", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "z", "x", "c", "v", "b", "n", "m", LV_SYMBOL_BACKSPACE, "\n", \
     "123", "áÁ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "?", ".", LV_SYMBOL_OK, "" \
 };
 
@@ -388,7 +390,7 @@ static const int num_keys_upper_es = 37;
 static const char * const keycaps_upper_es[] = { \
     "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "\n", \
     "A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ", "\n", \
-    "abc", "Z", "X", "C", "V", "B", "N", "M", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "Z", "X", "C", "V", "B", "N", "M", LV_SYMBOL_BACKSPACE, "\n", \
     "123", "áÁ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "¿", ".", LV_SYMBOL_OK, "" \
 };
 
@@ -544,7 +546,7 @@ static const int num_keys_lower_fr = 35;
 static const char * const keycaps_lower_fr[] = { \
     "a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "\n", \
     "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "\n", \
-    "ABC", "w", "x", "c", "v", "b", "n", ".", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "w", "x", "c", "v", "b", "n", ".", LV_SYMBOL_BACKSPACE, "\n", \
     "123", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "âÂ", LV_SYMBOL_OK, "" \
 };
 
@@ -578,7 +580,7 @@ static const int num_keys_upper_fr = 35;
 static const char * const keycaps_upper_fr[] = { \
     "A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "\n", \
     "Q", "S", "D", "F", "G", "H", "J", "K", "L", "M", "\n", \
-    "abc", "W", "X", "C", "V", "B", "N", ",", LV_SYMBOL_BACKSPACE, "\n", \
+    SQ2LV_SYMBOL_SHIFT, "W", "X", "C", "V", "B", "N", ",", LV_SYMBOL_BACKSPACE, "\n", \
     "123", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "âÂ", LV_SYMBOL_OK, "" \
 };
 

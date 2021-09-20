@@ -25,5 +25,6 @@ pipenv run python squeek2lvgl.py \
     --input de.yaml \
     --input es.yaml \
     --input fr.yaml \
+    --output .. \
     --surround-space-with-arrows \
-    --output ..
+    --shift-keycap '\xef\x8d\x9b'
