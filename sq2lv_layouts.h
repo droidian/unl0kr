@@ -9,6 +9,11 @@
 
 #define SQ2LV_SCANCODES_ENABLED 0
 
+/* Key attributes */
+#define SQ2LV_CTRL_NON_CHAR     (LV_BTNMATRIX_CTRL_NO_REPEAT | LV_BTNMATRIX_CTRL_CLICK_TRIG | LV_BTNMATRIX_CTRL_CHECKED)
+#define SQ2LV_CTRL_MOD_ACTIVE   (LV_BTNMATRIX_CTRL_NO_REPEAT | LV_BTNMATRIX_CTRL_CLICK_TRIG | LV_BTNMATRIX_CTRL_CHECKABLE)
+#define SQ2LV_CTRL_MOD_INACTIVE (LV_BTNMATRIX_CTRL_NO_REPEAT | LV_BTNMATRIX_CTRL_CLICK_TRIG | LV_BTNMATRIX_CTRL_CHECKABLE | LV_BTNMATRIX_CTRL_CHECKED)
+
 /* Layout IDs, values can be used as indexes into the sq2lv_layouts array */
 typedef enum {
     SQ2LV_LAYOUT_US = 0,
@@ -23,7 +28,7 @@ typedef struct {
     const int num_keys;
     /* Key caps */
     const char ** const keycaps;
-    /* Button matrix attributes */
+    /* Key attributes */
     const lv_btnmatrix_ctrl_t * const attributes;
     /* Number of modifier keys */
     const int num_modifiers;

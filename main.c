@@ -158,6 +158,13 @@ static void shutdown_btn_clicked_cb(lv_event_t *event);
 static void shutdown_mbox_value_changed_cb(lv_event_t *event);
 
 /**
+ * Handle LV_EVENT_DRAW_PART_BEGIN events from the keyboard widget.
+ *
+ * @param event the event object
+ */
+static void keyboard_draw_part_begin_cb(lv_event_t *event);
+
+/**
  * Handle LV_EVENT_VALUE_CHANGED events from the keyboard widget.
  *
  * @param event the event object
@@ -260,6 +267,38 @@ static void shutdown_mbox_value_changed_cb(lv_event_t *event) {
         reboot(RB_POWER_OFF);
     }
     lv_msgbox_close(mbox);
+}
+
+static void keyboard_draw_part_begin_cb(lv_event_t *event) {
+    lv_obj_t *obj = lv_event_get_target(event);
+    lv_btnmatrix_t *btnm = (lv_btnmatrix_t *)obj;
+    lv_obj_draw_part_dsc_t *dsc = lv_event_get_param(event);
+
+    if (dsc->part != LV_PART_ITEMS) {
+        return;
+    }
+
+    if (lv_btnmatrix_get_selected_btn(obj) == dsc->id) { /* key is held down */
+        if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_INACTIVE) == SQ2LV_CTRL_MOD_INACTIVE) {
+            dsc->rect_dsc->bg_color = lv_palette_lighten(LV_PALETTE_TEAL, 1);
+        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_ACTIVE) == SQ2LV_CTRL_MOD_ACTIVE) {
+            dsc->rect_dsc->bg_color = lv_palette_lighten(LV_PALETTE_TEAL, 1);
+        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_NON_CHAR) == SQ2LV_CTRL_NON_CHAR) {
+            dsc->rect_dsc->bg_color = lv_palette_darken(LV_PALETTE_BLUE_GREY, 3);
+        } else {
+            dsc->rect_dsc->bg_color = lv_palette_lighten(LV_PALETTE_BLUE_GREY, 1);
+        }
+    } else { /* key is not held down */
+        if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_INACTIVE) == SQ2LV_CTRL_MOD_INACTIVE) {
+            dsc->rect_dsc->bg_color = lv_palette_darken(LV_PALETTE_BLUE_GREY, 4);
+        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_ACTIVE) == SQ2LV_CTRL_MOD_ACTIVE) {
+            dsc->rect_dsc->bg_color = lv_palette_main(LV_PALETTE_TEAL);
+        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_NON_CHAR) == SQ2LV_CTRL_NON_CHAR) {
+            dsc->rect_dsc->bg_color = lv_palette_darken(LV_PALETTE_BLUE_GREY, 4);
+        } else {
+            dsc->rect_dsc->bg_color = lv_palette_main(LV_PALETTE_BLUE_GREY);
+        }
+    }
 }
 
 static void keyboard_value_changed_cb(lv_event_t *event) {
@@ -480,6 +519,7 @@ int main(void) {
     lv_keyboard_set_textarea(keyboard, textarea);
     // lv_btnmatrix_set_popovers(keyboard, true);
     lv_obj_remove_event_cb(keyboard, lv_keyboard_def_event_cb);
+    lv_obj_add_event_cb(keyboard, keyboard_draw_part_begin_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_ready_cb, LV_EVENT_READY, NULL);
     lv_obj_set_pos(keyboard, 0, 0);
