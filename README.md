@@ -29,6 +29,8 @@ Here are a few highlights of what already works:
 - Disclosing and hiding entered password at runtime
 - Shutting down the device via a soft button
 
+For a growing collection of demo videos, see the [wiki].
+
 ## Upstreaming
 
 Over the course of implementing unl0kr, suitable fixes and features have been upstreamed to the [lvgl] and [lv_drivers] repositories. The benefit of this goes both ways. Downstream we can rely on the features being maintained in the future and upstream they can make the features available to the larger audience of [LVGL] users.
@@ -162,3 +164,4 @@ The [FontAwesome] font is licensed under the Open Font License version 1.1.
 [squeek2lvgl]: https://gitlab.com/cherrypicker/squeek2lvgl
 [squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
 [v1 milestone]: https://gitlab.com/cherrypicker/unl0kr/-/milestones/1
+[wiki]: https://gitlab.com/cherrypicker/unl0kr/-/wikis/home
