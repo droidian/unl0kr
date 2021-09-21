@@ -1,48 +1,41 @@
 Unl0kr
 ======
 
-Proof-of-concept framebuffer-based disk unlocker for the initramfs based on [lvgl].
+Framebuffer-based disk unlocker for the initramfs based on [LVGL].
 
-__Disclaimer: Doesn't actually unlock anything 😜__
+[[_TOC_]]
 
 # About
 
-This is an experiment that attempts to evaluate the fitness of [lvgl] to build a graphical user interface on the Linux framebuffer for unlocking encrypted hard drives during boot. It's neither functional nor meant to replace postmarketOS/osk-sdl. For background see postmarketOS/osk-sdl#121.
+Unl0kr is an [osk-sdl] clone written in [LVGL] and rendering directly to the Linux framebuffer. As a result, it doesn't depend on GPU hardware acceleration.
+
+For some background on how Unl0kr came to be, see postmarketOS/osk-sdl#121.
 
 # Status
 
-The biggest obstacle is input processing. [lv_drivers] provides an evdev interface (supporting touchscreens, pointer devices and keypads) and a [libinput] interface (supporting touchscreens only). Presently there is no support for full physical keyboards (short of using the SDL interface) and no automated device detection. Additonally, the drivers can currently not be used with multiple devices at the same time.
+We are en route to v1 which aims at providing a useable, visually pleasant application including osk-sdl's most essential features. For details about the current status, see the [v1 milestone]. You may also browse the full list of [open issues] to get an idea of what's planned beyond v1.
 
-## What works
+Here are a few highlights of what already works:
 
 - Password-entry UI including on-screen keyboard on the framebuffer
-- Input device discovery for keyboards, mice and trackpads
-- On-screen keyboard control via one or more mouse / trackpad (including cursor)
-- On-screen keyboard control via one or more hardware keyboard (including support for multiple layouts using XKB)
-  - Works great on my laptop keyboard but occasionally drops keys on my Ergodox EZ)
-- On-screen keyboard control via touchscreen (tested on PinePhone)
-- Switching on-screen keyboard layout at runtime (layouts still to be refined, currently based on squeekboard subset)
+- Input device discovery for keyboards, mice, trackpads and touch screens
+- On-screen keyboard control via:
+  - One or more mice / trackpads (including cursor)
+  - One or more hardware keyboards (including support for different layouts using XKB)
+  - Touchscreen (tested on PinePhone)
+- Switching on-screen keyboard layout at runtime (currently supported layouts: de, es, fr, us)
+- Toggling on-screen keyboard with slide in/out animation
 - Switching between light and dark theme at runtime
 - Disclosing and hiding entered password at runtime
-- Powering off via soft button
-- Toggling on-screen keyboard via soft button
+- Shutting down the device via a soft button
 
-## To do
+## Upstreaming
 
-... everything else ...
+When you browse the repository, you might notice that there's actually not that much code here. Over the course of implementing unl0kr, many fixes and features have been upstreamed to the [lvgl] and [lv_drivers] repositories. The benefit of this goes both ways. Downstream we can rely on the features being maintained in the future and upstream they can make the features available to the larger audience of [LVGL] users.
 
-## Discovered shortcomings compared to SDL2
+Below is a summary of contributions upstreamed thus far.
 
-- Fonts cannot be loaded at runtime. In order for LVGL to render them, they have to be converted to static and font-size-dependent bitmaps first. That means osk-sdl's font configuration option cannot be replicated.
-- A corollary of the above: Required font sizes need to be known at compile time. In order to support the larger and smaller end of the mobile screen spectrum, bitmaps of the same font at different font sizes might have to be included.
-
-# Upstreaming
-
-As far as feasible and sensible, [lvgl] and [lv_drivers] fixes and enhancements are being upstreamed. Ideally all code outside of `main.c` should be contributed back but I'm not yet sure if that will be possible.
-
-Upstreamed contributions so far:
-
-## lvgl
+### lvgl
 
 - [fix(examples) don't compile assets unless needed] (✅ merged)
 - [feat(btnmatrix): add option to show popovers on button press] (⏳ in review)
@@ -50,7 +43,7 @@ Upstreamed contributions so far:
 - [feat(msgbox): omit title label unless needed] (✅ merged)
 - [fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl] (⏳ in review)
 
-## lv_drivers
+### lv_drivers
 
 - [Add support for pointer devices to libinput driver] (✅ merged)
 - [Add support for keypads to libinput driver] (✅ merged)
@@ -64,12 +57,13 @@ Upstreamed contributions so far:
 
 - [lvgl] (git submodule / linked statically)
 - [lv_drivers] (git submodule / linked statically)
+- [squeek2lvgl] (git submodule / linked statically)
 - [libinput]
 - [libxkbcommon]
 
 ## Building & running
 
-For development and testing you can run the app in a VT. `sudo` is needed to access input device files.
+For development and testing you can run the app in a VT. Unless your user account has special privileges, `sudo` will be needed to access input device files.
 
 ```
 $ make
@@ -77,9 +71,9 @@ $ sudo chvt 2
 $ sudo ./unl0kr
 ```
 
-## Changing fonts
+## Fonts
 
-In order to work with [lvgl], fonts need to be converted to C arrays. Buffyboard currently uses a combination of the [Montserrat] font for text and the [FontAwesome] font for pictograms. For both fonts only limited character ranges are included. To (re)generate the C file containing the combined font, run the following command
+In order to work with [LVGL], fonts need to be converted to bitmaps, stored as C arrays. Unl0kr currently uses a combination of the [Montserrat] font for text and the [FontAwesome] font for pictograms. For both fonts only limited character ranges are included to reduce the binary size. To (re)generate the C file containing the combined font, run the following command
 
 ```
 $ npx lv_font_conv --bpp 4 --size 32 --no-compress -o montserrat_extended_32.c --format lvgl \
@@ -95,7 +89,7 @@ $ npx lv_font_conv --bpp 4 --size 32 --no-compress -o montserrat_extended_32.c -
       --range '0xF35B'
 ```
 
-The following is a summary of the meaning of the different unicode ranges used above
+Below is a short explanation of the different unicode ranges used above.
 
 - [Montserrat]
   - Basic Latin (`0x0020-0x007F`)
@@ -108,7 +102,7 @@ The following is a summary of the meaning of the different unicode ranges used a
   - [adjust] (`0xF042`)
   - [arrow-alt-circle-up] (`0xF35B`)
 
-## Changing layouts
+## Keyboard layouts
 
 Unl0kr uses [squeekboard layouts] converted to C via [squeek2lvgl]. To regenerate the layouts, run
 
@@ -138,25 +132,29 @@ The Montserrat font is licensed under the Open Font License.
 
 The Font Awesome font is licensed under the Open Font License version 1.1.
 
-[lvgl]: https://github.com/lvgl/lvgl
-[lv_drivers]: https://github.com/lvgl/lv_drivers
-[lv_port_linux_frame_buffer]: https://github.com/lvgl/lv_port_linux_frame_buffer
-[lv_sim_emscripten]: https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c
-[libinput]: https://gitlab.freedesktop.org/libinput/libinput
-[libxkbcommon]: https://github.com/xkbcommon/libxkbcommon
-[online font converter]: https://lvgl.io/tools/fontconverter
+[Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
+[Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
+[Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
+[Automatic device discovery via libinput]: https://github.com/lvgl/lv_drivers/pull/157
 [Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
+[LVGL]: https://lvgl.io
+[Make it possible to use multiple devices with the libinput and XKB drivers]: https://github.com/lvgl/lv_drivers/pull/165
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
 [arrow-alt-circle-up]: https://fontawesome.com/v5.15/icons/arrow-alt-circle-up?style=solid
-[squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
-[squeek2lvgl]: https://gitlab.com/cherrypicker/squeek2lvgl
-[fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
 [feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
 [feat(msgbox): add function to get selected button index]: https://github.com/lvgl/lvgl/pull/2538
 [feat(msgbox): omit title label unless needed]: https://github.com/lvgl/lvgl/pull/2539
 [fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl]: https://github.com/lvgl/lvgl/pull/2571
-[Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
-[Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
-[Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
-[Automatic device discovery via libinput]: https://github.com/lvgl/lv_drivers/pull/157
-[Make it possible to use multiple devices with the libinput and XKB drivers]: https://github.com/lvgl/lv_drivers/pull/165
+[fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
+[libinput]: https://gitlab.freedesktop.org/libinput/libinput
+[libxkbcommon]: https://github.com/xkbcommon/libxkbcommon
+[lv_drivers]: https://github.com/lvgl/lv_drivers
+[lv_port_linux_frame_buffer]: https://github.com/lvgl/lv_port_linux_frame_buffer
+[lv_sim_emscripten]: https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c
+[lvgl]: https://github.com/lvgl/lvgl
+[online font converter]: https://lvgl.io/tools/fontconverter
+[open issues]: https://gitlab.com/cherrypicker/unl0kr/-/issues
+[osk-sdl]: https://gitlab.com/postmarketOS/osk-sdl
+[squeek2lvgl]: https://gitlab.com/cherrypicker/squeek2lvgl
+[squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
+[v1 milestone]: https://gitlab.com/cherrypicker/unl0kr/-/milestones/1
