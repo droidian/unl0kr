@@ -31,7 +31,7 @@ Here are a few highlights of what already works:
 
 ## Upstreaming
 
-When you browse the repository, you might notice that there's actually not that much code here. Over the course of implementing unl0kr, many fixes and features have been upstreamed to the [lvgl] and [lv_drivers] repositories. The benefit of this goes both ways. Downstream we can rely on the features being maintained in the future and upstream they can make the features available to the larger audience of [LVGL] users.
+Over the course of implementing unl0kr, suitable fixes and features have been upstreamed to the [lvgl] and [lv_drivers] repositories. The benefit of this goes both ways. Downstream we can rely on the features being maintained in the future and upstream they can make the features available to the larger audience of [LVGL] users.
 
 Below is a summary of contributions upstreamed thus far.
 
@@ -60,6 +60,7 @@ Below is a summary of contributions upstreamed thus far.
 - [squeek2lvgl] (git submodule / linked statically)
 - [libinput]
 - [libxkbcommon]
+- evdev kernel module
 
 ## Building & running
 
@@ -122,7 +123,9 @@ $ sudo ffmpeg -f fbdev -i /dev/fb0 -r 24 -c:v libx264 -b:v 500k demo.avi
 
 # Acknowledgements
 
-The [lv_port_linux_frame_buffer] project served as a starting point for the codebase. The mouse cursor image was taken from [lv_sim_emscripten].
+The [lv_port_linux_frame_buffer] project served as a starting point for the codebase.
+
+The mouse cursor image was taken from [lv_sim_emscripten].
 
 # License
 
