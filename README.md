@@ -128,17 +128,18 @@ The [lv_port_linux_frame_buffer] project served as a starting point for the code
 
 unl0kr is licensed under the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-The Montserrat font is licensed under the Open Font License.
+The [Montserrat] font is licensed under the Open Font License.
 
-The Font Awesome font is licensed under the Open Font License version 1.1.
+The [FontAwesome] font is licensed under the Open Font License version 1.1.
 
 [Add full keyboard support to libinput/evdev driver]: https://github.com/lvgl/lv_drivers/pull/156
 [Add support for keypads to libinput driver]: https://github.com/lvgl/lv_drivers/pull/152
 [Add support for pointer devices to libinput driver]: https://github.com/lvgl/lv_drivers/pull/150
 [Automatic device discovery via libinput]: https://github.com/lvgl/lv_drivers/pull/157
-[Font Awesome]: https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff
+[FontAwesome]: https://fontawesome.com
 [LVGL]: https://lvgl.io
 [Make it possible to use multiple devices with the libinput and XKB drivers]: https://github.com/lvgl/lv_drivers/pull/165
+[Montserrat]: https://fonts.google.com/specimen/Montserrat
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
 [arrow-alt-circle-up]: https://fontawesome.com/v5.15/icons/arrow-alt-circle-up?style=solid
 [feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
