@@ -13,7 +13,7 @@ For some background on how unl0kr came to be, see postmarketOS/osk-sdl#121.
 
 # Status
 
-We are en route to v1 which aims at providing a useable, visually pleasant application including osk-sdl's most essential features. For details about the current status, see the [v1 milestone]. You may also browse the full list of [open issues] to get an idea of what's planned beyond v1.
+We are en route to v1 which aims at providing a useable, visually pleasant application including [osk-sdl]'s most essential features. For details about the current status, see the [v1 milestone]. You may also browse the full list of [open issues] to get an idea of what's planned beyond v1.
 
 Here are a few highlights of what already works:
 
