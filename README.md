@@ -1,4 +1,4 @@
-Unl0kr
+unl0kr
 ======
 
 Framebuffer-based disk unlocker for the initramfs based on [LVGL].
@@ -7,9 +7,9 @@ Framebuffer-based disk unlocker for the initramfs based on [LVGL].
 
 # About
 
-Unl0kr is an [osk-sdl] clone written in [LVGL] and rendering directly to the Linux framebuffer. As a result, it doesn't depend on GPU hardware acceleration.
+unl0kr is an [osk-sdl] clone written in [LVGL] and rendering directly to the Linux framebuffer. As a result, it doesn't depend on GPU hardware acceleration.
 
-For some background on how Unl0kr came to be, see postmarketOS/osk-sdl#121.
+For some background on how unl0kr came to be, see postmarketOS/osk-sdl#121.
 
 # Status
 
@@ -73,7 +73,7 @@ $ sudo ./unl0kr
 
 ## Fonts
 
-In order to work with [LVGL], fonts need to be converted to bitmaps, stored as C arrays. Unl0kr currently uses a combination of the [Montserrat] font for text and the [FontAwesome] font for pictograms. For both fonts only limited character ranges are included to reduce the binary size. To (re)generate the C file containing the combined font, run the following command
+In order to work with [LVGL], fonts need to be converted to bitmaps, stored as C arrays. unl0kr currently uses a combination of the [Montserrat] font for text and the [FontAwesome] font for pictograms. For both fonts only limited character ranges are included to reduce the binary size. To (re)generate the C file containing the combined font, run the following command
 
 ```
 $ npx lv_font_conv --bpp 4 --size 32 --no-compress -o montserrat_extended_32.c --format lvgl \
@@ -126,7 +126,7 @@ The [lv_port_linux_frame_buffer] project served as a starting point for the code
 
 # License
 
-Unl0kr is licensed under the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+unl0kr is licensed under the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 The Montserrat font is licensed under the Open Font License.
 
