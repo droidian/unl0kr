@@ -104,7 +104,7 @@ Below is a short explanation of the different unicode ranges used above.
 
 ## Keyboard layouts
 
-Unl0kr uses [squeekboard layouts] converted to C via [squeek2lvgl]. To regenerate the layouts, run
+unl0kr uses [squeekboard layouts] converted to C via [squeek2lvgl]. To regenerate the layouts, run
 
 ```
 $ ./regenerate-layouts.sh
