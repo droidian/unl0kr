@@ -69,9 +69,12 @@ Below is a summary of contributions upstreamed thus far.
 For development and testing you can run the app in a VT. Unless your user account has special privileges, `sudo` will be needed to access input device files.
 
 ```
-$ make
+$ meson _build
+$ meson compile -C build
+# with meson <0.55, use ninja directly:
+$ ninja -C _build
 $ sudo chvt 2
-$ sudo ./unl0kr
+$ sudo ./_build/unl0kr
 ```
 
 ## Fonts
