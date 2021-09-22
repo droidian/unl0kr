@@ -27,7 +27,7 @@ typedef struct {
     /* Number of keys */
     const int num_keys;
     /* Key caps */
-    const char ** const keycaps;
+    const char * const * const keycaps;
     /* Key attributes */
     const lv_btnmatrix_ctrl_t * const attributes;
     /* Number of modifier keys */
