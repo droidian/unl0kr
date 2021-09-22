@@ -373,6 +373,11 @@ int main(void) {
         keyboard_indevs[i] = lv_indev_drv_register(&keyboard_indev_drvs[i]);
     }
 
+    /* Hide the on-screen keyboard by default if a physical keyboard is connected */
+    if (num_keyboards > 0) {
+        is_keyboard_hidden = true;
+    }
+
     /* Connect mice and trackpads */
     #define MAX_POINTER_DEVICES 4
     char *pointer_devices[MAX_POINTER_DEVICES] = { NULL, NULL, NULL, NULL };
@@ -522,7 +527,7 @@ int main(void) {
     lv_obj_add_event_cb(keyboard, keyboard_draw_part_begin_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_ready_cb, LV_EVENT_READY, NULL);
-    lv_obj_set_pos(keyboard, 0, 0);
+    lv_obj_set_pos(keyboard, 0, is_keyboard_hidden ? keyboard_height : 0);
     lv_obj_set_size(keyboard, hor_res, keyboard_height);
     lv_obj_add_style(keyboard, &style_text_normal, 0);
 
