@@ -43,7 +43,7 @@ Below is a summary of contributions upstreamed thus far.
 - [feat(btnmatrix): add option to show popovers on button press] (⏳ in review)
 - [feat(msgbox): add function to get selected button index] (✅ merged)
 - [feat(msgbox): omit title label unless needed] (✅ merged)
-- [fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl] (⏳ in review)
+- [fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl] (✅ merged)
 
 ### lv_drivers
 
