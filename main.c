@@ -408,7 +408,6 @@ int main(void) {
     #define MAX_TOUCHSCREENS 1
     char *touchscreens[MAX_TOUCHSCREENS] = { NULL };
     lv_indev_drv_t touchscreen_indev_drvs[MAX_TOUCHSCREENS];
-    lv_indev_t *touchscreen_indevs[MAX_TOUCHSCREENS] = { NULL };
     size_t num_touchscreens = libinput_find_devs(LIBINPUT_CAPABILITY_TOUCH, touchscreens, MAX_TOUCHSCREENS, false);
     for (int i = 0; i < num_touchscreens; ++i) {
         printf("found touchscreen %s\n", touchscreens[i]);
@@ -418,7 +417,7 @@ int main(void) {
         touchscreen_indev_drvs[i].long_press_repeat_time = USHRT_MAX;
         libinput_multi_init_driver(&touchscreen_indev_drvs[i]);
         libinput_multi_set_file(&touchscreen_indev_drvs[i], touchscreens[i]);
-        touchscreen_indevs[i] = lv_indev_drv_register(&touchscreen_indev_drvs[i]);
+        lv_indev_drv_register(&touchscreen_indev_drvs[i]);
     }
 
     /* Initialise theme and styles */

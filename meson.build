@@ -19,9 +19,9 @@
 project(
   'unl0kr',
   'c',
-  version : '0.0',
-  default_options : ['warning_level=0'],
-  meson_version : '>=0.53.0',
+  version : '0.0.0',
+  default_options : 'warning_level=1',
+  meson_version : '>=0.53.0'
 )
 
 unl0kr_sources = [
@@ -175,6 +175,5 @@ executable(
   dependencies : [
     dependency('xkbcommon'),
     dependency('libinput'),
-  ],
-  c_args : ['-Wno-error=pedantic']
+  ]
 )
