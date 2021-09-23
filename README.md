@@ -70,12 +70,12 @@ For development and testing you can run the app in a VT. Unless your user accoun
 
 ```
 $ meson _build
-$ meson compile -C build
-# with meson <0.55, use ninja directly:
-$ ninja -C _build
+$ meson compile -C _build
 $ sudo chvt 2
 $ sudo ./_build/unl0kr
 ```
+
+With meson <0\.55 use `ninja` instead of `meson compile`\.
 
 ## Fonts
 
