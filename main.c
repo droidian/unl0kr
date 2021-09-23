@@ -18,9 +18,12 @@
  */
 
 
+#include "command_line.h"
 #include "cursor.h"
 #include "libinput_multi.h"
 #include "libinput_xkb.h"
+#include "log.h"
+#include "unl0kr.h"
 
 #include "lv_drivers/display/fbdev.h"
 #include "lv_drivers/indev/libinput_drv.h"
@@ -329,17 +332,36 @@ static void keyboard_ready_cb(lv_event_t *event) {
  * Main
  */
 
-int main(void) {
-    /* Initialise lvgl and framebuffer driver */
-    lv_init(); 
-    fbdev_init();
+int main(int argc, char *argv[]) {
+    /* Parse command line options */
+    ul_cli_opts opts;
+    ul_cli_parse_opts(argc, argv, &opts);
 
-    /* Query display size */
+    /* Set up log level */
+    if (opts.verbose) {
+        ul_set_log_level(UL_LOG_LEVEL_VERBOSE);
+    }
+
+    /* Announce ourselves */
+    ul_log(UL_LOG_LEVEL_VERBOSE, "unl0kr %s", UL_VERSION);
+
+    /* Initialise LVGL and set up logging callback */
+    lv_init();
+    lv_log_register_print_cb(ul_print_cb);
+
+    /* Initialise framebuffer driver and query display size */
+    fbdev_init();
     uint32_t hor_res;
     uint32_t ver_res;
-	fbdev_get_sizes(&hor_res, &ver_res);
+    fbdev_get_sizes(&hor_res, &ver_res);
 
-    // hor_res = ver_res * 0.6; /* Simulate mobile screen */
+    /* Override display size with command line options if necessary */
+    if (opts.hor_res > 0) {
+        hor_res = LV_MIN(hor_res, opts.hor_res);
+    }
+    if (opts.ver_res > 0) {
+        ver_res = LV_MIN(ver_res, opts.ver_res);
+    }
 
     /* Prepare display buffer */
     const size_t buf_size = hor_res * ver_res / 10; /* At least 1/10 of the display size is recommended */
@@ -364,7 +386,7 @@ int main(void) {
     lv_indev_t *keyboard_indevs[MAX_KEYBOARDS] = { NULL, NULL, NULL };
     size_t num_keyboards = libinput_find_devs(LIBINPUT_CAPABILITY_KEYBOARD, keyboard_devices, MAX_KEYBOARDS, false);
     for (int i = 0; i < num_keyboards; ++i) {
-        printf("found keyboard device %s\n", keyboard_devices[i]);
+        ul_log(UL_LOG_LEVEL_VERBOSE, "Connecting keyboard device %s\n", keyboard_devices[i]);
         lv_indev_drv_init(&keyboard_indev_drvs[i]);
         keyboard_indev_drvs[i].type = LV_INDEV_TYPE_KEYPAD;
         keyboard_indev_drvs[i].read_cb = libinput_multi_read;
@@ -385,7 +407,7 @@ int main(void) {
     lv_indev_t *pointer_indevs[MAX_POINTER_DEVICES] = { NULL, NULL, NULL, NULL };
     size_t num_pointer_devices = libinput_find_devs(LIBINPUT_CAPABILITY_POINTER, pointer_devices, MAX_POINTER_DEVICES, false);
     for (int i = 0; i < num_pointer_devices; ++i) {
-        printf("found pointer device %s\n", pointer_devices[i]);
+        ul_log(UL_LOG_LEVEL_VERBOSE, "Connecting pointer device %s\n", pointer_devices[i]);
         lv_indev_drv_init(&pointer_indev_drvs[i]);
         pointer_indev_drvs[i].type = LV_INDEV_TYPE_POINTER;
         pointer_indev_drvs[i].read_cb = libinput_multi_read;
@@ -410,7 +432,7 @@ int main(void) {
     lv_indev_drv_t touchscreen_indev_drvs[MAX_TOUCHSCREENS];
     size_t num_touchscreens = libinput_find_devs(LIBINPUT_CAPABILITY_TOUCH, touchscreens, MAX_TOUCHSCREENS, false);
     for (int i = 0; i < num_touchscreens; ++i) {
-        printf("found touchscreen %s\n", touchscreens[i]);
+        ul_log(UL_LOG_LEVEL_VERBOSE, "Connecting touchscreen device %s\n", touchscreens[i]);
         lv_indev_drv_init(&touchscreen_indev_drvs[i]);
         touchscreen_indev_drvs[i].type = LV_INDEV_TYPE_POINTER;
         touchscreen_indev_drvs[i].read_cb = libinput_multi_read;

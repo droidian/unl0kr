@@ -53,6 +53,21 @@ Below is a summary of contributions upstreamed thus far.
 - [Automatic device discovery via libinput] (✅ merged)
 - [Make it possible to use multiple devices with the libinput and XKB drivers] (⏳ in review)
 
+# Usage
+
+For an overview of available command line options, run unl0kr with the `-h` or `--help` argument.
+
+```
+$ unl0kr --help
+Usage: unl0kr [OPTION]
+
+Mandatory arguments to long options are mandatory for short options too.
+  -g, --geometry=NxM  Force a display size of N horizontal times M vertical pixels
+  -h, --help          Print this message and exit
+  -v, --verbose       Enable more detailed logging output on STDERR
+  -V, --version       Print the unl0kr version and exit
+```
+
 # Development
 
 ## Dependencies
