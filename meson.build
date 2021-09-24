@@ -29,9 +29,8 @@ add_project_arguments('-DUL_VERSION="@0@"'.format(meson.project_version()), lang
 unl0kr_sources = [
   'command_line.c',
   'cursor.c',
+  'indev.c',
   'log.c',
-  'libinput_multi.c',
-  'libinput_xkb.c',
   'main.c',
   'montserrat_extended_32.c',
   'sq2lv_layouts.c',

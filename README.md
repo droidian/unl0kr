@@ -51,7 +51,7 @@ Below is a summary of contributions upstreamed thus far.
 - [Add support for keypads to libinput driver] (✅ merged)
 - [Add full keyboard support to libinput/evdev driver] (✅ merged)
 - [Automatic device discovery via libinput] (✅ merged)
-- [Make it possible to use multiple devices with the libinput and XKB drivers] (⏳ in review)
+- [Make it possible to use multiple devices with the libinput and XKB drivers] (✅ merged)
 
 # Usage
 

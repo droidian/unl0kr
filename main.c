@@ -19,20 +19,16 @@
 
 
 #include "command_line.h"
-#include "cursor.h"
-#include "libinput_multi.h"
-#include "libinput_xkb.h"
+#include "indev.h"
 #include "log.h"
 #include "unl0kr.h"
 
 #include "lv_drivers/display/fbdev.h"
-#include "lv_drivers/indev/libinput_drv.h"
 
 #include "lvgl/lvgl.h"
 
 #include "squeek2lvgl/sq2lv.h"
 
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -378,68 +374,13 @@ int main(int argc, char *argv[]) {
     disp_drv.ver_res = ver_res;
     lv_disp_drv_register(&disp_drv);
 
-    /* Connect keyboards */
-    libinput_xkb_init();
-    #define MAX_KEYBOARDS 3
-    char *keyboard_devices[MAX_KEYBOARDS] = { NULL, NULL, NULL };
-    lv_indev_drv_t keyboard_indev_drvs[MAX_KEYBOARDS];
-    lv_indev_t *keyboard_indevs[MAX_KEYBOARDS] = { NULL, NULL, NULL };
-    size_t num_keyboards = libinput_find_devs(LIBINPUT_CAPABILITY_KEYBOARD, keyboard_devices, MAX_KEYBOARDS, false);
-    for (int i = 0; i < num_keyboards; ++i) {
-        ul_log(UL_LOG_LEVEL_VERBOSE, "Connecting keyboard device %s\n", keyboard_devices[i]);
-        lv_indev_drv_init(&keyboard_indev_drvs[i]);
-        keyboard_indev_drvs[i].type = LV_INDEV_TYPE_KEYPAD;
-        keyboard_indev_drvs[i].read_cb = libinput_multi_read;
-        libinput_multi_init_driver(&keyboard_indev_drvs[i]);
-        libinput_multi_set_file(&keyboard_indev_drvs[i], keyboard_devices[i]);
-        keyboard_indevs[i] = lv_indev_drv_register(&keyboard_indev_drvs[i]);
-    }
+    /* Connect input devices */
+    ul_indev_auto_connect();
+    ul_indev_set_up_mouse_cursor();
 
     /* Hide the on-screen keyboard by default if a physical keyboard is connected */
-    if (num_keyboards > 0) {
+    if (ul_indev_is_keyboard_connected()) {
         is_keyboard_hidden = true;
-    }
-
-    /* Connect mice and trackpads */
-    #define MAX_POINTER_DEVICES 4
-    char *pointer_devices[MAX_POINTER_DEVICES] = { NULL, NULL, NULL, NULL };
-    lv_indev_drv_t pointer_indev_drvs[MAX_POINTER_DEVICES];
-    lv_indev_t *pointer_indevs[MAX_POINTER_DEVICES] = { NULL, NULL, NULL, NULL };
-    size_t num_pointer_devices = libinput_find_devs(LIBINPUT_CAPABILITY_POINTER, pointer_devices, MAX_POINTER_DEVICES, false);
-    for (int i = 0; i < num_pointer_devices; ++i) {
-        ul_log(UL_LOG_LEVEL_VERBOSE, "Connecting pointer device %s\n", pointer_devices[i]);
-        lv_indev_drv_init(&pointer_indev_drvs[i]);
-        pointer_indev_drvs[i].type = LV_INDEV_TYPE_POINTER;
-        pointer_indev_drvs[i].read_cb = libinput_multi_read;
-        pointer_indev_drvs[i].long_press_repeat_time = USHRT_MAX;
-        libinput_multi_init_driver(&pointer_indev_drvs[i]);
-        libinput_multi_set_file(&pointer_indev_drvs[i], pointer_devices[i]);
-        pointer_indevs[i] = lv_indev_drv_register(&pointer_indev_drvs[i]);
-    }
-
-    /* Set mouse cursor */
-    if (num_pointer_devices > 0) {
-        lv_obj_t *cursor_obj = lv_img_create(lv_scr_act());
-        lv_img_set_src(cursor_obj, &ul_cursor_img_dsc);
-        for (int i = 0; i < num_pointer_devices; ++i) {
-            lv_indev_set_cursor(pointer_indevs[i], cursor_obj);
-        }
-    }
-
-    /* Connect touchscreens */
-    #define MAX_TOUCHSCREENS 1
-    char *touchscreens[MAX_TOUCHSCREENS] = { NULL };
-    lv_indev_drv_t touchscreen_indev_drvs[MAX_TOUCHSCREENS];
-    size_t num_touchscreens = libinput_find_devs(LIBINPUT_CAPABILITY_TOUCH, touchscreens, MAX_TOUCHSCREENS, false);
-    for (int i = 0; i < num_touchscreens; ++i) {
-        ul_log(UL_LOG_LEVEL_VERBOSE, "Connecting touchscreen device %s\n", touchscreens[i]);
-        lv_indev_drv_init(&touchscreen_indev_drvs[i]);
-        touchscreen_indev_drvs[i].type = LV_INDEV_TYPE_POINTER;
-        touchscreen_indev_drvs[i].read_cb = libinput_multi_read;
-        touchscreen_indev_drvs[i].long_press_repeat_time = USHRT_MAX;
-        libinput_multi_init_driver(&touchscreen_indev_drvs[i]);
-        libinput_multi_set_file(&touchscreen_indev_drvs[i], touchscreens[i]);
-        lv_indev_drv_register(&touchscreen_indev_drvs[i]);
     }
 
     /* Initialise theme and styles */
@@ -510,11 +451,7 @@ int main(int argc, char *argv[]) {
     lv_obj_add_style(textarea, &style_text_normal, 0);
 
     /* Route physical keyboard input into textarea */
-    lv_group_t *group = lv_group_create();
-    lv_group_add_obj(group, textarea);
-    for (int i = 0; i < num_keyboards; ++i) {
-        lv_indev_set_group(keyboard_indevs[i], group);
-    }
+    ul_indev_set_up_textarea_for_keyboard_input(textarea);
 
     /* Show / hide password button */
     lv_obj_t *toggle_pw_btn = lv_btn_create(lv_scr_act());
