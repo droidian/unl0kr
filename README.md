@@ -52,6 +52,7 @@ Below is a summary of contributions upstreamed thus far.
 - [Add full keyboard support to libinput/evdev driver] (✅ merged)
 - [Automatic device discovery via libinput] (✅ merged)
 - [Make it possible to use multiple devices with the libinput and XKB drivers] (✅ merged)
+- [Use LV_LOG instead of printf in fbdev driver] (✅ merged)
 
 # Usage
 
@@ -163,6 +164,7 @@ The [FontAwesome] font is licensed under the Open Font License version 1.1.
 [LVGL]: https://lvgl.io
 [Make it possible to use multiple devices with the libinput and XKB drivers]: https://github.com/lvgl/lv_drivers/pull/165
 [Montserrat]: https://fonts.google.com/specimen/Montserrat
+[Use LV_LOG instead of printf in fbdev driver]: https://github.com/lvgl/lv_drivers/pull/167
 [adjust]: https://fontawesome.com/v5.15/icons/adjust?style=solid
 [arrow-alt-circle-up]: https://fontawesome.com/v5.15/icons/arrow-alt-circle-up?style=solid
 [feat(btnmatrix): add option to show popovers on button press]: https://github.com/lvgl/lvgl/pull/2537
