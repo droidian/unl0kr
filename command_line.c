@@ -20,6 +20,7 @@
 
 #include "command_line.h"
 
+#include "log.h"
 #include "unl0kr.h"
 
 #include <getopt.h>
@@ -32,7 +33,7 @@
  */
 
 /**
- * Initialise a command line options struct with default values.
+ * Initialise a command line options struct with default values and exit on failure.
  * 
  * @param opts pointer to the options struct
  */
@@ -49,6 +50,15 @@ static void print_usage();
  */
 
 static void init_opts(ul_cli_opts *opts) {
+    opts->num_config_files = 1;
+
+    opts->config_files = malloc(sizeof(char *));
+    if (!opts->config_files) {
+        ul_log(UL_LOG_LEVEL_ERROR, "Could not allocate memory for config file paths");
+        exit(EXIT_FAILURE);
+    }
+    opts->config_files[0] = "/etc/unl0kr.conf";
+
     opts->hor_res = -1;
     opts->ver_res = -1;
     opts->verbose = false;
@@ -56,13 +66,23 @@ static void init_opts(ul_cli_opts *opts) {
 
 static void print_usage() {
     fprintf(stderr,
+        /*-------------------------------- 78 CHARS --------------------------------*/
         "Usage: unl0kr [OPTION]\n"
         "\n"
         "Mandatory arguments to long options are mandatory for short options too.\n"
-        "  -g, --geometry=NxM  Force a display size of N horizontal times M vertical pixels\n"
-        "  -h, --help          Print this message and exit\n"
-        "  -v, --verbose       Enable more detailed logging output on STDERR\n"
-        "  -V, --version       Print the unl0kr version and exit\n");
+        "  -c, --config=PATH      Locaton of the main config file. Defaults to\n"
+        "                         /etc/unl0kr.conf.\n"
+        "  -C, --config-override  Location of the config override file. Values in\n"
+        "                         this file override values for the same keys in the\n"
+        "                         main config file. If specified multiple times, the\n"
+        "                         values from consecutive files will be merged in\n"
+        "                         order.\n"
+        "  -g, --geometry=NxM     Force a display size of N horizontal times M\n"
+        "                         vertical pixels\n"
+        "  -h, --help             Print this message and exit\n"
+        "  -v, --verbose          Enable more detailed logging output on STDERR\n"
+        "  -V, --version          Print the unl0kr version and exit\n");
+        /*-------------------------------- 78 CHARS --------------------------------*/
 }
 
 
@@ -74,20 +94,34 @@ void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *opts) {
     init_opts(opts);
 
     struct option long_opts[] = {
-        { "geometry", required_argument, NULL, 'g' },
-        { "help",     no_argument,       NULL, 'h' },
-        { "verbose",  no_argument,       NULL, 'v' },
-        { "version",  no_argument,       NULL, 'V' },
+        { "config",          required_argument, NULL, 'c' },
+        { "config-override", required_argument, NULL, 'C' },
+        { "geometry",        required_argument, NULL, 'g' },
+        { "help",            no_argument,       NULL, 'h' },
+        { "verbose",         no_argument,       NULL, 'v' },
+        { "version",         no_argument,       NULL, 'V' },
         { NULL, 0, NULL, 0 }
     };
 
     int opt, index = 0;
 
-    while ((opt = getopt_long(argc, argv, "g:hvV", long_opts, &index)) != -1) {
+    while ((opt = getopt_long(argc, argv, "c:C:g:hvV", long_opts, &index)) != -1) {
         switch (opt) {
+        case 'c':
+            opts->config_files[0] = optarg;
+            break;
+        case 'C':
+            opts->config_files = realloc(opts->config_files, (opts->num_config_files + 1) * sizeof(char *));
+            if (!opts->config_files) {
+                ul_log(UL_LOG_LEVEL_ERROR, "Could not allocate memory for config file paths");
+                exit(EXIT_FAILURE);
+            }
+            opts->config_files[opts->num_config_files] = optarg;
+            opts->num_config_files++;
+            break;
         case 'g':
             if (sscanf(optarg, "%ix%i", &(opts->hor_res), &(opts->ver_res)) != 2) {
-                fprintf(stderr, "Error: invalid geometry argument \"%s\"\n", optarg);
+                ul_log(UL_LOG_LEVEL_ERROR, "Invalid geometry argument \"%s\"\n", optarg);
                 exit(EXIT_FAILURE);
             }
             break;

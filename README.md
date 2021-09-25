@@ -56,23 +56,34 @@ Below is a summary of contributions upstreamed thus far.
 
 # Usage
 
-For an overview of available command line options, run unl0kr with the `-h` or `--help` argument.
+A man page is planned to be added with #6. For the time being, you can get an overview of available command line options by running unl0kr with the `-h` or `--help` argument.
 
 ```
 $ unl0kr --help
 Usage: unl0kr [OPTION]
 
 Mandatory arguments to long options are mandatory for short options too.
-  -g, --geometry=NxM  Force a display size of N horizontal times M vertical pixels
-  -h, --help          Print this message and exit
-  -v, --verbose       Enable more detailed logging output on STDERR
-  -V, --version       Print the unl0kr version and exit
+  -c, --config=PATH      Locaton of the main config file. Defaults to
+                         /etc/unl0kr.conf.
+  -C, --config-override  Location of the config override file. Values in
+                         this file override values for the same keys in the
+                         main config file. If specified multiple times, the
+                         values from consecutive files will be merged in
+                         order.
+  -g, --geometry=NxM     Force a display size of N horizontal times M
+                         vertical pixels
+  -h, --help             Print this message and exit
+  -v, --verbose          Enable more detailed logging output on STDERR
+  -V, --version          Print the unl0kr version and exit
 ```
+
+For an example configuration file, see [unl0kr.conf].
 
 # Development
 
 ## Dependencies
 
+- [inih]
 - [lvgl] (git submodule / linked statically)
 - [lv_drivers] (git submodule / linked statically)
 - [squeek2lvgl] (git submodule / linked statically)
@@ -172,6 +183,7 @@ The [FontAwesome] font is licensed under the Open Font License version 1.1.
 [feat(msgbox): omit title label unless needed]: https://github.com/lvgl/lvgl/pull/2539
 [fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl]: https://github.com/lvgl/lvgl/pull/2571
 [fix(examples) don't compile assets unless needed]: https://github.com/lvgl/lvgl/pull/2523
+[inih]: https://github.com/benhoyt/inih
 [libinput]: https://gitlab.freedesktop.org/libinput/libinput
 [libxkbcommon]: https://github.com/xkbcommon/libxkbcommon
 [lv_drivers]: https://github.com/lvgl/lv_drivers
@@ -183,5 +195,6 @@ The [FontAwesome] font is licensed under the Open Font License version 1.1.
 [osk-sdl]: https://gitlab.com/postmarketOS/osk-sdl
 [squeek2lvgl]: https://gitlab.com/cherrypicker/squeek2lvgl
 [squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
+[unl0kr.conf]: ./unl0kr.conf
 [v1 milestone]: https://gitlab.com/cherrypicker/unl0kr/-/milestones/1
 [wiki]: https://gitlab.com/cherrypicker/unl0kr/-/wikis/home

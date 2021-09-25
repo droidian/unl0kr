@@ -28,6 +28,7 @@ add_project_arguments('-DUL_VERSION="@0@"'.format(meson.project_version()), lang
 
 unl0kr_sources = [
   'command_line.c',
+  'config.c',
   'cursor.c',
   'indev.c',
   'log.c',
@@ -49,7 +50,8 @@ executable(
   sources: unl0kr_sources + squeek2lvgl_sources + lvgl_sources + lv_drivers_sources,
   include_directories: ['lvgl', 'lv_drivers'],
   dependencies: [
-    dependency('xkbcommon'),
+    dependency('inih'),
     dependency('libinput'),
+    dependency('xkbcommon')
   ]
 )

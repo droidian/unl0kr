@@ -27,6 +27,10 @@
  * Options parsed from command line arguments
  */
 typedef struct {
+    /* Number of config files */
+    int num_config_files;
+    /* Paths of config file */
+    const char **config_files;
     /* Horizontal display resolution */
     int hor_res;
     /* Vertical display resolution */

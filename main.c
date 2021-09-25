@@ -19,6 +19,7 @@
 
 
 #include "command_line.h"
+#include "config.h"
 #include "indev.h"
 #include "log.h"
 #include "unl0kr.h"
@@ -50,8 +51,11 @@ LV_FONT_DECLARE(montserrat_extended_32);
  * Static variables
  */
 
+ul_cli_opts cli_opts;
+ul_config_opts conf_opts;
+
 bool is_dark_theme = false;
-bool is_password_hidden = true;
+bool is_password_obscured = true;
 bool is_keyboard_hidden = false;
 
 lv_obj_t *keyboard = NULL;
@@ -92,14 +96,14 @@ static void toggle_pw_btn_clicked_cb(lv_event_t *event);
 /**
  * Toggle between showing and hiding the password.
  */
-static void toggle_password_hidden(void);
+static void toggle_password_obscured(void);
 
 /**
  * Show / hide the password.
  *
  * @param is_hidden true if the password should be hidden, false if it should be shown
  */
-static void set_password_hidden(bool is_hidden);
+static void set_password_obscured(bool is_obscured);
 
 /**
  * Handle LV_EVENT_CLICKED events from the show/hide keyboard toggle button.
@@ -196,17 +200,17 @@ static void set_theme(bool is_dark) {
 }
 
 static void toggle_pw_btn_clicked_cb(lv_event_t *event) {
-    toggle_password_hidden();
+    toggle_password_obscured();
 }
 
-static void toggle_password_hidden(void) {
-    is_password_hidden = !is_password_hidden;
-    set_password_hidden(is_password_hidden);
+static void toggle_password_obscured(void) {
+    is_password_obscured = !is_password_obscured;
+    set_password_obscured(is_password_obscured);
 }
 
-static void set_password_hidden(bool is_hidden) {
+static void set_password_obscured(bool is_obscured) {
     lv_obj_t *textarea = lv_keyboard_get_textarea(keyboard);
-    lv_textarea_set_password_mode(textarea, is_hidden); 
+    lv_textarea_set_password_mode(textarea, is_obscured);
 }
 
 static void toggle_kb_btn_clicked_cb(lv_event_t *event) {   
@@ -219,6 +223,11 @@ static void toggle_keyboard_hidden(void) {
 }
 
 static void set_keyboard_hidden(bool is_hidden) {
+    if (!conf_opts.general.animations) {
+        lv_obj_set_y(keyboard, is_hidden ? lv_obj_get_height(keyboard) : 0);
+        return;
+    }
+
     lv_anim_t keyboard_anim;
     lv_anim_init(&keyboard_anim);
     lv_anim_set_var(&keyboard_anim, keyboard);
@@ -330,24 +339,18 @@ static void keyboard_ready_cb(lv_event_t *event) {
 
 int main(int argc, char *argv[]) {
     /* Parse command line options */
-    ul_cli_opts opts;
-    ul_cli_parse_opts(argc, argv, &opts);
-
-    /* Parse config file */
-    ul_config_opts config;
-    ul_config_init(&config);
-    ul_config_parse(opts.config, &config);
-
-printf("anim %d, pops %d, layout %d\n", config.animations, config.popovers, config.layout_id);
-exit(1);
+    ul_cli_parse_opts(argc, argv, &cli_opts);
 
     /* Set up log level */
-    if (opts.verbose) {
+    if (cli_opts.verbose) {
         ul_log_set_level(UL_LOG_LEVEL_VERBOSE);
     }
 
     /* Announce ourselves */
     ul_log(UL_LOG_LEVEL_VERBOSE, "unl0kr %s", UL_VERSION);
+
+    /* Parse config files */
+    ul_config_parse(cli_opts.config_files, cli_opts.num_config_files, &conf_opts);
 
     /* Initialise LVGL and set up logging callback */
     lv_init();
@@ -360,11 +363,11 @@ exit(1);
     fbdev_get_sizes(&hor_res, &ver_res);
 
     /* Override display size with command line options if necessary */
-    if (opts.hor_res > 0) {
-        hor_res = LV_MIN(hor_res, opts.hor_res);
+    if (cli_opts.hor_res > 0) {
+        hor_res = LV_MIN(hor_res, cli_opts.hor_res);
     }
-    if (opts.ver_res > 0) {
-        ver_res = LV_MIN(ver_res, opts.ver_res);
+    if (cli_opts.ver_res > 0) {
+        ver_res = LV_MIN(ver_res, cli_opts.ver_res);
     }
 
     /* Prepare display buffer */
@@ -461,7 +464,7 @@ exit(1);
     /* Route physical keyboard input into textarea */
     ul_indev_set_up_textarea_for_keyboard_input(textarea);
 
-    /* Show / hide password button */
+    /* Reveal / obscure password button */
     lv_obj_t *toggle_pw_btn = lv_btn_create(lv_scr_act());
     lv_obj_align(toggle_pw_btn, LV_ALIGN_CENTER, (hor_res - 60 > 512 ? 512 : hor_res - 60) / 2 + 32, ver_res / 2 - keyboard_height - 3 * row_height / 2);
     lv_obj_set_size(toggle_pw_btn, 64, 64);
@@ -488,7 +491,6 @@ exit(1);
     keyboard = lv_keyboard_create(lv_scr_act());
     lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
     lv_keyboard_set_textarea(keyboard, textarea);
-    // lv_btnmatrix_set_popovers(keyboard, true);
     lv_obj_remove_event_cb(keyboard, lv_keyboard_def_event_cb);
     lv_obj_add_event_cb(keyboard, keyboard_draw_part_begin_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
@@ -497,9 +499,15 @@ exit(1);
     lv_obj_set_size(keyboard, hor_res, keyboard_height);
     lv_obj_add_style(keyboard, &style_text_normal, 0);
 
-    /* Apply defaults */
-    sq2lv_switch_layout(keyboard, 0);
-    set_password_hidden(is_password_hidden);
+    /* Apply textarea options */
+    set_password_obscured(conf_opts.textarea.obscured);
+
+    /* Apply keyboard options */
+    sq2lv_switch_layout(keyboard, conf_opts.keyboard.layout_id);
+    lv_dropdown_set_selected(layout_dropdown, conf_opts.keyboard.layout_id);
+    if (conf_opts.keyboard.popovers) {
+        // lv_keyboard_set_popovers(keyboard, true);
+    }
 
     /* Run lvgl in "tickless" mode */
     while(1) {
