@@ -36,7 +36,7 @@
  * 
  * @param opts pointer to the options struct
  */
-static void init_opts(ul_cli_opts *cli_opts);
+static void init_opts(ul_cli_opts *opts);
 
 /**
  * Output usage instructions.
@@ -48,10 +48,10 @@ static void print_usage();
  * Static functions
  */
 
-static void init_opts(ul_cli_opts *cli_opts) {
-    cli_opts->hor_res = -1;
-    cli_opts->ver_res = -1;
-    cli_opts->verbose = false;
+static void init_opts(ul_cli_opts *opts) {
+    opts->hor_res = -1;
+    opts->ver_res = -1;
+    opts->verbose = false;
 }
 
 static void print_usage() {
