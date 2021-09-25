@@ -41,7 +41,7 @@ typedef enum {
 void ul_log_set_level(ul_log_level level);
 
 /**
- * Log a message.
+ * Log a message. A newline character is appended unless the message ends in one.
  * 
  * @param level log level of the message
  * @param format message format string

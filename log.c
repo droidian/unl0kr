@@ -21,6 +21,7 @@
 #include "log.h"
 
 #include <stdarg.h>
+#include <string.h>
 
 
 /**
@@ -47,8 +48,13 @@ void ul_log(ul_log_level level, const char *format, ...) {
     va_start(args, format);
     vfprintf(stderr, format, args);
     va_end(args);
+
+    size_t l = strlen(format);
+    if (l > 0 && format[l - 1] != '\n') {
+        fprintf(stderr, "\n");
+    }
 }
 
 void ul_log_print_cb(const char *msg) {
-    ul_log(UL_LOG_LEVEL_VERBOSE, "%s\n", msg);
+    ul_log(UL_LOG_LEVEL_VERBOSE, msg);
 }
