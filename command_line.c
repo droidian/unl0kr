@@ -70,10 +70,10 @@ static void print_usage() {
  * Public functions
  */
 
-void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *cli_opts) {
-    init_opts(cli_opts);
+void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *opts) {
+    init_opts(opts);
 
-    struct option opts[] = {
+    struct option long_opts[] = {
         { "geometry", required_argument, NULL, 'g' },
         { "help",     no_argument,       NULL, 'h' },
         { "verbose",  no_argument,       NULL, 'v' },
@@ -83,10 +83,10 @@ void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *cli_opts) {
 
     int opt, index = 0;
 
-    while ((opt = getopt_long(argc, argv, "g:hvV", opts, &index)) != -1) {
+    while ((opt = getopt_long(argc, argv, "g:hvV", long_opts, &index)) != -1) {
         switch (opt) {
         case 'g':
-            if (sscanf(optarg, "%ix%i", &(cli_opts->hor_res), &(cli_opts->ver_res)) != 2) {
+            if (sscanf(optarg, "%ix%i", &(opts->hor_res), &(opts->ver_res)) != 2) {
                 fprintf(stderr, "Error: invalid geometry argument \"%s\"\n", optarg);
                 exit(EXIT_FAILURE);
             }
@@ -95,7 +95,7 @@ void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *cli_opts) {
             print_usage();
             exit(EXIT_SUCCESS);
         case 'v':
-            cli_opts->verbose = true;
+            opts->verbose = true;
             break;
         case 'V':
             fprintf(stderr, "unl0kr %s\n", UL_VERSION);

@@ -40,8 +40,8 @@ typedef struct {
  * 
  * @param argc number of provided command line arguments
  * @param argv arguments as an array of strings
- * @param cli_opts pointer for writing the parsed options into
+ * @param opts pointer for writing the parsed options into
  */
-void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *cli_opts);
+void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *opts);
 
 #endif /* UL_COMMAND_LINE_H */
