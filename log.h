@@ -38,7 +38,7 @@ typedef enum {
  * 
  * @param level new log level value
  */
-void ul_set_log_level(ul_log_level level);
+void ul_log_set_level(ul_log_level level);
 
 /**
  * Log a message.
@@ -54,6 +54,6 @@ void ul_log(ul_log_level level, const char *format, ...);
  * 
  * @param msg message to print
  */
-void ul_print_cb(const char *msg);
+void ul_log_print_cb(const char *msg);
 
 #endif /* UL_LOG_H */

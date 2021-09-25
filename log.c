@@ -34,7 +34,7 @@ static ul_log_level log_level = UL_LOG_LEVEL_ERROR;
  * Public functions
  */
 
-void ul_set_log_level(ul_log_level level) {
+void ul_log_set_level(ul_log_level level) {
     log_level = level;
 }
 
@@ -49,6 +49,6 @@ void ul_log(ul_log_level level, const char *format, ...) {
     va_end(args);
 }
 
-void ul_print_cb(const char *msg) {
+void ul_log_print_cb(const char *msg) {
     ul_log(UL_LOG_LEVEL_VERBOSE, "%s\n", msg);
 }

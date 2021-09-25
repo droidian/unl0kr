@@ -333,9 +333,17 @@ int main(int argc, char *argv[]) {
     ul_cli_opts opts;
     ul_cli_parse_opts(argc, argv, &opts);
 
+    /* Parse config file */
+    ul_config_opts config;
+    ul_config_init(&config);
+    ul_config_parse(opts.config, &config);
+
+printf("anim %d, pops %d, layout %d\n", config.animations, config.popovers, config.layout_id);
+exit(1);
+
     /* Set up log level */
     if (opts.verbose) {
-        ul_set_log_level(UL_LOG_LEVEL_VERBOSE);
+        ul_log_set_level(UL_LOG_LEVEL_VERBOSE);
     }
 
     /* Announce ourselves */
@@ -343,7 +351,7 @@ int main(int argc, char *argv[]) {
 
     /* Initialise LVGL and set up logging callback */
     lv_init();
-    lv_log_register_print_cb(ul_print_cb);
+    lv_log_register_print_cb(ul_log_print_cb);
 
     /* Initialise framebuffer driver and query display size */
     fbdev_init();
