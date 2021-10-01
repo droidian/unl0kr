@@ -40,7 +40,7 @@ Below is a summary of contributions upstreamed thus far.
 ### lvgl
 
 - [fix(examples) don't compile assets unless needed] (✅ merged)
-- [feat(btnmatrix): add option to show popovers on button press] (⏳ in review)
+- [feat(btnmatrix): add option to show popovers on button press] (✅ merged)
 - [feat(msgbox): add function to get selected button index] (✅ merged)
 - [feat(msgbox): omit title label unless needed] (✅ merged)
 - [fix(btnmatrix): make ORed values work correctly with lv_btnmatrix_has_btn_ctrl] (✅ merged)

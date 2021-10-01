@@ -506,7 +506,7 @@ int main(int argc, char *argv[]) {
     sq2lv_switch_layout(keyboard, conf_opts.keyboard.layout_id);
     lv_dropdown_set_selected(layout_dropdown, conf_opts.keyboard.layout_id);
     if (conf_opts.keyboard.popovers) {
-        // lv_keyboard_set_popovers(keyboard, true);
+        lv_keyboard_set_popovers(keyboard, true);
     }
 
     /* Run lvgl in "tickless" mode */
