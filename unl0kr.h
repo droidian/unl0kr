@@ -21,8 +21,18 @@
 #ifndef UL_UNL0KR_H
 #define UL_UNL0KR_H
 
+#include "lvgl/lvgl.h"
+
 #ifndef UL_VERSION
 #define UL_VERSION "?" /* Just to silence IDE warning. Real version injected by meson during build. */
 #endif
+
+/**
+ * Fonts
+ */
+
+LV_FONT_DECLARE(montserrat_extended_32);
+
+#define UL_SYMBOL_ADJUST "\xef\x81\x82" // 0xF042 (https://fontawesome.com/v5.15/icons/adjust?style=solid)
 
 #endif /* UL_UNL0KR_H */

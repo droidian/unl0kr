@@ -35,6 +35,8 @@ unl0kr_sources = [
   'main.c',
   'montserrat_extended_32.c',
   'sq2lv_layouts.c',
+  'theme.c',
+  'themes.c'
 ]
 
 squeek2lvgl_sources = [

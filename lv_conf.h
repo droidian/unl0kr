@@ -488,7 +488,7 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 # define LV_THEME_DEFAULT_DARK     0
 
 /*1: Enable grow on press*/
-# define LV_THEME_DEFAULT_GROW              1
+# define LV_THEME_DEFAULT_GROW              0
 
 /*Default transition time in [ms]*/
 # define LV_THEME_DEFAULT_TRANSITON_TIME    80

@@ -23,6 +23,8 @@
 #include "indev.h"
 #include "log.h"
 #include "unl0kr.h"
+#include "theme.h"
+#include "themes.h"
 
 #include "lv_drivers/display/fbdev.h"
 
@@ -39,28 +41,17 @@
 
 
 /**
- * Custom fonts
- */
-
-LV_FONT_DECLARE(montserrat_extended_32);
-
-#define SYMBOL_ADJUST "\xef\x81\x82" // 0xF042 (https://fontawesome.com/v5.15/icons/adjust?style=solid)
-
-
-/**
  * Static variables
  */
 
 ul_cli_opts cli_opts;
 ul_config_opts conf_opts;
 
-bool is_dark_theme = false;
+bool is_alternate_theme = false;
 bool is_password_obscured = true;
 bool is_keyboard_hidden = false;
 
 lv_obj_t *keyboard = NULL;
-
-lv_style_t style_text_normal;
 
 
 /**
@@ -133,13 +124,6 @@ static void set_keyboard_hidden(bool is_hidden);
 static void keyboard_anim_y_cb(void *obj, int32_t value);
 
 /**
- * Handle LV_EVENT_READY events from the keyboard layout dropdown.
- *
- * @param event the event object
- */
-static void layout_dropdown_ready_cb(lv_event_t *event);
-
-/**
  * Handle LV_EVENT_VALUE_CHANGED events from the keyboard layout dropdown.
  *
  * @param event the event object
@@ -159,13 +143,6 @@ static void shutdown_btn_clicked_cb(lv_event_t *event);
  * @param event the event object
  */
 static void shutdown_mbox_value_changed_cb(lv_event_t *event);
-
-/**
- * Handle LV_EVENT_DRAW_PART_BEGIN events from the keyboard widget.
- *
- * @param event the event object
- */
-static void keyboard_draw_part_begin_cb(lv_event_t *event);
 
 /**
  * Handle LV_EVENT_VALUE_CHANGED events from the keyboard widget.
@@ -191,12 +168,12 @@ static void toggle_theme_btn_clicked_cb(lv_event_t *event) {
 }
 
 static void toggle_theme(void) {
-    is_dark_theme = !is_dark_theme;
-    set_theme(is_dark_theme);
+    is_alternate_theme = !is_alternate_theme;
+    set_theme(is_alternate_theme);
 }
 
-static void set_theme(bool is_dark) {
-    lv_theme_default_init(NULL, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_CYAN), is_dark, &montserrat_extended_32);
+static void set_theme(bool is_alternate) {
+    ul_theme_apply(is_alternate ? &ul_themes_breezy_light : &ul_themes_breezy_dark);
 }
 
 static void toggle_pw_btn_clicked_cb(lv_event_t *event) {
@@ -249,12 +226,6 @@ static void keyboard_anim_y_cb(void *obj, int32_t value) {
     lv_obj_set_y(obj, value);
 }
 
-static void layout_dropdown_ready_cb(lv_event_t *event) {
-    lv_obj_t *dropdown = lv_event_get_target(event);
-    lv_obj_t *list = lv_dropdown_get_list(dropdown);
-    lv_obj_add_style(list, &style_text_normal, 0);
-}
-
 static void layout_dropdown_value_changed_cb(lv_event_t *event) {
     lv_obj_t *dropdown = lv_event_get_target(event);
     uint16_t idx = lv_dropdown_get_selected(dropdown);
@@ -275,38 +246,6 @@ static void shutdown_mbox_value_changed_cb(lv_event_t *event) {
         reboot(RB_POWER_OFF);
     }
     lv_msgbox_close(mbox);
-}
-
-static void keyboard_draw_part_begin_cb(lv_event_t *event) {
-    lv_obj_t *obj = lv_event_get_target(event);
-    lv_btnmatrix_t *btnm = (lv_btnmatrix_t *)obj;
-    lv_obj_draw_part_dsc_t *dsc = lv_event_get_param(event);
-
-    if (dsc->part != LV_PART_ITEMS) {
-        return;
-    }
-
-    if (lv_btnmatrix_get_selected_btn(obj) == dsc->id) { /* key is held down */
-        if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_INACTIVE) == SQ2LV_CTRL_MOD_INACTIVE) {
-            dsc->rect_dsc->bg_color = lv_palette_lighten(LV_PALETTE_TEAL, 1);
-        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_ACTIVE) == SQ2LV_CTRL_MOD_ACTIVE) {
-            dsc->rect_dsc->bg_color = lv_palette_lighten(LV_PALETTE_TEAL, 1);
-        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_NON_CHAR) == SQ2LV_CTRL_NON_CHAR) {
-            dsc->rect_dsc->bg_color = lv_palette_darken(LV_PALETTE_BLUE_GREY, 3);
-        } else {
-            dsc->rect_dsc->bg_color = lv_palette_lighten(LV_PALETTE_BLUE_GREY, 1);
-        }
-    } else { /* key is not held down */
-        if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_INACTIVE) == SQ2LV_CTRL_MOD_INACTIVE) {
-            dsc->rect_dsc->bg_color = lv_palette_darken(LV_PALETTE_BLUE_GREY, 4);
-        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_MOD_ACTIVE) == SQ2LV_CTRL_MOD_ACTIVE) {
-            dsc->rect_dsc->bg_color = lv_palette_main(LV_PALETTE_TEAL);
-        } else if ((btnm->ctrl_bits[dsc->id] & SQ2LV_CTRL_NON_CHAR) == SQ2LV_CTRL_NON_CHAR) {
-            dsc->rect_dsc->bg_color = lv_palette_darken(LV_PALETTE_BLUE_GREY, 4);
-        } else {
-            dsc->rect_dsc->bg_color = lv_palette_main(LV_PALETTE_BLUE_GREY);
-        }
-    }
 }
 
 static void keyboard_value_changed_cb(lv_event_t *event) {
@@ -394,10 +333,8 @@ int main(int argc, char *argv[]) {
         is_keyboard_hidden = true;
     }
 
-    /* Initialise theme and styles */
-    set_theme(is_dark_theme);
-    lv_style_init(&style_text_normal);
-    lv_style_set_text_font(&style_text_normal, &montserrat_extended_32);
+    /* Initialise theme */
+    set_theme(is_alternate_theme);
 
     /* Figure out a few numbers for sizing and positioning */
     const int keyboard_height = ver_res / 3;
@@ -417,9 +354,8 @@ int main(int argc, char *argv[]) {
     lv_obj_set_grid_cell(toggle_theme_btn, LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     lv_obj_set_size(toggle_theme_btn, 64, 64);
     lv_obj_t *toggle_theme_btn_label = lv_label_create(toggle_theme_btn);
-    lv_label_set_text(toggle_theme_btn_label, SYMBOL_ADJUST);
+    lv_label_set_text(toggle_theme_btn_label, UL_SYMBOL_ADJUST);
     lv_obj_center(toggle_theme_btn_label);
-    lv_obj_add_style(toggle_theme_btn_label, &style_text_normal, 0);
 
     /* Show / hide keyboard button */
     lv_obj_t *toggle_kb_btn = lv_btn_create(btn_row);
@@ -429,17 +365,14 @@ int main(int argc, char *argv[]) {
     lv_obj_t *toggle_kb_btn_label = lv_label_create(toggle_kb_btn);
     lv_label_set_text(toggle_kb_btn_label, LV_SYMBOL_KEYBOARD);
     lv_obj_center(toggle_kb_btn_label);
-    lv_obj_add_style(toggle_kb_btn_label, &style_text_normal, 0);
 
     /* Keyboard layout dropdown */
     lv_obj_t *layout_dropdown = lv_dropdown_create(btn_row);
     lv_dropdown_set_options(layout_dropdown, sq2lv_layout_short_names);
-    lv_obj_add_event_cb(layout_dropdown, layout_dropdown_ready_cb, LV_EVENT_READY, NULL);
     lv_obj_add_event_cb(layout_dropdown, layout_dropdown_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_set_grid_cell(layout_dropdown, LV_GRID_ALIGN_START, 2, 1, LV_GRID_ALIGN_CENTER, 0, 1);
-    lv_obj_set_height(layout_dropdown, 64);
+    // lv_obj_set_height(layout_dropdown, 64);
     lv_obj_set_width(layout_dropdown, 160);
-    lv_obj_add_style(layout_dropdown, &style_text_normal, 0);
 
     /* Shutdown button */
     lv_obj_t *shutdown_btn = lv_btn_create(btn_row);
@@ -449,17 +382,16 @@ int main(int argc, char *argv[]) {
     lv_obj_t *shutdown_btn_label = lv_label_create(shutdown_btn);
     lv_label_set_text(shutdown_btn_label, LV_SYMBOL_POWER);
     lv_obj_center(shutdown_btn_label);
-    lv_obj_add_style(shutdown_btn_label, &style_text_normal, 0);
 
     /* Textarea */
     lv_obj_t *textarea = lv_textarea_create(lv_scr_act());
     lv_textarea_set_one_line(textarea, true);
     lv_textarea_set_password_mode(textarea, true);
     lv_textarea_set_placeholder_text(textarea, "Enter password...");
-    lv_obj_set_size(textarea, hor_res - 60 > 512 ? 512 : hor_res - 60, 64);
+    // lv_obj_set_size(textarea, hor_res - 60 > 512 ? 512 : hor_res - 60, 64);
+    lv_obj_set_width(textarea, hor_res - 60 > 512 ? 512 : hor_res - 60);
     lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height - 3 * row_height / 2);
     lv_obj_add_state(textarea, LV_STATE_FOCUSED);
-    lv_obj_add_style(textarea, &style_text_normal, 0);
 
     /* Route physical keyboard input into textarea */
     ul_indev_set_up_textarea_for_keyboard_input(textarea);
@@ -467,12 +399,11 @@ int main(int argc, char *argv[]) {
     /* Reveal / obscure password button */
     lv_obj_t *toggle_pw_btn = lv_btn_create(lv_scr_act());
     lv_obj_align(toggle_pw_btn, LV_ALIGN_CENTER, (hor_res - 60 > 512 ? 512 : hor_res - 60) / 2 + 32, ver_res / 2 - keyboard_height - 3 * row_height / 2);
-    lv_obj_set_size(toggle_pw_btn, 64, 64);
+    // lv_obj_set_size(toggle_pw_btn, 64, 64);
     lv_obj_t *toggle_pw_btn_label = lv_label_create(toggle_pw_btn);
     lv_obj_center(toggle_pw_btn_label);
     lv_label_set_text(toggle_pw_btn_label, LV_SYMBOL_EYE_OPEN);
     lv_obj_add_event_cb(toggle_pw_btn, toggle_pw_btn_clicked_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_style(toggle_pw_btn_label, &style_text_normal, 0);
 
     /* Label */
     lv_obj_t *spangroup = lv_spangroup_create(lv_scr_act());
@@ -480,7 +411,6 @@ int main(int argc, char *argv[]) {
     lv_spangroup_set_mode(spangroup, LV_SPAN_MODE_BREAK);
     lv_obj_set_size(spangroup, hor_res - 40, 2 * row_height);
     lv_obj_align(spangroup, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height);
-    lv_obj_add_style(spangroup, &style_text_normal, 0);
     lv_span_t *span1 = lv_spangroup_new_span(spangroup);
     lv_span_set_text(span1, "Password required to unlock ");
     lv_span_t *span2 = lv_spangroup_new_span(spangroup);
@@ -492,12 +422,11 @@ int main(int argc, char *argv[]) {
     lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_TEXT_LOWER);
     lv_keyboard_set_textarea(keyboard, textarea);
     lv_obj_remove_event_cb(keyboard, lv_keyboard_def_event_cb);
-    lv_obj_add_event_cb(keyboard, keyboard_draw_part_begin_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_event_cb(keyboard, keyboard_ready_cb, LV_EVENT_READY, NULL);
     lv_obj_set_pos(keyboard, 0, is_keyboard_hidden ? keyboard_height : 0);
     lv_obj_set_size(keyboard, hor_res, keyboard_height);
-    lv_obj_add_style(keyboard, &style_text_normal, 0);
+    ul_theme_prepare_keyboard(keyboard);
 
     /* Apply textarea options */
     set_password_obscured(conf_opts.textarea.obscured);
