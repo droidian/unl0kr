@@ -412,10 +412,18 @@ int main(int argc, char *argv[]) {
     lv_obj_set_size(spangroup, hor_res - 40, 2 * row_height);
     lv_obj_align(spangroup, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height);
     lv_span_t *span1 = lv_spangroup_new_span(spangroup);
-    lv_span_set_text(span1, "Password required to unlock ");
     lv_span_t *span2 = lv_spangroup_new_span(spangroup);
-    lv_span_set_text(span2, "/dev/sda1");
-    lv_style_set_text_color(&span2->style, lv_palette_main(LV_PALETTE_RED));
+    lv_span_t *span3 = lv_spangroup_new_span(spangroup);
+
+    /* Label text */
+    const char *crypttab_tried = getenv("CRYPTTAB_TRIED");
+    if (crypttab_tried && atoi(crypttab_tried) > 0) {
+        lv_span_set_text(span1, "Password incorrect. Please enter password to unlock ");
+        lv_span_set_text(span3, ".");
+    } else {
+        lv_span_set_text(span1, "Please enter password to unlock ");
+    }
+    lv_span_set_text(span2, getenv("CRYPTTAB_SOURCE"));
 
     /* Keyboard (after textarea / label so that key popovers are not drawn over) */
     keyboard = lv_keyboard_create(lv_scr_act());
