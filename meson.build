@@ -30,10 +30,10 @@ unl0kr_sources = [
   'command_line.c',
   'config.c',
   'cursor.c',
+  'font_32.c',
   'indev.c',
   'log.c',
   'main.c',
-  'montserrat_extended_32.c',
   'sq2lv_layouts.c',
   'theme.c',
   'themes.c'

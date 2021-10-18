@@ -79,19 +79,19 @@ static const int switcher_dests_upper_us[] = { \
 
 /* Layer: Numbers / symbols - generated from numbers */
 
-static const int num_keys_numbers_us = 34;
+static const int num_keys_numbers_us = 35;
 
 static const char * const keycaps_numbers_us[] = { \
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\n", \
     "@", "#", "$", "%", "&", "-", "_", "+", "(", ")", "\n", \
-    ",", "\"", "'", ":", ";", "!", "?", LV_SYMBOL_BACKSPACE, "\n", \
+    "*/=", ",", "\"", "'", ":", ";", "!", "?", LV_SYMBOL_BACKSPACE, "\n", \
     "ABC", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, ".", LV_SYMBOL_OK, "" \
 };
 
 static const lv_btnmatrix_ctrl_t attributes_numbers_us[] = { \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
-    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
     SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3 \
 };
 
@@ -99,19 +99,51 @@ static const int num_modifiers_numbers_us = 0;
 
 static const int * const modifier_idxs_numbers_us = NULL;
 
-static const int num_switchers_numbers_us = 1;
+static const int num_switchers_numbers_us = 2;
 
 static const int switcher_idxs_numbers_us[] = { \
-    28 \
+    20, 29 \
 };
 
 static const int switcher_dests_numbers_us[] = { \
-    0 \
+    3, 0 \
+};
+
+/* Layer: Symbols - generated from symbols */
+
+static const int num_keys_symbols_us = 35;
+
+static const char * const keycaps_symbols_us[] = { \
+    "~", "`", "|", "·", "√", "π", "τ", "÷", "×", "¶", "\n", \
+    "©", "®", "£", "€", "¥", "^", "°", "*", "{", "}", "\n", \
+    "123", "\\", "/", "<", ">", "=", "[", "]", LV_SYMBOL_BACKSPACE, "\n", \
+    "ABC", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, ".", LV_SYMBOL_OK, "" \
+};
+
+static const lv_btnmatrix_ctrl_t attributes_symbols_us[] = { \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3 \
+};
+
+static const int num_modifiers_symbols_us = 0;
+
+static const int * const modifier_idxs_symbols_us = NULL;
+
+static const int num_switchers_symbols_us = 2;
+
+static const int switcher_idxs_symbols_us[] = { \
+    20, 29 \
+};
+
+static const int switcher_dests_symbols_us[] = { \
+    2, 0 \
 };
 
 /* Layer array */
 
-static const int num_layers_us = 3;
+static const int num_layers_us = 4;
 
 static const sq2lv_layer_t layers_us[] = {
     {
@@ -143,6 +175,16 @@ static const sq2lv_layer_t layers_us[] = {
         .num_switchers = num_switchers_numbers_us,
         .switcher_idxs = switcher_idxs_numbers_us,
         .switcher_dests = switcher_dests_numbers_us
+    },
+    {
+        .num_keys = num_keys_symbols_us,
+        .keycaps = keycaps_symbols_us,
+        .attributes = attributes_symbols_us,
+        .num_modifiers = num_modifiers_symbols_us,
+        .modifier_idxs = modifier_idxs_symbols_us,
+        .num_switchers = num_switchers_symbols_us,
+        .switcher_idxs = switcher_idxs_symbols_us,
+        .switcher_dests = switcher_dests_symbols_us
     }
 };
 
@@ -182,7 +224,7 @@ static const int switcher_idxs_lower_de[] = { \
 };
 
 static const int switcher_dests_lower_de[] = { \
-    1, 2, 3 \
+    1, 2, 4 \
 };
 
 /* Layer: Uppercase letters - generated from upper */
@@ -214,24 +256,24 @@ static const int switcher_idxs_upper_de[] = { \
 };
 
 static const int switcher_dests_upper_de[] = { \
-    0, 2, 3 \
+    0, 2, 4 \
 };
 
 /* Layer: Numbers / symbols - generated from numbers */
 
-static const int num_keys_numbers_de = 36;
+static const int num_keys_numbers_de = 37;
 
 static const char * const keycaps_numbers_de[] = { \
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\n", \
     "@", "#", "€", "%", "&", "-", "_", "+", "(", ")", "\n", \
-    ";", "\"", "'", ":", "=", "<", ">", LV_SYMBOL_BACKSPACE, "\n", \
+    "*/=", ";", "\"", "'", ":", "=", "<", ">", LV_SYMBOL_BACKSPACE, "\n", \
     "abc", "äÄ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, ",", ".", LV_SYMBOL_OK, "" \
 };
 
 static const lv_btnmatrix_ctrl_t attributes_numbers_de[] = { \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
-    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
     SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_MOD_INACTIVE | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3 \
 };
 
@@ -239,14 +281,46 @@ static const int num_modifiers_numbers_de = 0;
 
 static const int * const modifier_idxs_numbers_de = NULL;
 
-static const int num_switchers_numbers_de = 2;
+static const int num_switchers_numbers_de = 3;
 
 static const int switcher_idxs_numbers_de[] = { \
-    28, 29 \
+    20, 29, 30 \
 };
 
 static const int switcher_dests_numbers_de[] = { \
-    0, 3 \
+    3, 0, 4 \
+};
+
+/* Layer: Symbols - generated from symbols */
+
+static const int num_keys_symbols_de = 37;
+
+static const char * const keycaps_symbols_de[] = { \
+    "~", "`", "´", "|", "·", "√", "µ", "÷", "×", "¶", "\n", \
+    "©", "®", "£", "$", "¥", "^", "°", "*", "{", "}", "\n", \
+    "123", "\\", "/", "§", "π", "τ", "[", "]", LV_SYMBOL_BACKSPACE, "\n", \
+    "abc", "äÄ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, ",", ".", LV_SYMBOL_OK, "" \
+};
+
+static const lv_btnmatrix_ctrl_t attributes_symbols_de[] = { \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_MOD_INACTIVE | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3 \
+};
+
+static const int num_modifiers_symbols_de = 0;
+
+static const int * const modifier_idxs_symbols_de = NULL;
+
+static const int num_switchers_symbols_de = 3;
+
+static const int switcher_idxs_symbols_de[] = { \
+    20, 29, 30 \
+};
+
+static const int switcher_dests_symbols_de[] = { \
+    2, 0, 4 \
 };
 
 /* Layer: Special characters - generated from eschars */
@@ -283,7 +357,7 @@ static const int switcher_dests_special_de[] = { \
 
 /* Layer array */
 
-static const int num_layers_de = 4;
+static const int num_layers_de = 5;
 
 static const sq2lv_layer_t layers_de[] = {
     {
@@ -315,6 +389,16 @@ static const sq2lv_layer_t layers_de[] = {
         .num_switchers = num_switchers_numbers_de,
         .switcher_idxs = switcher_idxs_numbers_de,
         .switcher_dests = switcher_dests_numbers_de
+    },
+    {
+        .num_keys = num_keys_symbols_de,
+        .keycaps = keycaps_symbols_de,
+        .attributes = attributes_symbols_de,
+        .num_modifiers = num_modifiers_symbols_de,
+        .modifier_idxs = modifier_idxs_symbols_de,
+        .num_switchers = num_switchers_symbols_de,
+        .switcher_idxs = switcher_idxs_symbols_de,
+        .switcher_dests = switcher_dests_symbols_de
     },
     {
         .num_keys = num_keys_special_de,
@@ -364,7 +448,7 @@ static const int switcher_idxs_lower_es[] = { \
 };
 
 static const int switcher_dests_lower_es[] = { \
-    1, 2, 3 \
+    1, 2, 4 \
 };
 
 /* Layer: Uppercase letters - generated from upper */
@@ -396,24 +480,24 @@ static const int switcher_idxs_upper_es[] = { \
 };
 
 static const int switcher_dests_upper_es[] = { \
-    0, 2, 3 \
+    0, 2, 4 \
 };
 
 /* Layer: Numbers / symbols - generated from numbers */
 
-static const int num_keys_numbers_es = 36;
+static const int num_keys_numbers_es = 37;
 
 static const char * const keycaps_numbers_es[] = { \
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\n", \
     "@", "#", "€", "%", "&", "-", "_", "+", "(", ")", "\n", \
-    ",", "\"", "'", ":", ";", "!", "=", LV_SYMBOL_BACKSPACE, "\n", \
+    "*/=", ",", "\"", "'", ":", ";", "!", "=", LV_SYMBOL_BACKSPACE, "\n", \
     "abc", "áÁ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "?", ".", LV_SYMBOL_OK, "" \
 };
 
 static const lv_btnmatrix_ctrl_t attributes_numbers_es[] = { \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
-    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
     SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_MOD_INACTIVE | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3 \
 };
 
@@ -421,14 +505,46 @@ static const int num_modifiers_numbers_es = 0;
 
 static const int * const modifier_idxs_numbers_es = NULL;
 
-static const int num_switchers_numbers_es = 2;
+static const int num_switchers_numbers_es = 3;
 
 static const int switcher_idxs_numbers_es[] = { \
-    28, 29 \
+    20, 29, 30 \
 };
 
 static const int switcher_dests_numbers_es[] = { \
-    0, 3 \
+    3, 0, 4 \
+};
+
+/* Layer: Symbols - generated from symbols */
+
+static const int num_keys_symbols_es = 37;
+
+static const char * const keycaps_symbols_es[] = { \
+    "~", "`", "|", "·", "√", "π", "τ", "÷", "×", "¶", "\n", \
+    "©", "®", "£", "$", "¥", "^", "°", "*", "{", "}", "\n", \
+    "123", "\\", "/", "<", ">", "=", "[", "]", LV_SYMBOL_BACKSPACE, "\n", \
+    "abc", "áÁ", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "?", ".", LV_SYMBOL_OK, "" \
+};
+
+static const lv_btnmatrix_ctrl_t attributes_symbols_es[] = { \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_MOD_INACTIVE | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3 \
+};
+
+static const int num_modifiers_symbols_es = 0;
+
+static const int * const modifier_idxs_symbols_es = NULL;
+
+static const int num_switchers_symbols_es = 3;
+
+static const int switcher_idxs_symbols_es[] = { \
+    20, 29, 30 \
+};
+
+static const int switcher_dests_symbols_es[] = { \
+    2, 0, 4 \
 };
 
 /* Layer: Special characters - generated from eschars */
@@ -465,7 +581,7 @@ static const int switcher_dests_special_es[] = { \
 
 /* Layer array */
 
-static const int num_layers_es = 4;
+static const int num_layers_es = 5;
 
 static const sq2lv_layer_t layers_es[] = {
     {
@@ -497,6 +613,16 @@ static const sq2lv_layer_t layers_es[] = {
         .num_switchers = num_switchers_numbers_es,
         .switcher_idxs = switcher_idxs_numbers_es,
         .switcher_dests = switcher_dests_numbers_es
+    },
+    {
+        .num_keys = num_keys_symbols_es,
+        .keycaps = keycaps_symbols_es,
+        .attributes = attributes_symbols_es,
+        .num_modifiers = num_modifiers_symbols_es,
+        .modifier_idxs = modifier_idxs_symbols_es,
+        .num_switchers = num_switchers_symbols_es,
+        .switcher_idxs = switcher_idxs_symbols_es,
+        .switcher_dests = switcher_dests_symbols_es
     },
     {
         .num_keys = num_keys_special_es,
@@ -546,7 +672,7 @@ static const int switcher_idxs_lower_fr[] = { \
 };
 
 static const int switcher_dests_lower_fr[] = { \
-    1, 2, 3 \
+    1, 2, 4 \
 };
 
 /* Layer: Uppercase letters - generated from upper */
@@ -578,24 +704,24 @@ static const int switcher_idxs_upper_fr[] = { \
 };
 
 static const int switcher_dests_upper_fr[] = { \
-    0, 2, 3 \
+    0, 2, 4 \
 };
 
 /* Layer: Numbers / symbols - generated from numbers */
 
-static const int num_keys_numbers_fr = 34;
+static const int num_keys_numbers_fr = 35;
 
 static const char * const keycaps_numbers_fr[] = { \
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\n", \
     "@", "#", "€", "%", "&", "-", "_", "+", "(", ")", "\n", \
-    ",", "\"", "'", ":", ";", "!", "?", LV_SYMBOL_BACKSPACE, "\n", \
+    "*/=", ",", "\"", "'", ":", ";", "!", "?", LV_SYMBOL_BACKSPACE, "\n", \
     "abc", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "âÂ", LV_SYMBOL_OK, "" \
 };
 
 static const lv_btnmatrix_ctrl_t attributes_numbers_fr[] = { \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
     LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
-    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
     SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, SQ2LV_CTRL_MOD_INACTIVE | 3, SQ2LV_CTRL_NON_CHAR | 3 \
 };
 
@@ -603,14 +729,46 @@ static const int num_modifiers_numbers_fr = 0;
 
 static const int * const modifier_idxs_numbers_fr = NULL;
 
-static const int num_switchers_numbers_fr = 2;
+static const int num_switchers_numbers_fr = 3;
 
 static const int switcher_idxs_numbers_fr[] = { \
-    28, 32 \
+    20, 29, 33 \
 };
 
 static const int switcher_dests_numbers_fr[] = { \
-    0, 3 \
+    3, 0, 4 \
+};
+
+/* Layer: Symbols - generated from symbols */
+
+static const int num_keys_symbols_fr = 35;
+
+static const char * const keycaps_symbols_fr[] = { \
+    "~", "`", "|", "·", "√", "π", "τ", "÷", "×", "¶", "\n", \
+    "©", "®", "£", "$", "¥", "^", "°", "*", "{", "}", "\n", \
+    "123", "\\", "/", "<", ">", "=", "[", "]", LV_SYMBOL_BACKSPACE, "\n", \
+    "abc", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, "âÂ", LV_SYMBOL_OK, "" \
+};
+
+static const lv_btnmatrix_ctrl_t attributes_symbols_fr[] = { \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, \
+    SQ2LV_CTRL_NON_CHAR | 3, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, LV_BTNMATRIX_CTRL_POPOVER | 2, SQ2LV_CTRL_NON_CHAR | 3, \
+    SQ2LV_CTRL_NON_CHAR | 3, SQ2LV_CTRL_NON_CHAR | 2, 7, SQ2LV_CTRL_NON_CHAR | 2, SQ2LV_CTRL_MOD_INACTIVE | 3, SQ2LV_CTRL_NON_CHAR | 3 \
+};
+
+static const int num_modifiers_symbols_fr = 0;
+
+static const int * const modifier_idxs_symbols_fr = NULL;
+
+static const int num_switchers_symbols_fr = 3;
+
+static const int switcher_idxs_symbols_fr[] = { \
+    20, 29, 33 \
+};
+
+static const int switcher_dests_symbols_fr[] = { \
+    2, 0, 4 \
 };
 
 /* Layer: Special characters - generated from eschars */
@@ -647,7 +805,7 @@ static const int switcher_dests_special_fr[] = { \
 
 /* Layer array */
 
-static const int num_layers_fr = 4;
+static const int num_layers_fr = 5;
 
 static const sq2lv_layer_t layers_fr[] = {
     {
@@ -679,6 +837,16 @@ static const sq2lv_layer_t layers_fr[] = {
         .num_switchers = num_switchers_numbers_fr,
         .switcher_idxs = switcher_idxs_numbers_fr,
         .switcher_dests = switcher_dests_numbers_fr
+    },
+    {
+        .num_keys = num_keys_symbols_fr,
+        .keycaps = keycaps_symbols_fr,
+        .attributes = attributes_symbols_fr,
+        .num_modifiers = num_modifiers_symbols_fr,
+        .modifier_idxs = modifier_idxs_symbols_fr,
+        .num_switchers = num_switchers_symbols_fr,
+        .switcher_idxs = switcher_idxs_symbols_fr,
+        .switcher_dests = switcher_dests_symbols_fr
     },
     {
         .num_keys = num_keys_special_fr,
