@@ -226,6 +226,11 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
         return;
     }
 
+    if (lv_obj_has_flag(obj, UL_WIDGET_HEADER)) {
+        lv_obj_add_style(obj, &(styles.header), 0);
+        return;
+    }
+
     if (lv_obj_check_type(obj, &lv_keyboard_class)) {
         lv_obj_add_style(obj, &(styles.keyboard), 0);
         lv_obj_add_style(obj, &(styles.key), LV_PART_ITEMS);
@@ -278,9 +283,6 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
         lv_obj_add_style(obj, &(styles.msgbox_background), 0);
         return;
     }
-
-    /* If none of the if's above matched, this has to be the header */
-    lv_obj_add_style(obj, &(styles.header), 0);
 }
 
 static void keyboard_draw_part_begin_cb(lv_event_t *event) {

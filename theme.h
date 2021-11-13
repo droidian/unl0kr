@@ -26,6 +26,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define UL_WIDGET_HEADER LV_OBJ_FLAG_USER_1
+
 /**
  * Theming structs
  */

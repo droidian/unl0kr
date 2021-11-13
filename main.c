@@ -337,80 +337,69 @@ int main(int argc, char *argv[]) {
     set_theme(is_alternate_theme);
 
     /* Figure out a few numbers for sizing and positioning */
-    const int keyboard_height = ver_res / 3;
-    const int row_height = keyboard_height / 4;
+    const int keyboard_height = ver_res > hor_res ? ver_res / 3 : ver_res / 2;
+    const int padding = keyboard_height / 8;
+    const int label_width = hor_res - 2 * padding;
 
-    /* Button row */
-    lv_obj_t *btn_row = lv_obj_create(lv_scr_act());
-    static lv_coord_t btn_row_col_dsc[] = { 64, 64, LV_GRID_FR(1), 64, LV_GRID_TEMPLATE_LAST };
-    static lv_coord_t btn_row_row_dsc[] = { 64, LV_GRID_TEMPLATE_LAST };
-    lv_obj_set_grid_dsc_array(btn_row, btn_row_col_dsc, btn_row_row_dsc);
-    lv_obj_set_size(btn_row, LV_PCT(100), LV_SIZE_CONTENT);
-    lv_obj_align(btn_row, LV_ALIGN_TOP_MID, 0, 0);
+    /* Main flexbox */
+    lv_obj_t *container = lv_obj_create(lv_scr_act());
+    lv_obj_set_flex_flow(container, LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_flex_align(container, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_set_size(container, LV_PCT(100), ver_res - keyboard_height);
+    lv_obj_set_pos(container, 0, 0);
+    lv_obj_set_style_pad_row(container, padding, LV_PART_MAIN);
+    lv_obj_set_style_pad_bottom(container, padding, LV_PART_MAIN);
+
+    /* Header flexbox */
+    lv_obj_t *header = lv_obj_create(container);
+    lv_obj_add_flag(header, UL_WIDGET_HEADER);
+    lv_theme_apply(header); /* Force re-apply theme after setting flag so that the widget can be identified */
+    lv_obj_set_flex_flow(header, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(header, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_set_size(header, LV_PCT(100), LV_SIZE_CONTENT);
 
     /* Theme switcher button */
-    lv_obj_t *toggle_theme_btn = lv_btn_create(btn_row);
+    lv_obj_t *toggle_theme_btn = lv_btn_create(header);
     lv_obj_add_event_cb(toggle_theme_btn, toggle_theme_btn_clicked_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_set_grid_cell(toggle_theme_btn, LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
-    lv_obj_set_size(toggle_theme_btn, 64, 64);
     lv_obj_t *toggle_theme_btn_label = lv_label_create(toggle_theme_btn);
     lv_label_set_text(toggle_theme_btn_label, UL_SYMBOL_ADJUST);
     lv_obj_center(toggle_theme_btn_label);
 
     /* Show / hide keyboard button */
-    lv_obj_t *toggle_kb_btn = lv_btn_create(btn_row);
+    lv_obj_t *toggle_kb_btn = lv_btn_create(header);
     lv_obj_add_event_cb(toggle_kb_btn, toggle_kb_btn_clicked_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_set_grid_cell(toggle_kb_btn, LV_GRID_ALIGN_CENTER, 1, 1, LV_GRID_ALIGN_CENTER, 0, 1);
-    lv_obj_set_size(toggle_kb_btn, 64, 64);
     lv_obj_t *toggle_kb_btn_label = lv_label_create(toggle_kb_btn);
     lv_label_set_text(toggle_kb_btn_label, LV_SYMBOL_KEYBOARD);
     lv_obj_center(toggle_kb_btn_label);
 
     /* Keyboard layout dropdown */
-    lv_obj_t *layout_dropdown = lv_dropdown_create(btn_row);
+    lv_obj_t *layout_dropdown = lv_dropdown_create(header);
     lv_dropdown_set_options(layout_dropdown, sq2lv_layout_short_names);
     lv_obj_add_event_cb(layout_dropdown, layout_dropdown_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
-    lv_obj_set_grid_cell(layout_dropdown, LV_GRID_ALIGN_START, 2, 1, LV_GRID_ALIGN_CENTER, 0, 1);
-    // lv_obj_set_height(layout_dropdown, 64);
-    lv_obj_set_width(layout_dropdown, 160);
+    lv_obj_set_width(layout_dropdown, 90);
+
+    /* Spacer */
+    lv_obj_t *spacer = lv_obj_create(header);
+    lv_obj_set_height(spacer, 0);
+    lv_obj_set_flex_grow(spacer, 1);
 
     /* Shutdown button */
-    lv_obj_t *shutdown_btn = lv_btn_create(btn_row);
+    lv_obj_t *shutdown_btn = lv_btn_create(header);
     lv_obj_add_event_cb(shutdown_btn, shutdown_btn_clicked_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_set_grid_cell(shutdown_btn, LV_GRID_ALIGN_CENTER, 3, 1, LV_GRID_ALIGN_CENTER, 0, 1);
-    lv_obj_set_size(shutdown_btn, 64, 64);
     lv_obj_t *shutdown_btn_label = lv_label_create(shutdown_btn);
     lv_label_set_text(shutdown_btn_label, LV_SYMBOL_POWER);
     lv_obj_center(shutdown_btn_label);
 
-    /* Textarea */
-    lv_obj_t *textarea = lv_textarea_create(lv_scr_act());
-    lv_textarea_set_one_line(textarea, true);
-    lv_textarea_set_password_mode(textarea, true);
-    lv_textarea_set_placeholder_text(textarea, "Enter password...");
-    // lv_obj_set_size(textarea, hor_res - 60 > 512 ? 512 : hor_res - 60, 64);
-    lv_obj_set_width(textarea, hor_res - 60 > 512 ? 512 : hor_res - 60);
-    lv_obj_align(textarea, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height - 3 * row_height / 2);
-    lv_obj_add_state(textarea, LV_STATE_FOCUSED);
-
-    /* Route physical keyboard input into textarea */
-    ul_indev_set_up_textarea_for_keyboard_input(textarea);
-
-    /* Reveal / obscure password button */
-    lv_obj_t *toggle_pw_btn = lv_btn_create(lv_scr_act());
-    lv_obj_align(toggle_pw_btn, LV_ALIGN_CENTER, (hor_res - 60 > 512 ? 512 : hor_res - 60) / 2 + 32, ver_res / 2 - keyboard_height - 3 * row_height / 2);
-    // lv_obj_set_size(toggle_pw_btn, 64, 64);
-    lv_obj_t *toggle_pw_btn_label = lv_label_create(toggle_pw_btn);
-    lv_obj_center(toggle_pw_btn_label);
-    lv_label_set_text(toggle_pw_btn_label, LV_SYMBOL_EYE_OPEN);
-    lv_obj_add_event_cb(toggle_pw_btn, toggle_pw_btn_clicked_cb, LV_EVENT_CLICKED, NULL);
+    /* Label container */
+    lv_obj_t *label_container = lv_obj_create(container);
+    lv_obj_set_size(label_container, label_width, LV_PCT(100));
+    lv_obj_set_flex_grow(label_container, 1);
 
     /* Label */
-    lv_obj_t *spangroup = lv_spangroup_create(lv_scr_act());
+    lv_obj_t *spangroup = lv_spangroup_create(label_container);
     lv_spangroup_set_align(spangroup, LV_TEXT_ALIGN_CENTER);
     lv_spangroup_set_mode(spangroup, LV_SPAN_MODE_BREAK);
-    lv_obj_set_size(spangroup, hor_res - 40, 2 * row_height);
-    lv_obj_align(spangroup, LV_ALIGN_CENTER, 0, ver_res / 2 - keyboard_height);
+    lv_spangroup_set_overflow(spangroup, LV_SPAN_OVERFLOW_ELLIPSIS);
     lv_span_t *span1 = lv_spangroup_new_span(spangroup);
     lv_span_t *span2 = lv_spangroup_new_span(spangroup);
     lv_span_t *span3 = lv_spangroup_new_span(spangroup);
@@ -418,12 +407,52 @@ int main(int argc, char *argv[]) {
     /* Label text */
     const char *crypttab_tried = getenv("CRYPTTAB_TRIED");
     if (crypttab_tried && atoi(crypttab_tried) > 0) {
-        lv_span_set_text(span1, "Password incorrect. Please enter password to unlock ");
-        lv_span_set_text(span3, ".");
+        lv_span_set_text(span1, "Password for ");
+        lv_span_set_text(span3, " incorrect");
     } else {
-        lv_span_set_text(span1, "Please enter password to unlock ");
+        lv_span_set_text(span1, "Password required for ");
     }
     lv_span_set_text(span2, getenv("CRYPTTAB_SOURCE"));
+
+    /* Size label to content */
+    lv_obj_set_style_max_height(spangroup, LV_PCT(100), LV_PART_MAIN);
+    lv_obj_set_size(spangroup, label_width, lv_spangroup_get_expand_height(spangroup, label_width));
+    lv_obj_set_align(spangroup, LV_ALIGN_BOTTOM_MID);
+
+    /* Textarea flexbox */
+    lv_obj_t *textarea_container = lv_obj_create(container);
+    lv_obj_set_width(textarea_container, LV_PCT(100));
+    lv_obj_set_height(textarea_container, LV_SIZE_CONTENT);
+    lv_obj_set_flex_flow(textarea_container, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(textarea_container, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_set_style_pad_left(textarea_container, padding, LV_PART_MAIN);
+    lv_obj_set_style_pad_right(textarea_container, padding, LV_PART_MAIN);
+
+    /* Textarea */
+    lv_obj_t *textarea = lv_textarea_create(textarea_container);
+    lv_textarea_set_one_line(textarea, true);
+    lv_textarea_set_password_mode(textarea, true);
+    lv_textarea_set_placeholder_text(textarea, "Enter password...");
+    lv_obj_set_flex_grow(textarea, 1);
+    lv_obj_add_state(textarea, LV_STATE_FOCUSED);
+
+    /* Route physical keyboard input into textarea */
+    ul_indev_set_up_textarea_for_keyboard_input(textarea);
+
+    /* Reveal / obscure password button */
+    lv_obj_t *toggle_pw_btn = lv_btn_create(textarea_container);
+    const int textarea_height = lv_obj_get_height(textarea);
+    lv_obj_set_size(toggle_pw_btn, textarea_height, textarea_height);
+    lv_obj_t *toggle_pw_btn_label = lv_label_create(toggle_pw_btn);
+    lv_obj_center(toggle_pw_btn_label);
+    lv_label_set_text(toggle_pw_btn_label, LV_SYMBOL_EYE_OPEN);
+    lv_obj_add_event_cb(toggle_pw_btn, toggle_pw_btn_clicked_cb, LV_EVENT_CLICKED, NULL);
+
+    /* Set header button size to match dropdown (for some reason the height is only available here) */
+    const int dropwdown_height = lv_obj_get_height(layout_dropdown);
+    lv_obj_set_size(toggle_theme_btn, dropwdown_height, dropwdown_height);
+    lv_obj_set_size(toggle_kb_btn, dropwdown_height, dropwdown_height);
+    lv_obj_set_size(shutdown_btn, dropwdown_height, dropwdown_height);
 
     /* Keyboard (after textarea / label so that key popovers are not drawn over) */
     keyboard = lv_keyboard_create(lv_scr_act());
