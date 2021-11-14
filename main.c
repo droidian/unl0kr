@@ -421,8 +421,8 @@ int main(int argc, char *argv[]) {
 
     /* Textarea flexbox */
     lv_obj_t *textarea_container = lv_obj_create(container);
-    lv_obj_set_width(textarea_container, LV_PCT(100));
-    lv_obj_set_height(textarea_container, LV_SIZE_CONTENT);
+    lv_obj_set_size(textarea_container, LV_PCT(100), LV_SIZE_CONTENT);
+    lv_obj_set_style_max_width(textarea_container, 512, LV_PART_MAIN);
     lv_obj_set_flex_flow(textarea_container, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(textarea_container, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_obj_set_style_pad_left(textarea_container, padding, LV_PART_MAIN);
