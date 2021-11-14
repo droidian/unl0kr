@@ -73,9 +73,12 @@ static bool parse_bool(const char *value, bool *result);
 
 static void init_opts(ul_config_opts *opts) {
     opts->general.animations = false;
-    opts->textarea.obscured = true;
+    opts->keyboard.autohide = true;
     opts->keyboard.layout_id = SQ2LV_LAYOUT_US;
     opts->keyboard.popovers = false;
+    opts->textarea.obscured = true;
+    opts->theme.default_id = UL_THEMES_THEME_BREEZY_DARK;
+    opts->theme.alternate_id = UL_THEMES_THEME_BREEZY_LIGHT;
 }
 
 static void parse_file(const char *path, ul_config_opts *opts) {
@@ -93,12 +96,6 @@ static int parsing_handler(void* user_data, const char* section, const char* key
                 return 1;
             }
         }
-    } else if (strcmp(section, "textarea") == 0) {
-        if (strcmp(key, "obscured") == 0) {
-            if (parse_bool(value, &(opts->textarea.obscured))) {
-                return 1;
-            }
-        }
     } else if (strcmp(section, "keyboard") == 0) {
         if (strcmp(key, "autohide") == 0) {
             if (parse_bool(value, &(opts->keyboard.autohide))) {
@@ -112,6 +109,26 @@ static int parsing_handler(void* user_data, const char* section, const char* key
             }
         } else if (strcmp(key, "popovers") == 0) {
             if (parse_bool(value, &(opts->keyboard.popovers))) {
+                return 1;
+            }
+        }
+    } else if (strcmp(section, "textarea") == 0) {
+        if (strcmp(key, "obscured") == 0) {
+            if (parse_bool(value, &(opts->textarea.obscured))) {
+                return 1;
+            }
+        }
+    } else if (strcmp(section, "theme") == 0) {
+        if (strcmp(key, "default") == 0) {
+            ul_themes_theme_id_t id = ul_themes_find_theme_with_name(value);
+            if (id != UL_THEMES_THEME_NONE) {
+                opts->theme.default_id = id;
+                return 1;
+            }
+        } else if (strcmp(key, "alternate") == 0) {
+            ul_themes_theme_id_t id = ul_themes_find_theme_with_name(value);
+            if (id != UL_THEMES_THEME_NONE) {
+                opts->theme.alternate_id = id;
                 return 1;
             }
         }

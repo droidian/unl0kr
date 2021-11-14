@@ -173,6 +173,7 @@ typedef struct {
 
 /* Full theme */
 typedef struct {
+    char *name;
     ul_theme_window window;
     ul_theme_header header;
     ul_theme_keyboard keyboard;
@@ -195,6 +196,6 @@ void ul_theme_prepare_keyboard(lv_obj_t *keyboard);
  *
  * @param theme the theme to apply
  */
-void ul_theme_apply(ul_theme *theme);
+void ul_theme_apply(const ul_theme *theme);
 
 #endif /* UL_THEME_H */

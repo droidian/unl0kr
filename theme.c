@@ -66,7 +66,7 @@ static bool are_styles_initialised = false;
  *
  * @param theme theme to derive the styles from
  */
-static void init_styles(ul_theme *theme);
+static void init_styles(const ul_theme *theme);
 
 /**
  * Initialise or reset a style.
@@ -95,7 +95,7 @@ static void keyboard_draw_part_begin_cb(lv_event_t *event);
  * Static functions
  */
 
-static void init_styles(ul_theme *theme) {
+static void init_styles(const ul_theme *theme) {
     reset_style(&(styles.widget));
     lv_style_set_text_font(&(styles.widget), &font_32);
 
@@ -322,7 +322,7 @@ void ul_theme_prepare_keyboard(lv_obj_t *keyboard) {
     lv_obj_add_event_cb(keyboard, keyboard_draw_part_begin_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
 }
 
-void ul_theme_apply(ul_theme *theme) {
+void ul_theme_apply(const ul_theme *theme) {
     if (!theme) {
         ul_log(UL_LOG_LEVEL_ERROR, "Could not apply theme from NULL pointer");
         return;

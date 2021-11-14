@@ -22,10 +22,12 @@
 
 
 /**
- * Breezy light (based on KDE Breeze color palette, see https://develop.kde.org/hig/style/color/default/)
+ * Static variables
  */
 
-ul_theme ul_themes_breezy_light = {
+/* Breezy light (based on KDE Breeze color palette, see https://develop.kde.org/hig/style/color/default/) */
+static const ul_theme ul_themes_breezy_light = {
+    .name = "breezy-light",
     .window = {
         .bg_color = 0xeff0f1
     },
@@ -166,11 +168,9 @@ ul_theme ul_themes_breezy_light = {
 };
 
 
-/**
- * Breezy dark (based on KDE Breeze Dark color palette, see https://develop.kde.org/hig/style/color/dark/)
- */
-
-ul_theme ul_themes_breezy_dark = {
+/* Breezy dark (based on KDE Breeze Dark color palette, see https://develop.kde.org/hig/style/color/dark/) */
+static const ul_theme ul_themes_breezy_dark = {
+    .name = "breezy-dark",
     .window = {
         .bg_color = 0x31363b
     },
@@ -309,3 +309,23 @@ ul_theme ul_themes_breezy_dark = {
         }
     }
 };
+
+
+/**
+ * Public interface
+ */
+
+const int ul_themes_num_themes = 2;
+const ul_theme ul_themes_themes[] = {
+    ul_themes_breezy_light,
+    ul_themes_breezy_dark
+};
+
+ul_themes_theme_id_t ul_themes_find_theme_with_name(const char *name) {
+    for (int i = 0; i < ul_themes_num_themes; ++i) {
+        if (strcmp(ul_themes_themes[i].name, name) == 0) {
+            return i;
+        }
+    }
+    return UL_THEMES_THEME_NONE;
+}

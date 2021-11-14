@@ -21,6 +21,8 @@
 #ifndef UL_CONFIG_H
 #define UL_CONFIG_H
 
+#include "themes.h"
+
 #include "sq2lv_layouts.h"
 
 #include <stdbool.h>
@@ -32,14 +34,6 @@ typedef struct {
     /* If true, use animations */
     bool animations;
 } ul_config_opts_general;
-
-/**
- * Options related to the password textarea
- */
-typedef struct {
-    /* If true, disguise the entered text with dots */
-    bool obscured;
-} ul_config_opts_textarea;
 
 /**
  * Options related to the keyboard
@@ -54,15 +48,35 @@ typedef struct {
 } ul_config_opts_keyboard;
 
 /**
+ * Options related to the password textarea
+ */
+typedef struct {
+    /* If true, disguise the entered text with dots */
+    bool obscured;
+} ul_config_opts_textarea;
+
+/**
+ * Options related to the theme
+ */
+typedef struct {
+    /* Default theme */
+    ul_themes_theme_id_t default_id;
+    /* Alternate theme */
+    ul_themes_theme_id_t alternate_id;
+} ul_config_opts_theme;
+
+/**
  * Options parsed from config file(s)
  */
 typedef struct {
     /* General options */
     ul_config_opts_general general;
-    /* Options related to the password textarea */
-    ul_config_opts_textarea textarea;
     /* Options related to the keyboard */
     ul_config_opts_keyboard keyboard;
+    /* Options related to the password textarea */
+    ul_config_opts_textarea textarea;
+    /* Options related to the theme */
+    ul_config_opts_theme theme;
 } ul_config_opts;
 
 /**
