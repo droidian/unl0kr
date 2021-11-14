@@ -45,6 +45,8 @@ typedef struct {
  * Options related to the keyboard
  */
 typedef struct {
+    /* If true, hide the keyboard on launch when a hardware keyboard is connected */
+    bool autohide;
     /* Keyboard layout */
     sq2lv_layout_id_t layout_id;
     /* If true, display key popovers on press */

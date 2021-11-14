@@ -100,8 +100,8 @@ static int parsing_handler(void* user_data, const char* section, const char* key
             }
         }
     } else if (strcmp(section, "keyboard") == 0) {
-        if (strcmp(key, "popovers") == 0) {
-            if (parse_bool(value, &(opts->keyboard.popovers))) {
+        if (strcmp(key, "autohide") == 0) {
+            if (parse_bool(value, &(opts->keyboard.autohide))) {
                 return 1;
             }
         } else if (strcmp(key, "layout") == 0) {
@@ -110,7 +110,11 @@ static int parsing_handler(void* user_data, const char* section, const char* key
                 opts->keyboard.layout_id = id;
                 return 1;
             }
-        };
+        } else if (strcmp(key, "popovers") == 0) {
+            if (parse_bool(value, &(opts->keyboard.popovers))) {
+                return 1;
+            }
+        }
     }
 
     ul_log(UL_LOG_LEVEL_ERROR, "Ignoring invalid config value \"%s\" for key \"%s\" in section \"%s\"", value, key, section);
