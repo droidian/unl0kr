@@ -149,6 +149,16 @@ $ ./regenerate-layouts.sh
 
 from the root of the repository.
 
+## Generating screenshots
+
+To generate screenshots in a variety of common sizes, build unl0kr and then run
+
+```
+$ sudo ./generate-screenshots _build/unl0kr
+```
+
+where `_build/unl0kr` is the location of the unl0kr binary. Note that you may have to adapt some of the settings inside the script depending on the device you're using to generate the screenshots.
+
 ## Screen recording
 
 For demonstration purposes you can record the framebuffer device, e.g. with ffmpeg:
