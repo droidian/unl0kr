@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Copyright 2021 Johannes Marbach
 #
@@ -18,15 +18,15 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
-while read -r makefile; do
-    while read -r expr; do
+find "$1" -name "*.mk" | while IFS= read -r makefile; do
+    grep "^CSRCS\s*+=" "$makefile" | sed "s|.*=\s*||g" | while read -r expr; do
         # Ignore example code
         if [[ $(dirname $makefile) =~ .*/examples ]]; then
             continue
         fi
 
         # Handle full & relative paths
-        if [[ $expr =~ .*\$\(LVGL_DIR ]]; then
+        if echo "$expr" | grep -q '$(LVGL_DIR'; then
             expr=$(echo "$expr" \
                 | sed 's|$(LVGL_DIR)/||g' \
                 | sed 's|$(LVGL_DIR_NAME)/|lvgl/|g' \
@@ -39,7 +39,7 @@ while read -r makefile; do
         expr=$(echo "$expr" | sed 's|$(wildcard\s*\(.*\))|\1|g')
 
         # Resolve $(shell ...)
-        if [[ $expr =~ \$\(shell ]]; then
+        if echo "$expr" | grep -q '$(shell'; then
             expr=$(echo "$expr" | sed 's|$(shell\s*\(.*\))|\1|g')
             expr=$(eval "$expr")
         fi
@@ -48,5 +48,5 @@ while read -r makefile; do
         for file in $expr; do
             echo $file
         done
-    done < <(grep "^CSRCS\s*+=" "$makefile" | sed "s|.*=\s*||g")
-done < <(find "$1" -name "*.mk")
+    done
+done
