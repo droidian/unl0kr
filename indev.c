@@ -103,7 +103,7 @@ static void auto_connect(libinput_capability capability, int max_num_devs, int *
                   lv_indev_drv_t indev_drvs[], libinput_drv_state_t drv_states[]) {
 
     memset(devs, 0, max_num_devs * sizeof(char *));
-    memset(indevs, 0, max_num_devs * sizeof(lv_indev_t));
+    memset(indevs, 0, max_num_devs * sizeof(lv_indev_t *));
     memset(indev_drvs, 0, max_num_devs * sizeof(lv_indev_drv_t));
     memset(drv_states, 0, max_num_devs * sizeof(libinput_drv_state_t));
 
