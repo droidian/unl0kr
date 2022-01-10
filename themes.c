@@ -310,22 +310,309 @@ static const ul_theme ul_themes_breezy_dark = {
     }
 };
 
+/* pmOS light */
+static const ul_theme ul_themes_pmos_light = {
+    .name = "pmos-light",
+    .window = {
+        .bg_color = 0xffffff
+    },
+    .header = {
+        .bg_color = 0xffffff,
+        .border_width = 8,
+        .border_color = 0x009900,
+        .pad = 30,
+        .gap = 20
+    },
+    .keyboard = {
+        .bg_color = 0xffffff,
+        .border_width = 8,
+        .border_color = 0x009900,
+        .pad = 30,
+        .gap = 10,
+        .keys = {
+            .border_width = 2,
+            .corner_radius = 5,
+            .key_char = {
+                .normal = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                }
+            },
+            .key_non_char = {
+                .normal = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                }
+            },
+            .key_mod_act = {
+                .normal = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                }
+            },
+            .key_mod_inact = {
+                .normal = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                }
+            }
+        }
+    },
+    .button = {
+        .border_width = 0,
+        .corner_radius = 0,
+        .pad = 8,
+        .normal = {
+            .fg_color = 0x000000,
+            .bg_color = 0xffffff,
+            .border_color = 0x000000
+        },
+        .pressed = {
+            .fg_color = 0xffffff,
+            .bg_color = 0x000000,
+            .border_color = 0x000000
+        }
+    },
+    .textarea = {
+        .fg_color = 0x000000,
+        .bg_color = 0xb1b1b1,
+        .border_width = 0,
+        .border_color = 0xb1b1b1,
+        .corner_radius = 0,
+        .pad = 8,
+        .placeholder_color = 0x000000,
+        .cursor = {
+            .width = 2,
+            .color = 0x000000,
+            .period = 700
+        }
+    },
+    .dropdown = {
+        .box = {
+            .fg_color = 0x000000,
+            .bg_color = 0xffffff,
+            .border_width = 0,
+            .border_color = 0xffffff,
+            .corner_radius = 0,
+            .pad = 10
+        },
+        .list = {
+            .fg_color = 0x000000,
+            .bg_color = 0xffffff,
+            .selection_fg_color = 0xffffff,
+            .selection_bg_color = 0x009900,
+            .border_width = 0,
+            .border_color = 0xffffff,
+            .corner_radius = 0,
+            .pad = 0
+        }
+    },
+    .label = {
+        .fg_color = 0x000000
+    },
+    .msgbox = {
+        .fg_color = 0x000000,
+        .bg_color = 0xb1b1b1,
+        .border_width = 0,
+        .border_color = 0xb1b1b1,
+        .corner_radius = 0,
+        .pad = 20,
+        .buttons = {
+            .pad = 20,
+            .gap = 10
+        },
+        .dimming = {
+            .color = 0x232629,
+            .opacity = 178
+        }
+    }
+};
+
+/* pmOS dark */
+static const ul_theme ul_themes_pmos_dark = {
+    .name = "pmos-dark",
+    .window = {
+        .bg_color = 0x000000
+    },
+    .header = {
+        .bg_color = 0x000000,
+        .border_width = 8,
+        .border_color = 0x009900,
+        .pad = 30,
+        .gap = 20
+    },
+    .keyboard = {
+        .bg_color = 0x000000,
+        .border_width = 8,
+        .border_color = 0x009900,
+        .pad = 30,
+        .gap = 10,
+        .keys = {
+            .border_width = 2,
+            .corner_radius = 5,
+            .key_char = {
+                .normal = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                }
+            },
+            .key_non_char = {
+                .normal = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                }
+            },
+            .key_mod_act = {
+                .normal = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                }
+            },
+            .key_mod_inact = {
+                .normal = {
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x000000,
+                    .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x000000,
+                    .bg_color = 0xffffff,
+                    .border_color = 0x009900
+                }
+            }
+        }
+    },
+    .button = {
+        .border_width = 0,
+        .corner_radius = 0,
+        .pad = 8,
+        .normal = {
+            .fg_color = 0xffffff,
+            .bg_color = 0x000000,
+            .border_color = 0x000000
+        },
+        .pressed = {
+            .fg_color = 0x000000,
+            .bg_color = 0xffffff,
+            .border_color = 0x000000
+        }
+    },
+    .textarea = {
+        .fg_color = 0xffffff,
+        .bg_color = 0x616161,
+        .border_width = 0,
+        .border_color = 0x616161,
+        .corner_radius = 0,
+        .pad = 8,
+        .placeholder_color = 0xffffff,
+        .cursor = {
+            .width = 2,
+            .color = 0x000000,
+            .period = 700
+        }
+    },
+    .dropdown = {
+        .box = {
+            .fg_color = 0xffffff,
+            .bg_color = 0x000000,
+            .border_width = 0,
+            .border_color = 0x000000,
+            .corner_radius = 0,
+            .pad = 10
+        },
+        .list = {
+            .fg_color = 0xffffff,
+            .bg_color = 0x000000,
+            .selection_fg_color = 0xffffff,
+            .selection_bg_color = 0x009900,
+            .border_width = 0,
+            .border_color = 0x000000,
+            .corner_radius = 0,
+            .pad = 0
+        }
+    },
+    .label = {
+        .fg_color = 0xffffff
+    },
+    .msgbox = {
+        .fg_color = 0xffffff,
+        .bg_color = 0x616161,
+        .border_width = 0,
+        .border_color = 0x616161,
+        .corner_radius = 0,
+        .pad = 20,
+        .buttons = {
+            .pad = 20,
+            .gap = 10
+        },
+        .dimming = {
+            .color = 0x232629,
+            .opacity = 178
+        }
+    }
+};
 
 /**
  * Public interface
  */
 
-const int ul_themes_num_themes = 2;
+const int ul_themes_num_themes = 4;
 const ul_theme ul_themes_themes[] = {
     ul_themes_breezy_light,
-    ul_themes_breezy_dark
+    ul_themes_breezy_dark,
+    ul_themes_pmos_light,
+    ul_themes_pmos_dark
 };
 
 ul_themes_theme_id_t ul_themes_find_theme_with_name(const char *name) {
     for (int i = 0; i < ul_themes_num_themes; ++i) {
         if (strcmp(ul_themes_themes[i].name, name) == 0) {
+            ul_log(UL_LOG_LEVEL_VERBOSE, "Found theme: %s\n", name);
             return i;
         }
     }
+    ul_log(UL_LOG_LEVEL_WARNING, "Theme %s not found\n", name);
     return UL_THEMES_THEME_NONE;
 }
