@@ -22,6 +22,7 @@
 #define UL_THEMES_H
 
 #include "theme.h"
+#include "log.h"
 
 /* Theme IDs, values can be used as indexes into the ul_themes_themes array */
 typedef enum {

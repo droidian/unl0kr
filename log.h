@@ -27,8 +27,10 @@
 typedef enum {
     /* Errors only */
     UL_LOG_LEVEL_ERROR   = 0,
+    /* Warnings and errors */
+    UL_LOG_LEVEL_WARNING = 1,
     /* Include non-errors in log */
-    UL_LOG_LEVEL_VERBOSE = 1
+    UL_LOG_LEVEL_VERBOSE = 2
 } ul_log_level;
 
 /**
