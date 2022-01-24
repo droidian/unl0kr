@@ -158,6 +158,20 @@ static void keyboard_value_changed_cb(lv_event_t *event);
  */
 static void keyboard_ready_cb(lv_event_t *event);
 
+/**
+ * Handle LV_EVENT_READY events from the textarea widget.
+ *
+ * @param event the event object
+ */
+static void textarea_ready_cb(lv_event_t *event);
+
+/**
+ * Print out the entered password and exit.
+ *
+ * @param textarea the textarea widget
+ */
+static void finish(lv_obj_t *textarea);
+
 
 /**
  * Static functions
@@ -266,9 +280,15 @@ static void keyboard_value_changed_cb(lv_event_t *event) {
 }
 
 static void keyboard_ready_cb(lv_event_t *event) {
-    lv_obj_t *kb = lv_event_get_target(event);
-    lv_obj_t *ta = lv_keyboard_get_textarea(kb);
-    printf("%s\n", lv_textarea_get_text(ta));
+    finish(lv_keyboard_get_textarea(lv_event_get_target(event)));
+}
+
+static void textarea_ready_cb(lv_event_t *event) {
+    finish(lv_event_get_target(event));
+}
+
+static void finish(lv_obj_t *textarea) {
+    printf("%s\n", lv_textarea_get_text(textarea));
     exit(0);
 }
 
@@ -434,6 +454,7 @@ int main(int argc, char *argv[]) {
     lv_textarea_set_one_line(textarea, true);
     lv_textarea_set_password_mode(textarea, true);
     lv_textarea_set_placeholder_text(textarea, "Enter password...");
+    lv_obj_add_event_cb(textarea, textarea_ready_cb, LV_EVENT_READY, NULL);
     lv_obj_set_flex_grow(textarea, 1);
     lv_obj_add_state(textarea, LV_STATE_FOCUSED);
 
