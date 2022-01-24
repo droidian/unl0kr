@@ -7,6 +7,14 @@ fb_format=rgba
 
 unl0kr=$1
 outdir=screenshots
+config=unl0kr-screenshots.conf
+
+themes=(
+    breezy-light
+    breezy-dark
+    pmos-light
+    pmos-dark
+)
 
 resolutions=(
     # Nokia N900
@@ -26,7 +34,7 @@ resolutions=(
     1920x1080 
 )
 
-if [[ ! -x $unl0kr ]]; then
+if [[ ! -f $unl0kr || ! -x $unl0kr ]]; then
     echo "Error: Could not find unl0kr executable at $unl0kr" 1>&2
     exit 1
 fi
@@ -34,12 +42,42 @@ fi
 exec 1>/dev/null
 exec 2>/dev/null 
 
+function write_config() {
+    cat << EOF > $config
+[general]
+animations=true
+
+[keyboard]
+autohide=false
+layout=de
+popovers=true
+
+[textarea]
+obscured=true
+
+[theme]
+default=$1
+EOF
+}
+
+function nuke_config() {
+    rm -f $config
+}
+
+trap "nuke_config" EXIT
+
 rm -rf "$outdir"
 mkdir "$outdir"
 
-for res in ${resolutions[@]}; do
-    for theme in light dark; do
-        CRYPTTAB_SOURCE=/dev/sda1 $unl0kr -g $res -c unl0kr-screenshots.conf -C unl0kr-screenshots-$theme.conf &
+readme="# Unl0kr themes"$'\n'
+
+for theme in ${themes[@]}; do
+    write_config $theme
+
+    readme="$readme"$'\n'"## $theme"$'\n\n'
+    
+    for res in ${resolutions[@]}; do    
+        CRYPTTAB_SOURCE=/dev/sda1 $unl0kr -g $res -c unl0kr-screenshots.conf &
         pid=$!
 
         sleep 2 
@@ -48,5 +86,9 @@ for res in ${resolutions[@]}; do
         convert -size $fb_res -depth $fb_depth $fb_format:"$outdir/$res" -crop $res+0+0 "$outdir/$theme-$res.png"
         rm "$outdir/$res"
         kill -9 $pid
+
+        readme="$readme<img src=\"$theme-$res.png\" alt=\"$res\" height=\"300\"/>"$'\n'
     done
 done
+
+echo -n "$readme" > "$outdir/README.md"
