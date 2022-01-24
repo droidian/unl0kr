@@ -29,7 +29,7 @@ Here are a few highlights of what already works:
 - Disclosing and hiding entered password at runtime
 - Shutting down the device via a soft button
 
-For a growing collection of demo videos, see the [wiki].
+For a growing collection of demo videos, see the [wiki]. Screenshots of the currently available themes may be found in the [screenshots] folder.
 
 ## Upstreaming
 
@@ -207,6 +207,7 @@ The [FontAwesome] font is licensed under the Open Font License version 1.1.
 [online font converter]: https://lvgl.io/tools/fontconverter
 [open issues]: https://gitlab.com/cherrypicker/unl0kr/-/issues
 [osk-sdl]: https://gitlab.com/postmarketOS/osk-sdl
+[screenshots]: ./screenshots
 [squeek2lvgl]: https://gitlab.com/cherrypicker/squeek2lvgl
 [squeekboard layouts]: https://gitlab.gnome.org/World/Phosh/squeekboard/-/tree/master/data/keyboards
 [unl0kr.conf]: ./unl0kr.conf
