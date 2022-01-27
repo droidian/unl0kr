@@ -35,6 +35,7 @@ unl0kr_sources = [
   'log.c',
   'main.c',
   'sq2lv_layouts.c',
+  'terminal.c',
   'theme.c',
   'themes.c'
 ]

@@ -23,6 +23,7 @@
 #include "indev.h"
 #include "log.h"
 #include "unl0kr.h"
+#include "terminal.h"
 #include "theme.h"
 #include "themes.h"
 
@@ -32,6 +33,7 @@
 
 #include "squeek2lvgl/sq2lv.h"
 
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -170,7 +172,14 @@ static void textarea_ready_cb(lv_event_t *event);
  *
  * @param textarea the textarea widget
  */
-static void finish(lv_obj_t *textarea);
+static void print_password_and_exit(lv_obj_t *textarea);
+
+/**
+ * Handle termination signals sent to the process.
+ *
+ * @param signum the signal's number
+ */
+static void sigaction_handler(int signum);
 
 
 /**
@@ -280,15 +289,20 @@ static void keyboard_value_changed_cb(lv_event_t *event) {
 }
 
 static void keyboard_ready_cb(lv_event_t *event) {
-    finish(lv_keyboard_get_textarea(lv_event_get_target(event)));
+    print_password_and_exit(lv_keyboard_get_textarea(lv_event_get_target(event)));
 }
 
 static void textarea_ready_cb(lv_event_t *event) {
-    finish(lv_event_get_target(event));
+    print_password_and_exit(lv_event_get_target(event));
 }
 
-static void finish(lv_obj_t *textarea) {
+static void print_password_and_exit(lv_obj_t *textarea) {
     printf("%s\n", lv_textarea_get_text(textarea));
+    sigaction_handler(SIGTERM);
+}
+
+static void sigaction_handler(int signum) {
+    ul_terminal_reset_current_terminal();
     exit(0);
 }
 
@@ -311,6 +325,14 @@ int main(int argc, char *argv[]) {
 
     /* Parse config files */
     ul_config_parse(cli_opts.config_files, cli_opts.num_config_files, &conf_opts);
+
+    /* Prepare current TTY and clean up on termination */
+    ul_terminal_prepare_current_terminal();
+    struct sigaction action;
+    memset(&action, 0, sizeof(action));
+    action.sa_handler = sigaction_handler;
+    sigaction(SIGINT, &action, NULL);
+    sigaction(SIGTERM, &action, NULL);
 
     /* Initialise LVGL and set up logging callback */
     lv_init();
