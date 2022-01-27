@@ -444,18 +444,14 @@ int main(int argc, char *argv[]) {
     lv_spangroup_set_mode(spangroup, LV_SPAN_MODE_BREAK);
     lv_spangroup_set_overflow(spangroup, LV_SPAN_OVERFLOW_ELLIPSIS);
     lv_span_t *span1 = lv_spangroup_new_span(spangroup);
-    lv_span_t *span2 = lv_spangroup_new_span(spangroup);
-    lv_span_t *span3 = lv_spangroup_new_span(spangroup);
 
     /* Label text */
     const char *crypttab_tried = getenv("CRYPTTAB_TRIED");
     if (crypttab_tried && atoi(crypttab_tried) > 0) {
-        lv_span_set_text(span1, "Password for ");
-        lv_span_set_text(span3, " incorrect");
+        lv_span_set_text(span1, "Password incorrect");
     } else {
-        lv_span_set_text(span1, "Password required for ");
+        lv_span_set_text(span1, "Password required for booting");
     }
-    lv_span_set_text(span2, getenv("CRYPTTAB_SOURCE"));
 
     /* Size label to content */
     lv_obj_set_style_max_height(spangroup, LV_PCT(100), LV_PART_MAIN);

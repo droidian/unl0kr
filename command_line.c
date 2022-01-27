@@ -69,9 +69,8 @@ static void print_usage() {
         /*-------------------------------- 78 CHARS --------------------------------*/
         "Usage: unl0kr [OPTION]\n"
         "\n"
-        "Unl0kr values the `CRYPTTAB_TRIED` and `CRYPTTAB_SOURCE` environment\n"
-        "variables. Upon completion, the entered password is printed on STDOUT. All\n"
-        "other output happens on STDERR.\n"
+        "Unl0kr values the CRYPTTAB_TRIED variable. Upon completion, the entered\n"
+        "password is printed to STDOUT. All other output happens on STDERR.\n"
         "\n"
         "Mandatory arguments to long options are mandatory for short options too.\n"
         "  -c, --config=PATH      Locaton of the main config file. Defaults to\n"
