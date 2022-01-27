@@ -379,6 +379,9 @@ int main(int argc, char *argv[]) {
     /* Initialise theme */
     set_theme(is_alternate_theme);
 
+    /* Prevent scrolling when keyboard is off-screen */
+    lv_obj_clear_flag(lv_scr_act(), LV_OBJ_FLAG_SCROLLABLE);
+
     /* Figure out a few numbers for sizing and positioning */
     const int keyboard_height = ver_res > hor_res ? ver_res / 3 : ver_res / 2;
     const int padding = keyboard_height / 8;
