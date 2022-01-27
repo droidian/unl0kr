@@ -44,9 +44,9 @@ squeek2lvgl_sources = [
   'squeek2lvgl/sq2lv.c',
 ]
 
-lvgl_sources = run_command('find-lvgl-sources.sh', 'lvgl').stdout().strip().split('\n')
+lvgl_sources = run_command('find-lvgl-sources.sh', 'lvgl', check: true).stdout().strip().split('\n')
 
-lv_drivers_sources = run_command('find-lvgl-sources.sh', 'lv_drivers').stdout().strip().split('\n')
+lv_drivers_sources = run_command('find-lvgl-sources.sh', 'lv_drivers', check: true).stdout().strip().split('\n')
 
 install_data(sources: 'unl0kr.conf', install_dir : get_option('sysconfdir'))
 
