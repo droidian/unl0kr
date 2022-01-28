@@ -85,7 +85,7 @@ for theme in ${themes[@]}; do
         cat /dev/fb0 > "$outdir/$res"
         convert -size $fb_res -depth $fb_depth $fb_format:"$outdir/$res" -crop $res+0+0 "$outdir/$theme-$res.png"
         rm "$outdir/$res"
-        kill -9 $pid
+        kill -15 $pid
 
         readme="$readme<img src=\"$theme-$res.png\" alt=\"$res\" height=\"300\"/>"$'\n'
     done
