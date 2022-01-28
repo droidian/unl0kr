@@ -20,8 +20,10 @@
 
 find "$1" -name "*.mk" | while IFS= read -r makefile; do
     grep "^CSRCS\s*+=" "$makefile" | sed "s|.*=\s*||g" | while read -r expr; do
+        dir=$(dirname "$makefile")
+
         # Ignore example code
-        if [[ $(dirname $makefile) =~ .*/examples ]]; then
+        if [ "${dir%examples}" != "$dir" ]; then
             continue
         fi
 
@@ -32,8 +34,14 @@ find "$1" -name "*.mk" | while IFS= read -r makefile; do
                 | sed 's|$(LVGL_DIR_NAME)/|lvgl/|g' \
                 | sed 's|$(LV_DRIVERS_DIR_NAME)/|lv_drivers/|g')
         else
-            expr="$(dirname $makefile)/$expr"
+            expr="$dir/$expr"
         fi
+
+        # Map erroneous(?) paths
+        expr=$(echo "$expr" | sed 's|gpu/lv_gpu_nxp_pxp.c|draw/nxp_pxp/lv_gpu_nxp_pxp.c|g')
+        expr=$(echo "$expr" | sed 's|gpu/lv_gpu_nxp_pxp_osa.c|draw/nxp_pxp/lv_gpu_nxp_pxp_osa.c|g')
+        expr=$(echo "$expr" | sed 's|gpu/lv_gpu_nxp_vglite.c|draw/nxp_vglite/lv_gpu_nxp_vglite.c|g')
+        expr=$(echo "$expr" | sed 's|gpu/lv_gpu_stm32_dma2d.c|draw/stm32_dma2d/lv_gpu_stm32_dma2d.c|g')
 
         # Resolve $(wildcard ...)
         expr=$(echo "$expr" | sed 's|$(wildcard\s*\(.*\))|\1|g')

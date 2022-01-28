@@ -13,6 +13,7 @@
 - feat!: Hide partition name (#27)
 - fix: Prevent scrolling when keyboard hides (#21)
 - feat!: Do not show last typed character when typing (#25)
+- feat: Update lvgl & lv_drivers to git master (2022-02-21)
 
 ## 0.1.0 (2021-11-15)
 
