@@ -12,6 +12,7 @@
 - fix: Specify `check: true` when running external commands from meson (#23)
 - feat!: Hide partition name (#27)
 - fix: Prevent scrolling when keyboard hides (#21)
+- feat!: Do not show last typed character when typing (#25)
 
 ## 0.1.0 (2021-11-15)
 
