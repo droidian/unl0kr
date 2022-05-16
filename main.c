@@ -415,9 +415,11 @@ int main(int argc, char *argv[]) {
     ul_indev_set_up_mouse_cursor();
 
     /* Hide the on-screen keyboard by default if a physical keyboard is connected */
+    /*
     if (conf_opts.keyboard.autohide && ul_indev_is_keyboard_connected()) {
         is_keyboard_hidden = true;
     }
+    */
 
     /* Initialise theme */
     set_theme(is_alternate_theme);
