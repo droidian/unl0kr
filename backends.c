@@ -27,6 +27,9 @@
  */
 
 const char *ul_backends_backends[] = {
+#if USE_MINUI
+    "minui",
+#endif /* USE_MINUI */
 #if USE_FBDEV
     "fbdev",
 #endif /* USE_FBDEV */

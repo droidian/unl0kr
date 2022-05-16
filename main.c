@@ -36,6 +36,9 @@
 #if USE_DRM
 #include "lv_drivers/display/drm.h"
 #endif /* USE_DRM */
+#if USE_MINUI
+#include "lv_drivers/display/minui.h"
+#endif /* USE_MINUI */
 
 #include "lvgl/lvgl.h"
 
@@ -370,6 +373,13 @@ int main(int argc, char *argv[]) {
         disp_drv.flush_cb = drm_flush;
         break;
 #endif /* USE_DRM */
+#if USE_MINUI
+    case UL_BACKENDS_BACKEND_MINUI:
+        minui_init();
+        minui_get_sizes(&hor_res, &ver_res, &dpi);
+        disp_drv.flush_cb = minui_flush;
+        break;
+#endif /* USE_MINUI */
     default:
         ul_log(UL_LOG_LEVEL_ERROR, "Unable to find suitable backend");
         exit(EXIT_FAILURE);
