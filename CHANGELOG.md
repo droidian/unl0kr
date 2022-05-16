@@ -15,6 +15,7 @@
 - feat!: Do not show last typed character when typing (#25)
 - feat: Update lvgl & lv_drivers to git master (2022-02-21)
 - feat: allow runtime selection of the lvgl display driver ("backend")
+- feat: allow overriding dpi with the --dpi command line parameter
 
 ## 0.1.0 (2021-11-15)
 

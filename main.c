@@ -382,6 +382,9 @@ int main(int argc, char *argv[]) {
     if (cli_opts.ver_res > 0) {
         ver_res = LV_MIN(ver_res, cli_opts.ver_res);
     }
+    if (cli_opts.dpi > 0) {
+        dpi = cli_opts.dpi;
+    }
 
     /* Prepare display buffer */
     const size_t buf_size = hor_res * ver_res / 10; /* At least 1/10 of the display size is recommended */
