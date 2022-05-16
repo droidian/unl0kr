@@ -34,7 +34,7 @@
 
 #define MAX_KEYBOARD_DEVS 4
 #define MAX_POINTER_DEVS 4
-#define MAX_TOUCHSCREEN_DEVS 1
+#define MAX_TOUCHSCREEN_DEVS 2
 
 
 /**
