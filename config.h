@@ -21,6 +21,8 @@
 #ifndef UL_CONFIG_H
 #define UL_CONFIG_H
 
+#include "backends.h"
+
 #include "themes.h"
 
 #include "sq2lv_layouts.h"
@@ -31,6 +33,8 @@
  * General options
  */
 typedef struct {
+    /* Backend to use */
+    ul_backends_backend_id_t backend;
     /* If true, use animations */
     bool animations;
 } ul_config_opts_general;

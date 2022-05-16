@@ -27,6 +27,7 @@ project(
 add_project_arguments('-DUL_VERSION="@0@"'.format(meson.project_version()), language: ['c'])
 
 unl0kr_sources = [
+  'backends.c',
   'command_line.c',
   'config.c',
   'cursor.c',
@@ -37,7 +38,7 @@ unl0kr_sources = [
   'sq2lv_layouts.c',
   'terminal.c',
   'theme.c',
-  'themes.c'
+  'themes.c',
 ]
 
 squeek2lvgl_sources = [
@@ -57,7 +58,7 @@ executable(
   dependencies: [
     dependency('inih'),
     dependency('libinput'),
-    dependency('xkbcommon')
+    dependency('xkbcommon'),
   ],
   install: true
 )
