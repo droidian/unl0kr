@@ -51,10 +51,25 @@ unl0kr_dependencies = [
   dependency('xkbcommon'),
 ]
 
+cc = meson.get_compiler('c')
+
 libdrm_dep = dependency('libdrm', required: get_option('with-drm'))
 if libdrm_dep.found()
   unl0kr_dependencies += [libdrm_dep]
   add_project_arguments('-DUSE_DRM=1', language: ['c'])
+endif
+
+minui_dep = dependency('minui', required: get_option('with-minui'))
+if minui_dep.found()
+  unl0kr_dependencies += [
+    minui_dep,
+    cc.find_library('m', required : false)
+  ]
+  add_project_arguments('-DUSE_MINUI=1', language: ['c'])
+
+  if get_option('minui-bgra')
+    add_project_arguments('-DMINUI_IS_BGRA=1', language: ['c'])
+  endif
 endif
 
 lvgl_sources = run_command('find-lvgl-sources.sh', 'lvgl', check: true).stdout().strip().split('\n')
@@ -62,6 +77,7 @@ lvgl_sources = run_command('find-lvgl-sources.sh', 'lvgl', check: true).stdout()
 lv_drivers_sources = run_command('find-lvgl-sources.sh', 'lv_drivers', check: true).stdout().strip().split('\n')
 
 install_data(sources: 'unl0kr.conf', install_dir : get_option('sysconfdir'))
+
 
 executable(
   'unl0kr',

@@ -28,6 +28,9 @@
 /* NOTE: Only UL_BACKENDS_BACKEND_NONE is ought to have an explicit value assigned */
 typedef enum {
     UL_BACKENDS_BACKEND_NONE = -1,
+#if USE_MINUI
+    UL_BACKENDS_BACKEND_MINUI,
+#endif /* USE_MINUI */
 #if USE_FBDEV
     UL_BACKENDS_BACKEND_FBDEV,
 #endif /* USE_FBDEV */
