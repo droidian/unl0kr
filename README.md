@@ -1,7 +1,7 @@
 Unl0kr
 ======
 
-Framebuffer-based disk unlocker for the initramfs based on [LVGL].
+Disk unlocker for the initramfs based on [LVGL].
 
 [[_TOC_]]
 
@@ -72,6 +72,7 @@ Mandatory arguments to long options are mandatory for short options too.
                          order.
   -g, --geometry=NxM     Force a display size of N horizontal times M
                          vertical pixels
+  -d  --dpi=N            Overrides the DPI
   -h, --help             Print this message and exit
   -v, --verbose          Enable more detailed logging output on STDERR
   -V, --version          Print the unl0kr version and exit
@@ -89,6 +90,7 @@ For an example configuration file, see [unl0kr.conf].
 - [squeek2lvgl] (git submodule / linked statically)
 - [libinput]
 - [libxkbcommon]
+- [libdrm] (optional, required for the DRM backend)
 - evdev kernel module
 
 ## Building & running
@@ -103,6 +105,28 @@ $ sudo ./_build/unl0kr
 ```
 
 With meson <0\.55 use `ninja` instead of `meson compile`\.
+
+### Optional features
+
+If [libdrm] is installed, the DRM backend will be compiled automatically. It's possible to
+change this behaviour using the `with-drm` meson feature. For example,
+
+```
+$ meson _build -Dwith-drm=disabled
+```
+
+will forcibly disable the DRM backend regardless if libdrm is installed or not.
+
+## Backends
+
+Unl0kr supports multiple lvgl display drivers, which are herein referred as "backends".
+
+Currently supported backends:
+
+- fbdev
+- drm (optional)
+
+The backend can be switched at runtime by modifying the `general.backend` configuration.
 
 ## Fonts
 
@@ -200,6 +224,7 @@ The [FontAwesome] font is licensed under the Open Font License version 1.1.
 [inih]: https://github.com/benhoyt/inih
 [libinput]: https://gitlab.freedesktop.org/libinput/libinput
 [libxkbcommon]: https://github.com/xkbcommon/libxkbcommon
+[libdrm]: https://gitlab.freedesktop.org/mesa/drm
 [lv_drivers]: https://github.com/lvgl/lv_drivers
 [lv_port_linux_frame_buffer]: https://github.com/lvgl/lv_port_linux_frame_buffer
 [lv_sim_emscripten]: https://github.com/lvgl/lv_sim_emscripten/blob/master/mouse_cursor_icon.c
