@@ -35,6 +35,8 @@ typedef struct {
     int hor_res;
     /* Vertical display resolution */
     int ver_res;
+    /* DPI */
+    int dpi;
     /* Verbose mode. If true, provide more detailed logging output on STDERR. */
     bool verbose;
 } ul_cli_opts;

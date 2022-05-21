@@ -18,6 +18,7 @@
  */
 
 
+#include "backends.h"
 #include "command_line.h"
 #include "config.h"
 #include "indev.h"
@@ -27,7 +28,14 @@
 #include "theme.h"
 #include "themes.h"
 
+#include "lv_drv_conf.h"
+
+#if USE_FBDEV
 #include "lv_drivers/display/fbdev.h"
+#endif /* USE_FBDEV */
+#if USE_DRM
+#include "lv_drivers/display/drm.h"
+#endif /* USE_DRM */
 
 #include "lvgl/lvgl.h"
 
@@ -338,18 +346,44 @@ int main(int argc, char *argv[]) {
     lv_init();
     lv_log_register_print_cb(ul_log_print_cb);
 
-    /* Initialise framebuffer driver and query display size */
-    fbdev_init();
-    uint32_t hor_res;
-    uint32_t ver_res;
-    fbdev_get_sizes(&hor_res, &ver_res);
+    /* Initialise display driver */
+    static lv_disp_drv_t disp_drv;
+    lv_disp_drv_init(&disp_drv);
 
-    /* Override display size with command line options if necessary */
+    /* Initialise framebuffer driver and query display size */
+    uint32_t hor_res = 0;
+    uint32_t ver_res = 0;
+    uint32_t dpi = 0;
+
+    switch (conf_opts.general.backend) {
+#if USE_FBDEV
+    case UL_BACKENDS_BACKEND_FBDEV:
+        fbdev_init();
+        fbdev_get_sizes(&hor_res, &ver_res);
+        disp_drv.flush_cb = fbdev_flush;
+        break;
+#endif /* USE_FBDEV */
+#if USE_DRM
+    case UL_BACKENDS_BACKEND_DRM:
+        drm_init();
+        drm_get_sizes((lv_coord_t *)&hor_res, (lv_coord_t *)&ver_res, &dpi);
+        disp_drv.flush_cb = drm_flush;
+        break;
+#endif /* USE_DRM */
+    default:
+        ul_log(UL_LOG_LEVEL_ERROR, "Unable to find suitable backend");
+        exit(EXIT_FAILURE);
+    }
+
+    /* Override display parameters with command line options if necessary */
     if (cli_opts.hor_res > 0) {
         hor_res = LV_MIN(hor_res, cli_opts.hor_res);
     }
     if (cli_opts.ver_res > 0) {
         ver_res = LV_MIN(ver_res, cli_opts.ver_res);
+    }
+    if (cli_opts.dpi > 0) {
+        dpi = cli_opts.dpi;
     }
 
     /* Prepare display buffer */
@@ -358,13 +392,12 @@ int main(int argc, char *argv[]) {
     lv_color_t *buf = (lv_color_t *)malloc(buf_size * sizeof(lv_color_t));
     lv_disp_draw_buf_init(&disp_buf, buf, NULL, buf_size);    
 
-    /* Initialise display driver */
-    static lv_disp_drv_t disp_drv;
-    lv_disp_drv_init(&disp_drv);
+
+    /* Register display driver */
     disp_drv.draw_buf = &disp_buf;
-    disp_drv.flush_cb = fbdev_flush;
     disp_drv.hor_res = hor_res;
     disp_drv.ver_res = ver_res;
+    disp_drv.dpi = dpi;
     lv_disp_drv_register(&disp_drv);
 
     /* Connect input devices */

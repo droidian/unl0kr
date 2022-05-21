@@ -82,6 +82,7 @@ static void print_usage() {
         "                         order.\n"
         "  -g, --geometry=NxM     Force a display size of N horizontal times M\n"
         "                         vertical pixels\n"
+        "  -d  --dpi=N            Overrides the DPI\n"
         "  -h, --help             Print this message and exit\n"
         "  -v, --verbose          Enable more detailed logging output on STDERR\n"
         "  -V, --version          Print the unl0kr version and exit\n");
@@ -100,6 +101,7 @@ void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *opts) {
         { "config",          required_argument, NULL, 'c' },
         { "config-override", required_argument, NULL, 'C' },
         { "geometry",        required_argument, NULL, 'g' },
+        { "dpi",             required_argument, NULL, 'd' },
         { "help",            no_argument,       NULL, 'h' },
         { "verbose",         no_argument,       NULL, 'v' },
         { "version",         no_argument,       NULL, 'V' },
@@ -108,7 +110,7 @@ void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *opts) {
 
     int opt, index = 0;
 
-    while ((opt = getopt_long(argc, argv, "c:C:g:hvV", long_opts, &index)) != -1) {
+    while ((opt = getopt_long(argc, argv, "c:C:g:d:hvV", long_opts, &index)) != -1) {
         switch (opt) {
         case 'c':
             opts->config_files[0] = optarg;
@@ -125,6 +127,12 @@ void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *opts) {
         case 'g':
             if (sscanf(optarg, "%ix%i", &(opts->hor_res), &(opts->ver_res)) != 2) {
                 ul_log(UL_LOG_LEVEL_ERROR, "Invalid geometry argument \"%s\"\n", optarg);
+                exit(EXIT_FAILURE);
+            }
+            break;
+        case 'd':
+            if (sscanf(optarg, "%i", &(opts->dpi)) != 1) {
+                ul_log(UL_LOG_LEVEL_ERROR, "Invalid dpi argument \"%s\"\n", optarg);
                 exit(EXIT_FAILURE);
             }
             break;
