@@ -27,6 +27,7 @@ project(
 add_project_arguments('-DUL_VERSION="@0@"'.format(meson.project_version()), language: ['c'])
 
 unl0kr_sources = [
+  'backends.c',
   'command_line.c',
   'config.c',
   'cursor.c',
@@ -37,12 +38,24 @@ unl0kr_sources = [
   'sq2lv_layouts.c',
   'terminal.c',
   'theme.c',
-  'themes.c'
+  'themes.c',
 ]
 
 squeek2lvgl_sources = [
   'squeek2lvgl/sq2lv.c',
 ]
+
+unl0kr_dependencies = [
+  dependency('inih'),
+  dependency('libinput'),
+  dependency('xkbcommon'),
+]
+
+libdrm_dep = dependency('libdrm', required: get_option('with-drm'))
+if libdrm_dep.found()
+  unl0kr_dependencies += [libdrm_dep]
+  add_project_arguments('-DUSE_DRM=1', language: ['c'])
+endif
 
 lvgl_sources = run_command('find-lvgl-sources.sh', 'lvgl', check: true).stdout().strip().split('\n')
 
@@ -54,10 +67,6 @@ executable(
   'unl0kr',
   sources: unl0kr_sources + squeek2lvgl_sources + lvgl_sources + lv_drivers_sources,
   include_directories: ['lvgl', 'lv_drivers'],
-  dependencies: [
-    dependency('inih'),
-    dependency('libinput'),
-    dependency('xkbcommon')
-  ],
+  dependencies: unl0kr_dependencies,
   install: true
 )

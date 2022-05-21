@@ -1,0 +1,1 @@
+option('with-drm', type : 'feature', value : 'auto', description : 'Enable DRM backend')

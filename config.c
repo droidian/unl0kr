@@ -73,6 +73,7 @@ static bool parse_bool(const char *value, bool *result);
 
 static void init_opts(ul_config_opts *opts) {
     opts->general.animations = false;
+    opts->general.backend = ul_backends_backends[0] == NULL ? UL_BACKENDS_BACKEND_NONE : 0;
     opts->keyboard.autohide = true;
     opts->keyboard.layout_id = SQ2LV_LAYOUT_US;
     opts->keyboard.popovers = false;
@@ -93,6 +94,12 @@ static int parsing_handler(void* user_data, const char* section, const char* key
     if (strcmp(section, "general") == 0) {
         if (strcmp(key, "animations") == 0) {
             if (parse_bool(value, &(opts->general.animations))) {
+                return 1;
+            }
+        } else if (strcmp(key, "backend") == 0) {
+            ul_backends_backend_id_t id = ul_backends_find_backend_with_name(value);
+            if (id != UL_BACKENDS_BACKEND_NONE) {
+                opts->general.backend = id;
                 return 1;
             }
         }
