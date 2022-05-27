@@ -306,7 +306,7 @@ static void keyboard_draw_part_begin_cb(lv_event_t *event) {
         key = &(current_theme.keyboard.keys.key_char);
     }
 
-    bool pressed = lv_btnmatrix_get_selected_btn(obj) == dsc->id && lv_obj_has_state(btnm, LV_STATE_PRESSED);
+    bool pressed = lv_btnmatrix_get_selected_btn(obj) == dsc->id && lv_obj_has_state(obj, LV_STATE_PRESSED);
 
     dsc->label_dsc->color = lv_color_hex((pressed ? key->pressed : key->normal).fg_color);
     dsc->rect_dsc->bg_color = lv_color_hex((pressed ? key->pressed : key->normal).bg_color);
