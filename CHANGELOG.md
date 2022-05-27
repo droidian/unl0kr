@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Nothing so far
+
+## 0.2.0 (2022-05-27)
+
 - fix: Make meson actually install things (thanks @craftyguy)
 - feat!: Make en-US the default layout
 - fix: Use correct pointer type in memset to avoid segfault
