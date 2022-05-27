@@ -31,7 +31,7 @@
  * Fonts
  */
 
-LV_FONT_DECLARE(font_32);
+LV_FONT_DECLARE(font_32)
 
 #define UL_SYMBOL_ADJUST "\xef\x81\x82" // 0xF042 (https://fontawesome.com/v5.15/icons/adjust?style=solid)
 

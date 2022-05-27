@@ -219,6 +219,8 @@ static void reset_style(lv_style_t *style) {
 }
 
 static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
+    LV_UNUSED(theme);
+
     lv_obj_add_style(obj, &(styles.widget), 0);
 
     if (lv_obj_get_parent(obj) == NULL) {

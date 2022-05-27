@@ -195,6 +195,7 @@ static void sigaction_handler(int signum);
  */
 
 static void toggle_theme_btn_clicked_cb(lv_event_t *event) {
+    LV_UNUSED(event);
     toggle_theme();
 }
 
@@ -208,6 +209,7 @@ static void set_theme(bool is_alternate) {
 }
 
 static void toggle_pw_btn_clicked_cb(lv_event_t *event) {
+    LV_UNUSED(event);
     toggle_password_obscured();
 }
 
@@ -222,6 +224,7 @@ static void set_password_obscured(bool is_obscured) {
 }
 
 static void toggle_kb_btn_clicked_cb(lv_event_t *event) {   
+    LV_UNUSED(event);
     toggle_keyboard_hidden();
 }
 
@@ -264,6 +267,7 @@ static void layout_dropdown_value_changed_cb(lv_event_t *event) {
 }
 
 static void shutdown_btn_clicked_cb(lv_event_t *event) {
+    LV_UNUSED(event);
     static const char *btns[] = { "Yes", "No", "" };
     lv_obj_t *mbox = lv_msgbox_create(NULL, NULL, "Shutdown device?", btns, false);
     lv_obj_set_width(mbox, 400);
@@ -310,6 +314,7 @@ static void print_password_and_exit(lv_obj_t *textarea) {
 }
 
 static void sigaction_handler(int signum) {
+    LV_UNUSED(signum);
     ul_terminal_reset_current_terminal();
     exit(0);
 }
@@ -377,10 +382,10 @@ int main(int argc, char *argv[]) {
 
     /* Override display parameters with command line options if necessary */
     if (cli_opts.hor_res > 0) {
-        hor_res = LV_MIN(hor_res, cli_opts.hor_res);
+        hor_res = LV_MIN(hor_res, (uint32_t)cli_opts.hor_res);
     }
     if (cli_opts.ver_res > 0) {
-        ver_res = LV_MIN(ver_res, cli_opts.ver_res);
+        ver_res = LV_MIN(ver_res, (uint32_t)cli_opts.ver_res);
     }
     if (cli_opts.dpi > 0) {
         dpi = cli_opts.dpi;
