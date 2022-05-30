@@ -78,6 +78,7 @@ static void init_opts(ul_config_opts *opts) {
     opts->keyboard.layout_id = SQ2LV_LAYOUT_US;
     opts->keyboard.popovers = false;
     opts->textarea.obscured = true;
+    opts->textarea.bullet = LV_SYMBOL_BULLET;
     opts->theme.default_id = UL_THEMES_THEME_BREEZY_DARK;
     opts->theme.alternate_id = UL_THEMES_THEME_BREEZY_LIGHT;
 }
@@ -122,6 +123,13 @@ static int parsing_handler(void* user_data, const char* section, const char* key
     } else if (strcmp(section, "textarea") == 0) {
         if (strcmp(key, "obscured") == 0) {
             if (parse_bool(value, &(opts->textarea.obscured))) {
+                return 1;
+            }
+        }
+        if (strcmp(key, "bullet") == 0) {
+            char *bullet = strdup(value);
+            if (bullet) {
+                opts->textarea.bullet = bullet;
                 return 1;
             }
         }

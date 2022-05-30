@@ -57,6 +57,8 @@ typedef struct {
 typedef struct {
     /* If true, disguise the entered text with dots */
     bool obscured;
+    /* The character to use for disguising the entered text */
+    const char *bullet;
 } ul_config_opts_textarea;
 
 /**

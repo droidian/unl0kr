@@ -512,6 +512,7 @@ int main(int argc, char *argv[]) {
     lv_obj_t *textarea = lv_textarea_create(textarea_container);
     lv_textarea_set_one_line(textarea, true);
     lv_textarea_set_password_mode(textarea, true);
+    lv_textarea_set_password_bullet(textarea, conf_opts.textarea.bullet);
     lv_textarea_set_placeholder_text(textarea, "Enter password...");
     lv_obj_add_event_cb(textarea, textarea_ready_cb, LV_EVENT_READY, NULL);
     lv_obj_set_flex_grow(textarea, 1);

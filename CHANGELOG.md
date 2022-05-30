@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- feat: Add config option to customise bullet character (#17)
 - fix: Use actual screen DPI value to compute sizes and spaces
 
 ## 0.2.0 (2022-05-27)
