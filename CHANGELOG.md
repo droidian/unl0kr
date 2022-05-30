@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Nothing so far
+- fix: Use actual screen DPI value to compute sizes and spaces
 
 ## 0.2.0 (2022-05-27)
 

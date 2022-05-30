@@ -364,7 +364,7 @@ int main(int argc, char *argv[]) {
 #if USE_FBDEV
     case UL_BACKENDS_BACKEND_FBDEV:
         fbdev_init();
-        fbdev_get_sizes(&hor_res, &ver_res);
+        fbdev_get_sizes(&hor_res, &ver_res, &dpi);
         disp_drv.flush_cb = fbdev_flush;
         break;
 #endif /* USE_FBDEV */
@@ -402,9 +402,7 @@ int main(int argc, char *argv[]) {
     disp_drv.draw_buf = &disp_buf;
     disp_drv.hor_res = hor_res;
     disp_drv.ver_res = ver_res;
-    if (dpi > 0) {
-        disp_drv.dpi = dpi;
-    }
+    disp_drv.dpi = dpi;
     lv_disp_drv_register(&disp_drv);
 
     /* Connect input devices */
