@@ -28,6 +28,7 @@
 #include "sq2lv_layouts.h"
 
 #include <stdbool.h>
+#include <stdint.h>
 
 /**
  * General options
@@ -37,6 +38,8 @@ typedef struct {
     ul_backends_backend_id_t backend;
     /* If true, use animations */
     bool animations;
+    /* Timeout (in seconds) - once elapsed, the device will shutdown. 0 (default) to disable */
+    uint16_t timeout;
 } ul_config_opts_general;
 
 /**
