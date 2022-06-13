@@ -1,0 +1,26 @@
+Source: unl0kr
+Priority: optional
+Maintainer: Eugenio Paolantonio (g7) <eugenio@droidian.org>
+Build-Depends: debhelper-compat (= 13),
+               libinih-dev,
+               libinput-dev,
+               libxkbcommon-dev,
+               libdrm-dev,
+               libminui-dev,
+               meson (>= 0.53.0),
+               pkg-config,
+Standards-Version: 4.6.1.0
+Section: libs
+Homepage: https://gitlab.com/cherrypicker/unl0kr
+Vcs-Git: https://github.com/droidian/unl0kr.git
+Vcs-Browser: https://github.com/droidian/unl0kr
+Rules-Requires-Root: no
+
+Package: unl0kr
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+Description: Disk unlocker for the initramfs based on LVGL
+ Unl0kr is an osk-sdl clone written in LVGL and rendering directly to the
+ Linux framebuffer. As a result, it doesn't depend on GPU hardware
+ acceleration.
