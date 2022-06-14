@@ -4,7 +4,7 @@
 
 - feat: Add config option to customise bullet character (#17)
 - fix: Use actual screen DPI value to compute sizes and spaces
-- feat: Allow shutting down the device on inactivity
+- feat: Allow shutting down the device on inactivity (defaults to 5 minutes)
 
 ## 0.2.0 (2022-05-27)
 
