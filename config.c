@@ -22,7 +22,10 @@
 
 #include "log.h"
 
+#include "lvgl/lvgl.h"
+
 #include <ini.h>
+#include <stdlib.h>
 
 #include "squeek2lvgl/sq2lv.h"
 
@@ -74,6 +77,7 @@ static bool parse_bool(const char *value, bool *result);
 static void init_opts(ul_config_opts *opts) {
     opts->general.animations = false;
     opts->general.backend = ul_backends_backends[0] == NULL ? UL_BACKENDS_BACKEND_NONE : 0;
+    opts->general.timeout = 0;
     opts->keyboard.autohide = true;
     opts->keyboard.layout_id = SQ2LV_LAYOUT_US;
     opts->keyboard.popovers = false;
@@ -103,6 +107,10 @@ static int parsing_handler(void* user_data, const char* section, const char* key
                 opts->general.backend = id;
                 return 1;
             }
+        } else if (strcmp(key, "timeout") == 0) {
+            /* Use a max ceiling of 60 minutes (3600 secs) */
+            opts->general.timeout = (uint16_t)LV_MIN(strtoul(value, (char **)NULL, 10), 3600);
+            return 1;
         }
     } else if (strcmp(section, "keyboard") == 0) {
         if (strcmp(key, "autohide") == 0) {

@@ -183,6 +183,11 @@ static void textarea_ready_cb(lv_event_t *event);
 static void print_password_and_exit(lv_obj_t *textarea);
 
 /**
+ * Shuts down the device.
+ */
+static void shutdown(void);
+
+/**
  * Handle termination signals sent to the process.
  *
  * @param signum the signal's number
@@ -278,8 +283,7 @@ static void shutdown_btn_clicked_cb(lv_event_t *event) {
 static void shutdown_mbox_value_changed_cb(lv_event_t *event) {
     lv_obj_t *mbox = lv_event_get_current_target(event);
     if (lv_msgbox_get_active_btn(mbox) == 0) {
-        sync();
-        reboot(RB_POWER_OFF);
+        shutdown();
     }
     lv_msgbox_close(mbox);
 }
@@ -311,6 +315,11 @@ static void textarea_ready_cb(lv_event_t *event) {
 static void print_password_and_exit(lv_obj_t *textarea) {
     printf("%s\n", lv_textarea_get_text(textarea));
     sigaction_handler(SIGTERM);
+}
+
+static void shutdown(void) {
+    sync();
+    reboot(RB_POWER_OFF);
 }
 
 static void sigaction_handler(int signum) {
@@ -558,8 +567,13 @@ int main(int argc, char *argv[]) {
     }
 
     /* Run lvgl in "tickless" mode */
+    uint32_t timeout = conf_opts.general.timeout * 1000; /* ms */
     while(1) {
-        lv_task_handler();
+        if (!timeout || lv_disp_get_inactive_time(NULL) < timeout) {
+            lv_task_handler();
+        } else if (timeout) {
+            shutdown();
+        }
         usleep(5000);
     }
 
