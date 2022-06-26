@@ -10,3 +10,7 @@ override_dh_auto_configure:
 
 override_dh_installinitramfs:
 	dh_installinitramfs --no-scripts
+
+override_dh_auto_install:
+	dh_auto_install
+	cp $(CURDIR)/debian/unl0kr.droidian.conf $(CURDIR)/debian/unl0kr/etc/unl0kr.conf
