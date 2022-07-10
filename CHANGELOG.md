@@ -6,6 +6,7 @@
 - fix: Use actual screen DPI value to compute sizes and spaces
 - feat: Allow shutting down the device on inactivity
 - fix: Disable terminal keyboard while unl0kr is running
+- feat: Extend --geometry flag to also accept display offsets
 
 ## 0.2.0 (2022-05-27)
 

@@ -391,10 +391,10 @@ int main(int argc, char *argv[]) {
 
     /* Override display parameters with command line options if necessary */
     if (cli_opts.hor_res > 0) {
-        hor_res = LV_MIN(hor_res, (uint32_t)cli_opts.hor_res);
+        hor_res = cli_opts.hor_res;
     }
     if (cli_opts.ver_res > 0) {
-        ver_res = LV_MIN(ver_res, (uint32_t)cli_opts.ver_res);
+        ver_res = cli_opts.ver_res;
     }
     if (cli_opts.dpi > 0) {
         dpi = cli_opts.dpi;
@@ -411,6 +411,8 @@ int main(int argc, char *argv[]) {
     disp_drv.draw_buf = &disp_buf;
     disp_drv.hor_res = hor_res;
     disp_drv.ver_res = ver_res;
+    disp_drv.offset_x = cli_opts.x_offset;
+    disp_drv.offset_y = cli_opts.y_offset;
     disp_drv.dpi = dpi;
     lv_disp_drv_register(&disp_drv);
 

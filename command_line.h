@@ -35,6 +35,10 @@ typedef struct {
     int hor_res;
     /* Vertical display resolution */
     int ver_res;
+    /* Horizontal display offset */
+    int x_offset;
+    /* Vertical display offset */
+    int y_offset;
     /* DPI */
     int dpi;
     /* Verbose mode. If true, provide more detailed logging output on STDERR. */
