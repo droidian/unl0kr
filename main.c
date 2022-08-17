@@ -406,7 +406,6 @@ int main(int argc, char *argv[]) {
     lv_color_t *buf = (lv_color_t *)malloc(buf_size * sizeof(lv_color_t));
     lv_disp_draw_buf_init(&disp_buf, buf, NULL, buf_size);    
 
-
     /* Register display driver */
     disp_drv.draw_buf = &disp_buf;
     disp_drv.hor_res = hor_res;
