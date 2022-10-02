@@ -165,7 +165,7 @@ Below is a short explanation of the different unicode ranges used above.
 
 ## Keyboard layouts
 
-Unl0kr uses [squeekboard layouts] converted to C via [squeek2lvgl]. To regenerate the layouts, run
+Unl0kr uses [squeekboard layouts] converted to C via [squeek2lvgl]. To regenerate the layouts, ensure that you have pipenv installed (e.g. via `pip install --user pipenv`) and then run
 
 ```
 $ ./regenerate-layouts.sh
