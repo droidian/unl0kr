@@ -84,7 +84,7 @@ static void print_usage() {
         "                            merged in order.\n"
         "  -g, --geometry=NxM[@X,Y]  Force a display size of N horizontal times M\n"
         "                            vertical pixels, offset horizontally by X\n"
-        "                            pixels and vertically by Y pixels"
+        "                            pixels and vertically by Y pixels\n"
         "  -d  --dpi=N               Override the display's DPI value\n"
         "  -h, --help                Print this message and exit\n"
         "  -v, --verbose             Enable more detailed logging output on STDERR\n"
