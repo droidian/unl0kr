@@ -9,6 +9,7 @@
 - fix: Disable terminal keyboard while unl0kr is running
 - feat: Extend --geometry flag to also accept display offsets
 - fix: Swap order of KDSKBMODE and KDSETMODE to prevent blank screen (#34)
+- fix: Increase maximum textarea width to prevent clipping on OnePlus 6 (#33)
 
 ## 0.2.0 (2022-05-27)
 
