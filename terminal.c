@@ -96,13 +96,8 @@ void ul_terminal_prepare_current_terminal(void) {
         return;
     }
 
-    if (ioctl(current_fd, KDGETMODE, &original_mode) != 0) {
-        ul_log(UL_LOG_LEVEL_WARNING, "Could not get terminal mode");
-    }
-
-    if (ioctl(current_fd, KDSETMODE, KD_GRAPHICS) != 0) {
-        ul_log(UL_LOG_LEVEL_WARNING, "Could not set terminal mode to graphics");
-    }
+    // NB: The order of calls appears to matter for some devices. See
+    // https://gitlab.com/cherrypicker/unl0kr/-/issues/34 for further info.
 
     if (ioctl(current_fd, KDGKBMODE, &original_kb_mode) != 0) {
         ul_log(UL_LOG_LEVEL_WARNING, "Could not get terminal keyboard mode");
@@ -111,6 +106,14 @@ void ul_terminal_prepare_current_terminal(void) {
     if (ioctl(current_fd, KDSKBMODE, K_OFF) != 0) {
         ul_log(UL_LOG_LEVEL_WARNING, "Could not set terminal keyboard mode to off");
     }
+
+    if (ioctl(current_fd, KDGETMODE, &original_mode) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not get terminal mode");
+    }
+
+    if (ioctl(current_fd, KDSETMODE, KD_GRAPHICS) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not set terminal mode to graphics");
+    }
 }
 
 void ul_terminal_reset_current_terminal(void) {
@@ -118,6 +121,9 @@ void ul_terminal_reset_current_terminal(void) {
         ul_log(UL_LOG_LEVEL_WARNING, "Could not reset current terminal");
         return;
     }
+
+    // NB: The order of calls appears to matter for some devices. See
+    // https://gitlab.com/cherrypicker/unl0kr/-/issues/34 for further info.
 
     if (ioctl(current_fd, KDSETMODE, original_mode) != 0) {
         ul_log(UL_LOG_LEVEL_WARNING, "Could not reset terminal mode");
