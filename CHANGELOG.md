@@ -8,6 +8,7 @@
 - feat: Allow shutting down the device on inactivity
 - fix: Disable terminal keyboard while unl0kr is running
 - feat: Extend --geometry flag to also accept display offsets
+- fix: Swap order of KDSKBMODE and KDSETMODE to prevent blank screen (#34)
 
 ## 0.2.0 (2022-05-27)
 
