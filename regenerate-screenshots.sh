@@ -80,7 +80,7 @@ for theme in ${themes[@]}; do
         CRYPTTAB_SOURCE=/dev/sda1 $unl0kr -g $res -c unl0kr-screenshots.conf &
         pid=$!
 
-        sleep 2 
+        sleep 1
 
         cat /dev/fb0 > "$outdir/$res"
         convert -size $fb_res -depth $fb_depth $fb_format:"$outdir/$res" -crop $res+0+0 "$outdir/$theme-$res.png"
@@ -88,6 +88,8 @@ for theme in ${themes[@]}; do
         kill -15 $pid
 
         readme="$readme<img src=\"$theme-$res.png\" alt=\"$res\" height=\"300\"/>"$'\n'
+
+        sleep 1 # Delay to prevent terminal mode set / reset interference
     done
 done
 
