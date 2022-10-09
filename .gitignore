@@ -18,3 +18,6 @@
 
 /_build
 .vscode
+
+# Added by Droidian
+!.circleci/
