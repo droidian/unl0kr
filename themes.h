@@ -28,7 +28,9 @@
 typedef enum {
     UL_THEMES_THEME_NONE = -1,
     UL_THEMES_THEME_BREEZY_LIGHT = 0,
-    UL_THEMES_THEME_BREEZY_DARK = 1
+    UL_THEMES_THEME_BREEZY_DARK = 1,
+    UL_THEMES_THEME_PMOS_LIGHT = 2,
+    UL_THEMES_THEME_PMOS_DARK = 3
 } ul_themes_theme_id_t;
 
 /* Themes */
