@@ -20,7 +20,6 @@
 find lv_drivers -name '*.c'
 find lvgl/src/core -name '*.c'
 find lvgl/src/draw -name '*.c'
-find lvgl/src/extra -name '*.c'
 find lvgl/src/font -name '*.c'
 find lvgl/src/hal -name '*.c'
 find lvgl/src/layouts -name '*.c'
