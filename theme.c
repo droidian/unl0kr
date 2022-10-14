@@ -52,6 +52,8 @@ static struct {
     lv_style_t msgbox;
     lv_style_t msgbox_btnmatrix;
     lv_style_t msgbox_background;
+    lv_style_t bar;
+    lv_style_t bar_indicator;
 } styles; 
 
 static bool are_styles_initialised = false;
@@ -207,6 +209,16 @@ static void init_styles(const ul_theme *theme) {
     lv_style_set_bg_color(&(styles.msgbox_background), lv_color_hex(theme->msgbox.dimming.color));
     lv_style_set_bg_opa(&(styles.msgbox_background), theme->msgbox.dimming.opacity);
 
+    reset_style(&(styles.bar));
+    lv_style_set_border_side(&(styles.bar), LV_BORDER_SIDE_FULL);
+    lv_style_set_border_width(&(styles.bar), lv_dpx(theme->bar.border_width));
+    lv_style_set_border_color(&(styles.bar), lv_color_hex(theme->bar.border_color));
+    lv_style_set_radius(&(styles.bar), lv_dpx(theme->bar.corner_radius));
+
+    reset_style(&(styles.bar_indicator));
+    lv_style_set_bg_opa(&(styles.bar_indicator), LV_OPA_COVER);
+    lv_style_set_bg_color(&(styles.bar_indicator), lv_color_hex(theme->bar.indicator.bg_color));
+
     are_styles_initialised = true;
 }
 
@@ -283,6 +295,12 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
 
     if (lv_obj_check_type(obj, &lv_msgbox_backdrop_class)) {
         lv_obj_add_style(obj, &(styles.msgbox_background), 0);
+        return;
+    }
+
+    if (lv_obj_check_type(obj, &lv_bar_class)) {
+        lv_obj_add_style(obj, &(styles.bar), 0);
+        lv_obj_add_style(obj, &(styles.bar_indicator), LV_PART_INDICATOR);
         return;
     }
 }

@@ -171,6 +171,19 @@ typedef struct {
     ul_theme_msgbox_dimming dimming;
 } ul_theme_msgbox;
 
+/* Progress bar indicator theme */
+typedef struct {
+    uint32_t bg_color;
+} ul_theme_bar_indicator;
+
+/* Progress bar theme */
+typedef struct {
+    lv_coord_t border_width;
+    uint32_t border_color;
+    lv_coord_t corner_radius;
+    ul_theme_bar_indicator indicator;
+} ul_theme_bar;
+
 /* Full theme */
 typedef struct {
     char *name;
@@ -182,6 +195,7 @@ typedef struct {
     ul_theme_dropdown dropdown;
     ul_theme_label label;
     ul_theme_msgbox msgbox;
+    ul_theme_bar bar;
 } ul_theme;
 
 /**

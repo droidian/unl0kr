@@ -164,6 +164,14 @@ static const ul_theme ul_themes_breezy_light = {
             .color = 0x232629,
             .opacity = 178
         }
+    },
+    .bar = {
+        .border_width = 1,
+        .border_color = 0x3daee9,
+        .corner_radius = 5,
+        .indicator = {
+            .bg_color = 0x3daee9
+        }
     }
 };
 
@@ -307,6 +315,14 @@ static const ul_theme ul_themes_breezy_dark = {
             .color = 0x232629,
             .opacity = 178
         }
+    },
+    .bar = {
+        .border_width = 1,
+        .border_color = 0x3daee9,
+        .corner_radius = 5,
+        .indicator = {
+            .bg_color = 0x3daee9
+        }
     }
 };
 
@@ -449,6 +465,14 @@ static const ul_theme ul_themes_pmos_light = {
             .color = 0x232629,
             .opacity = 178
         }
+    },
+    .bar = {
+        .border_width = 1,
+        .border_color = 0x009900,
+        .corner_radius = 5,
+        .indicator = {
+            .bg_color = 0x009900
+        }
     }
 };
 
@@ -590,6 +614,14 @@ static const ul_theme ul_themes_pmos_dark = {
         .dimming = {
             .color = 0x232629,
             .opacity = 178
+        }
+    },
+    .bar = {
+        .border_width = 1,
+        .border_color = 0x009900,
+        .corner_radius = 5,
+        .indicator = {
+            .bg_color = 0x009900
         }
     }
 };
