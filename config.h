@@ -75,6 +75,18 @@ typedef struct {
 } ul_config_opts_theme;
 
 /**
+ * Options related to input devices
+ */
+typedef struct {
+    /* If true and a keyboard device is connected, use it for input */
+    bool keyboard;
+    /* If true and a pointer device is connected, use it for input */
+    bool pointer;
+    /* If true and a touchscreen device is connected, use it for input */
+    bool touchscreen;
+} ul_config_opts_input;
+
+/**
  * Options parsed from config file(s)
  */
 typedef struct {
@@ -86,6 +98,8 @@ typedef struct {
     ul_config_opts_textarea textarea;
     /* Options related to the theme */
     ul_config_opts_theme theme;
+    /* Options related to input devices */
+    ul_config_opts_input input;
 } ul_config_opts;
 
 /**

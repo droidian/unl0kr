@@ -85,6 +85,9 @@ static void init_opts(ul_config_opts *opts) {
     opts->textarea.bullet = LV_SYMBOL_BULLET;
     opts->theme.default_id = UL_THEMES_THEME_BREEZY_DARK;
     opts->theme.alternate_id = UL_THEMES_THEME_BREEZY_LIGHT;
+    opts->input.keyboard = true;
+    opts->input.pointer = true;
+    opts->input.touchscreen = true;
 }
 
 static void parse_file(const char *path, ul_config_opts *opts) {
@@ -133,8 +136,7 @@ static int parsing_handler(void* user_data, const char* section, const char* key
             if (parse_bool(value, &(opts->textarea.obscured))) {
                 return 1;
             }
-        }
-        if (strcmp(key, "bullet") == 0) {
+        } else if (strcmp(key, "bullet") == 0) {
             char *bullet = strdup(value);
             if (bullet) {
                 opts->textarea.bullet = bullet;
@@ -152,6 +154,20 @@ static int parsing_handler(void* user_data, const char* section, const char* key
             ul_themes_theme_id_t id = ul_themes_find_theme_with_name(value);
             if (id != UL_THEMES_THEME_NONE) {
                 opts->theme.alternate_id = id;
+                return 1;
+            }
+        }
+    } else if (strcmp(section, "input") == 0) {
+        if (strcmp(key, "keyboard") == 0) {
+            if (parse_bool(value, &(opts->input.keyboard))) {
+                return 1;
+            }
+        } else if (strcmp(key, "pointer") == 0) {
+            if (parse_bool(value, &(opts->input.pointer))) {
+                return 1;
+            }
+        } else if (strcmp(key, "touchscreen") == 0) {
+            if (parse_bool(value, &(opts->input.touchscreen))) {
                 return 1;
             }
         }

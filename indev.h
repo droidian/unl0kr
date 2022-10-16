@@ -27,8 +27,12 @@
 
 /**
  * Auto-connect currently available keyboard, pointer and touchscreen input devices.
+ *
+ * @param keyboard if true, auto-connect keyboard devices
+ * @param pointer if true, auto-connect pointer devices
+ * @param touchscreen if true, auto-connect touchscreen devices
  */
-void ul_indev_auto_connect();
+void ul_indev_auto_connect(bool keyboard, bool pointer, bool touchscreen);
 
 /**
  * Check if any keyboard devices are connected.

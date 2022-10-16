@@ -416,7 +416,7 @@ int main(int argc, char *argv[]) {
     lv_disp_drv_register(&disp_drv);
 
     /* Connect input devices */
-    ul_indev_auto_connect();
+    ul_indev_auto_connect(conf_opts.input.keyboard, conf_opts.input.pointer, conf_opts.input.touchscreen);
     ul_indev_set_up_mouse_cursor();
 
     /* Hide the on-screen keyboard by default if a physical keyboard is connected */
