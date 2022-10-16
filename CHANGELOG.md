@@ -10,6 +10,7 @@
 - feat: Extend --geometry flag to also accept display offsets
 - fix: Swap order of KDSKBMODE and KDSETMODE to prevent blank screen (#34)
 - fix: Increase maximum textarea width to prevent clipping on OnePlus 6 (#33)
+- fix: Disable unused fonts, widgets and drivers (#13)
 
 ## 0.2.0 (2022-05-27)
 
