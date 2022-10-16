@@ -506,8 +506,9 @@ int main(int argc, char *argv[]) {
     }
 
     /* Size label to content */
+    const lv_coord_t label_height = lv_spangroup_get_expand_height(spangroup, label_width);
     lv_obj_set_style_max_height(spangroup, LV_PCT(100), LV_PART_MAIN);
-    lv_obj_set_size(spangroup, label_width, lv_spangroup_get_expand_height(spangroup, label_width));
+    lv_obj_set_size(spangroup, label_width, label_height);
     lv_obj_set_align(spangroup, LV_ALIGN_BOTTOM_MID);
 
     /* Textarea flexbox */
@@ -546,6 +547,11 @@ int main(int argc, char *argv[]) {
     lv_obj_set_size(toggle_theme_btn, dropwdown_height, dropwdown_height);
     lv_obj_set_size(toggle_kb_btn, dropwdown_height, dropwdown_height);
     lv_obj_set_size(shutdown_btn, dropwdown_height, dropwdown_height);
+
+    /* Hide label if it clips veritcally */
+    if (label_height > lv_obj_get_height(label_container)) {
+        lv_obj_set_height(spangroup, 0);
+    }
 
     /* Keyboard (after textarea / label so that key popovers are not drawn over) */
     keyboard = lv_keyboard_create(lv_scr_act());
