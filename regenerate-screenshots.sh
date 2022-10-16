@@ -31,16 +31,13 @@ resolutions=(
     # Pine64 PinePhone (landscape)
     1440x720
     # BQ Aquaris X Pro (landscape)
-    1920x1080 
+    1920x1080
 )
 
 if [[ ! -f $unl0kr || ! -x $unl0kr ]]; then
     echo "Error: Could not find unl0kr executable at $unl0kr" 1>&2
     exit 1
 fi
-
-exec 1>/dev/null
-exec 2>/dev/null 
 
 function write_config() {
     cat << EOF > $config
@@ -57,6 +54,11 @@ obscured=true
 
 [theme]
 default=$1
+
+[input]
+keyboard=true
+mouse=false
+touchscreen=false
 EOF
 }
 
@@ -76,15 +78,15 @@ for theme in ${themes[@]}; do
 
     readme="$readme"$'\n'"## $theme"$'\n\n'
     
-    for res in ${resolutions[@]}; do    
+    for res in ${resolutions[@]}; do
         CRYPTTAB_SOURCE=/dev/sda1 $unl0kr -g $res -c unl0kr-screenshots.conf &
         pid=$!
 
-        sleep 1
+        sleep 2 # Wait for UI to render
 
-        cat /dev/fb0 > "$outdir/$res"
-        convert -size $fb_res -depth $fb_depth $fb_format:"$outdir/$res" -crop $res+0+0 "$outdir/$theme-$res.png"
-        rm "$outdir/$res"
+        cat /dev/fb0 > "$outdir/$theme-$res"
+        convert -size $fb_res -depth $fb_depth $fb_format:"$outdir/$theme-$res" -crop $res+0+0 "$outdir/$theme-$res.png"
+        rm "$outdir/$theme-$res"
         kill -15 $pid
 
         readme="$readme<img src=\"$theme-$res.png\" alt=\"$res\" height=\"300\"/>"$'\n'
