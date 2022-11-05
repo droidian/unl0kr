@@ -127,13 +127,20 @@ static const ul_theme ul_themes_breezy_light = {
         }
     },
     .dropdown = {
-        .box = {
-            .fg_color = 0x232629,
-            .bg_color = 0xeff0f1,
+        .button = {
             .border_width = 1,
-            .border_color = 0xbdc3c7,
             .corner_radius = 5,
-            .pad = 5
+            .pad = 5,
+            .normal = {
+                .fg_color = 0x232629,
+                .bg_color = 0xeff0f1,
+                .border_color = 0xbdc3c7
+            },
+            .pressed = {
+                .fg_color = 0x232629,
+                .bg_color = 0x3daee9,
+                .border_color = 0x2980b9
+            }
         },
         .list = {
             .fg_color = 0x232629,
@@ -278,13 +285,20 @@ static const ul_theme ul_themes_breezy_dark = {
         }
     },
     .dropdown = {
-        .box = {
-            .fg_color = 0xeff0f1,
-            .bg_color = 0x31363b,
+        .button = {
             .border_width = 1,
-            .border_color = 0x7f8c8d,
             .corner_radius = 5,
-            .pad = 5
+            .pad = 5,
+            .normal = {
+                .fg_color = 0xeff0f1,
+                .bg_color = 0x31363b,
+                .border_color = 0xbdc3c7
+            },
+            .pressed = {
+                .fg_color = 0xeff0f1,
+                .bg_color = 0x3daee9,
+                .border_color = 0x2980b9
+            }
         },
         .list = {
             .fg_color = 0xeff0f1,
@@ -334,142 +348,149 @@ static const ul_theme ul_themes_pmos_light = {
     },
     .header = {
         .bg_color = 0xffffff,
-        .border_width = 8,
-        .border_color = 0x009900,
-        .pad = 30,
-        .gap = 20
+        .border_width = 0,
+        .border_color = 0xffffff,
+        .pad = 20,
+        .gap = 10
     },
     .keyboard = {
-        .bg_color = 0xffffff,
-        .border_width = 8,
-        .border_color = 0x009900,
-        .pad = 30,
+        .bg_color = 0xeeeeee,
+        .border_width = 2,
+        .border_color = 0xbbbbbb,
+        .pad = 20,
         .gap = 10,
         .keys = {
-            .border_width = 2,
-            .corner_radius = 5,
+            .border_width = 1,
+            .corner_radius = 3,
             .key_char = {
                 .normal = {
                     .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
-                    .border_color = 0x009900
+                    .bg_color = 0xeeeeee,
+                    .border_color = 0xbbbbbb
                 },
                 .pressed = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
+                    .fg_color = 0x000000,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             },
             .key_non_char = {
                 .normal = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
-                    .border_color = 0x009900
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x005400,
+                    .border_color = 0x005400
                 },
                 .pressed = {
                     .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
-                    .border_color = 0x009900
+                    .fg_color = 0x009900,
+                    .bg_color = 0x005400,
+                    .border_color = 0x005400
                 },
                 .pressed = {
                     .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             },
             .key_mod_inact = {
                 .normal = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
-                    .border_color = 0x009900
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x005400,
+                    .border_color = 0x005400
                 },
                 .pressed = {
                     .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             }
         }
     },
     .button = {
-        .border_width = 0,
-        .corner_radius = 0,
+        .border_width = 1,
+        .corner_radius = 3,
         .pad = 8,
         .normal = {
-            .fg_color = 0x000000,
-            .bg_color = 0xffffff,
-            .border_color = 0x000000
+            .fg_color = 0xffffff,
+            .bg_color = 0x005400,
+            .border_color = 0x005400
         },
         .pressed = {
             .fg_color = 0xffffff,
-            .bg_color = 0x000000,
-            .border_color = 0x000000
+            .bg_color = 0x009900,
+            .border_color = 0x009900
         }
     },
     .textarea = {
         .fg_color = 0x000000,
-        .bg_color = 0xb1b1b1,
-        .border_width = 0,
-        .border_color = 0xb1b1b1,
-        .corner_radius = 0,
+        .bg_color = 0xffffff,
+        .border_width = 1,
+        .border_color = 0xbbbbbb,
+        .corner_radius = 3,
         .pad = 8,
-        .placeholder_color = 0x000000,
+        .placeholder_color = 0xbbbbbb,
         .cursor = {
             .width = 2,
-            .color = 0x000000,
+            .color = 0x009900,
             .period = 700
         }
     },
     .dropdown = {
-        .box = {
-            .fg_color = 0x000000,
-            .bg_color = 0xffffff,
-            .border_width = 0,
-            .border_color = 0xffffff,
-            .corner_radius = 0,
-            .pad = 10
+        .button = {
+            .border_width = 1,
+            .corner_radius = 3,
+            .pad = 8,
+            .normal = {
+                .fg_color = 0xffffff,
+                .bg_color = 0x005400,
+                .border_color = 0x005400
+            },
+            .pressed = {
+                .fg_color = 0xffffff,
+                .bg_color = 0x009900,
+                .border_color = 0x009900
+            }
         },
         .list = {
             .fg_color = 0x000000,
-            .bg_color = 0xffffff,
+            .bg_color = 0xeeeeee,
             .selection_fg_color = 0xffffff,
             .selection_bg_color = 0x009900,
-            .border_width = 0,
-            .border_color = 0xffffff,
+            .border_width = 1,
+            .border_color = 0xbbbbbb,
             .corner_radius = 0,
-            .pad = 0
+            .pad = 8
         }
     },
     .label = {
-        .fg_color = 0x000000
+        .fg_color = 0xffffff
     },
     .msgbox = {
         .fg_color = 0x000000,
-        .bg_color = 0xb1b1b1,
-        .border_width = 0,
-        .border_color = 0xb1b1b1,
-        .corner_radius = 0,
+        .bg_color = 0xffffff,
+        .border_width = 1,
+        .border_color = 0xbbbbbb,
+        .corner_radius = 3,
         .pad = 20,
         .buttons = {
             .pad = 20,
             .gap = 10
         },
         .dimming = {
-            .color = 0x232629,
+            .color = 0x222222,
             .opacity = 178
         }
     },
     .bar = {
         .border_width = 1,
         .border_color = 0x009900,
-        .corner_radius = 5,
+        .corner_radius = 3,
         .indicator = {
             .bg_color = 0x009900
         }
@@ -484,117 +505,124 @@ static const ul_theme ul_themes_pmos_dark = {
     },
     .header = {
         .bg_color = 0x000000,
-        .border_width = 8,
-        .border_color = 0x009900,
-        .pad = 30,
-        .gap = 20
+        .border_width = 0,
+        .border_color = 0x000000,
+        .pad = 20,
+        .gap = 10
     },
     .keyboard = {
-        .bg_color = 0x000000,
-        .border_width = 8,
-        .border_color = 0x009900,
-        .pad = 30,
+        .bg_color = 0x002000,
+        .border_width = 2,
+        .border_color = 0x005400,
+        .pad = 20,
         .gap = 10,
         .keys = {
-            .border_width = 2,
-            .corner_radius = 5,
+            .border_width = 1,
+            .corner_radius = 3,
             .key_char = {
                 .normal = {
                     .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
-                    .border_color = 0x009900
+                    .bg_color = 0x002000,
+                    .border_color = 0x005400
                 },
                 .pressed = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             },
             .key_non_char = {
                 .normal = {
                     .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
-                    .border_color = 0x009900
+                    .bg_color = 0x005400,
+                    .border_color = 0x005400
                 },
                 .pressed = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
-                    .border_color = 0x009900
+                    .fg_color = 0x009900,
+                    .bg_color = 0x005400,
+                    .border_color = 0x005400
                 },
                 .pressed = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             },
             .key_mod_inact = {
                 .normal = {
                     .fg_color = 0xffffff,
-                    .bg_color = 0x000000,
-                    .border_color = 0x009900
+                    .bg_color = 0x005400,
+                    .border_color = 0x005400
                 },
                 .pressed = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xffffff,
+                    .fg_color = 0xffffff,
+                    .bg_color = 0x009900,
                     .border_color = 0x009900
                 }
             }
         }
     },
     .button = {
-        .border_width = 0,
-        .corner_radius = 0,
+        .border_width = 1,
+        .corner_radius = 3,
         .pad = 8,
         .normal = {
             .fg_color = 0xffffff,
-            .bg_color = 0x000000,
-            .border_color = 0x000000
+            .bg_color = 0x005400,
+            .border_color = 0x005400
         },
         .pressed = {
-            .fg_color = 0x000000,
-            .bg_color = 0xffffff,
-            .border_color = 0x000000
+            .fg_color = 0xffffff,
+            .bg_color = 0x009900,
+            .border_color = 0x009900
         }
     },
     .textarea = {
         .fg_color = 0xffffff,
-        .bg_color = 0x616161,
-        .border_width = 0,
-        .border_color = 0x616161,
-        .corner_radius = 0,
+        .bg_color = 0x000000,
+        .border_width = 1,
+        .border_color = 0x005400,
+        .corner_radius = 3,
         .pad = 8,
-        .placeholder_color = 0xffffff,
+        .placeholder_color = 0x005400,
         .cursor = {
             .width = 2,
-            .color = 0x000000,
+            .color = 0x009900,
             .period = 700
         }
     },
     .dropdown = {
-        .box = {
-            .fg_color = 0xffffff,
-            .bg_color = 0x000000,
-            .border_width = 0,
-            .border_color = 0x000000,
-            .corner_radius = 0,
-            .pad = 10
+        .button = {
+            .border_width = 1,
+            .corner_radius = 3,
+            .pad = 8,
+            .normal = {
+                .fg_color = 0xffffff,
+                .bg_color = 0x005400,
+                .border_color = 0x005400
+            },
+            .pressed = {
+                .fg_color = 0xffffff,
+                .bg_color = 0x009900,
+                .border_color = 0x009900
+            }
         },
         .list = {
             .fg_color = 0xffffff,
-            .bg_color = 0x000000,
+            .bg_color = 0x002000,
             .selection_fg_color = 0xffffff,
             .selection_bg_color = 0x009900,
-            .border_width = 0,
-            .border_color = 0x000000,
+            .border_width = 1,
+            .border_color = 0x005400,
             .corner_radius = 0,
-            .pad = 0
+            .pad = 8
         }
     },
     .label = {
@@ -602,24 +630,24 @@ static const ul_theme ul_themes_pmos_dark = {
     },
     .msgbox = {
         .fg_color = 0xffffff,
-        .bg_color = 0x616161,
-        .border_width = 0,
-        .border_color = 0x616161,
-        .corner_radius = 0,
+        .bg_color = 0x000000,
+        .border_width = 1,
+        .border_color = 0x005400,
+        .corner_radius = 3,
         .pad = 20,
         .buttons = {
             .pad = 20,
             .gap = 10
         },
         .dimming = {
-            .color = 0x232629,
+            .color = 0x222222,
             .opacity = 178
         }
     },
     .bar = {
         .border_width = 1,
         .border_color = 0x009900,
-        .corner_radius = 5,
+        .corner_radius = 3,
         .indicator = {
             .bg_color = 0x009900
         }

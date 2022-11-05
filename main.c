@@ -247,15 +247,8 @@ static void set_keyboard_hidden(bool is_hidden) {
     lv_anim_t keyboard_anim;
     lv_anim_init(&keyboard_anim);
     lv_anim_set_var(&keyboard_anim, keyboard);
-
-    if (is_hidden) {
-        lv_anim_set_values(&keyboard_anim, 0, lv_obj_get_y(keyboard));
-        lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_ease_in_out);
-    } else {
-        lv_anim_set_values(&keyboard_anim, lv_obj_get_height(keyboard), 0);
-        lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_overshoot);
-    }
-
+    lv_anim_set_values(&keyboard_anim, is_hidden ? 0 : lv_obj_get_height(keyboard), is_hidden ? lv_obj_get_y(keyboard) : 0);
+    lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_ease_out);
     lv_anim_set_time(&keyboard_anim, 500);
     lv_anim_set_exec_cb(&keyboard_anim, keyboard_anim_y_cb);
     lv_anim_start(&keyboard_anim);
