@@ -344,19 +344,19 @@ static const ul_theme ul_themes_breezy_dark = {
 static const ul_theme ul_themes_pmos_light = {
     .name = "pmos-light",
     .window = {
-        .bg_color = 0xffffff
+        .bg_color = 0xf2f7f8,
     },
     .header = {
-        .bg_color = 0xffffff,
+        .bg_color = 0xf2f7f8,
         .border_width = 0,
-        .border_color = 0xffffff,
+        .border_color = 0xf2f7f8,
         .pad = 20,
         .gap = 10
     },
     .keyboard = {
-        .bg_color = 0xeeeeee,
+        .bg_color = 0xd8e6e9,
         .border_width = 2,
-        .border_color = 0xbbbbbb,
+        .border_color = 0x97bcc4,
         .pad = 20,
         .gap = 10,
         .keys = {
@@ -364,50 +364,50 @@ static const ul_theme ul_themes_pmos_light = {
             .corner_radius = 3,
             .key_char = {
                 .normal = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0xeeeeee,
-                    .border_color = 0xbbbbbb
+                    .fg_color = 0x070c0d,
+                    .bg_color = 0xd8e6e9,
+                    .border_color = 0x97bcc4
                 },
                 .pressed = {
-                    .fg_color = 0x000000,
-                    .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .fg_color = 0x162427,
+                    .bg_color = 0xfacb0f,
+                    .border_color = 0xfacb0f
                 }
             },
             .key_non_char = {
                 .normal = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x005400,
-                    .border_color = 0x005400
-                },
-                .pressed = {
-                    .fg_color = 0xffffff,
+                    .fg_color = 0xebf5ee,
                     .bg_color = 0x009900,
                     .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x162427,
+                    .bg_color = 0xfacb0f,
+                    .border_color = 0xfacb0f
                 }
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0x009900,
-                    .bg_color = 0x005400,
-                    .border_color = 0x005400
-                },
-                .pressed = {
-                    .fg_color = 0xffffff,
+                    .fg_color = 0x162427,
                     .bg_color = 0x009900,
                     .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x162427,
+                    .bg_color = 0xfacb0f,
+                    .border_color = 0xfacb0f
                 }
             },
             .key_mod_inact = {
                 .normal = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x005400,
-                    .border_color = 0x005400
-                },
-                .pressed = {
-                    .fg_color = 0xffffff,
+                    .fg_color = 0xebf5ee,
                     .bg_color = 0x009900,
                     .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x162427,
+                    .bg_color = 0xfacb0f,
+                    .border_color = 0xfacb0f
                 }
             }
         }
@@ -417,27 +417,27 @@ static const ul_theme ul_themes_pmos_light = {
         .corner_radius = 3,
         .pad = 8,
         .normal = {
-            .fg_color = 0xffffff,
-            .bg_color = 0x005400,
-            .border_color = 0x005400
+            .fg_color = 0x070c0d,
+            .bg_color = 0xd8e6e9,
+            .border_color = 0x97bcc4
         },
         .pressed = {
-            .fg_color = 0xffffff,
-            .bg_color = 0x009900,
-            .border_color = 0x009900
+            .fg_color = 0x162427,
+            .bg_color = 0xfacb0f,
+            .border_color = 0xfacb0f
         }
     },
     .textarea = {
-        .fg_color = 0x000000,
-        .bg_color = 0xffffff,
+        .fg_color = 0x070c0d,
+        .bg_color = 0xfffbeb,//0xf2f7f8,
         .border_width = 1,
-        .border_color = 0xbbbbbb,
+        .border_color = 0xfacb0f,
         .corner_radius = 3,
         .pad = 8,
-        .placeholder_color = 0xbbbbbb,
+        .placeholder_color = 0xfacb0f,
         .cursor = {
             .width = 2,
-            .color = 0x009900,
+            .color = 0xfacb0f,
             .period = 700
         }
     },
@@ -447,35 +447,35 @@ static const ul_theme ul_themes_pmos_light = {
             .corner_radius = 3,
             .pad = 8,
             .normal = {
-                .fg_color = 0xffffff,
-                .bg_color = 0x005400,
-                .border_color = 0x005400
+                .fg_color = 0x070c0d,
+                .bg_color = 0xd8e6e9,
+                .border_color = 0x97bcc4
             },
             .pressed = {
-                .fg_color = 0xffffff,
-                .bg_color = 0x009900,
-                .border_color = 0x009900
+                .fg_color = 0x162427,
+                .bg_color = 0xfacb0f,
+                .border_color = 0xfacb0f
             }
         },
         .list = {
-            .fg_color = 0x000000,
-            .bg_color = 0xeeeeee,
-            .selection_fg_color = 0xffffff,
-            .selection_bg_color = 0x009900,
+            .fg_color = 0x070c0d,
+            .bg_color = 0xd8e6e9,
+            .selection_fg_color = 0x162427,
+            .selection_bg_color = 0xfacb0f,
             .border_width = 1,
-            .border_color = 0xbbbbbb,
+            .border_color = 0x97bcc4,
             .corner_radius = 0,
             .pad = 8
         }
     },
     .label = {
-        .fg_color = 0xffffff
+        .fg_color = 0x070c0d
     },
     .msgbox = {
-        .fg_color = 0x000000,
-        .bg_color = 0xffffff,
+        .fg_color = 0x070c0d,
+        .bg_color = 0xf2f7f8,
         .border_width = 1,
-        .border_color = 0xbbbbbb,
+        .border_color = 0x97bcc4,
         .corner_radius = 3,
         .pad = 20,
         .buttons = {
@@ -483,8 +483,8 @@ static const ul_theme ul_themes_pmos_light = {
             .gap = 10
         },
         .dimming = {
-            .color = 0x222222,
-            .opacity = 178
+            .color = 0x070c0d,
+            .opacity = 225
         }
     },
     .bar = {
@@ -501,19 +501,19 @@ static const ul_theme ul_themes_pmos_light = {
 static const ul_theme ul_themes_pmos_dark = {
     .name = "pmos-dark",
     .window = {
-        .bg_color = 0x000000
+        .bg_color = 0x070c0d
     },
     .header = {
-        .bg_color = 0x000000,
+        .bg_color = 0x070c0d,
         .border_width = 0,
-        .border_color = 0x000000,
+        .border_color = 0x070c0d,
         .pad = 20,
         .gap = 10
     },
     .keyboard = {
-        .bg_color = 0x002000,
+        .bg_color = 0x162427,
         .border_width = 2,
-        .border_color = 0x005400,
+        .border_color = 0x395e66,
         .pad = 20,
         .gap = 10,
         .keys = {
@@ -521,50 +521,50 @@ static const ul_theme ul_themes_pmos_dark = {
             .corner_radius = 3,
             .key_char = {
                 .normal = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x002000,
-                    .border_color = 0x005400
+                    .fg_color = 0xebf5ee,
+                    .bg_color = 0x162427,
+                    .border_color = 0x395e66
                 },
                 .pressed = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .fg_color = 0x162427,
+                    .bg_color = 0xe3b505,
+                    .border_color = 0xe3b505
                 }
             },
             .key_non_char = {
                 .normal = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x005400,
-                    .border_color = 0x005400
-                },
-                .pressed = {
-                    .fg_color = 0xffffff,
+                    .fg_color = 0xebf5ee,
                     .bg_color = 0x009900,
                     .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x162427,
+                    .bg_color = 0xe3b505,
+                    .border_color = 0xe3b505
                 }
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0x009900,
-                    .bg_color = 0x005400,
-                    .border_color = 0x005400
-                },
-                .pressed = {
-                    .fg_color = 0xffffff,
+                    .fg_color = 0x162427,
                     .bg_color = 0x009900,
                     .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x162427,
+                    .bg_color = 0xe3b505,
+                    .border_color = 0xe3b505
                 }
             },
             .key_mod_inact = {
                 .normal = {
-                    .fg_color = 0xffffff,
-                    .bg_color = 0x005400,
-                    .border_color = 0x005400
-                },
-                .pressed = {
-                    .fg_color = 0xffffff,
+                    .fg_color = 0xebf5ee,
                     .bg_color = 0x009900,
                     .border_color = 0x009900
+                },
+                .pressed = {
+                    .fg_color = 0x162427,
+                    .bg_color = 0xe3b505,
+                    .border_color = 0xe3b505
                 }
             }
         }
@@ -574,27 +574,27 @@ static const ul_theme ul_themes_pmos_dark = {
         .corner_radius = 3,
         .pad = 8,
         .normal = {
-            .fg_color = 0xffffff,
-            .bg_color = 0x005400,
-            .border_color = 0x005400
+            .fg_color = 0xebf5ee,
+            .bg_color = 0x162427,
+            .border_color = 0x395e66
         },
         .pressed = {
-            .fg_color = 0xffffff,
-            .bg_color = 0x009900,
-            .border_color = 0x009900
+            .fg_color = 0x162427,
+            .bg_color = 0xe3b505,
+            .border_color = 0xe3b505
         }
     },
     .textarea = {
-        .fg_color = 0xffffff,
-        .bg_color = 0x000000,
+        .fg_color = 0xebf5ee,
+        .bg_color = 0x070c0d,
         .border_width = 1,
-        .border_color = 0x005400,
+        .border_color = 0xe3b505,
         .corner_radius = 3,
         .pad = 8,
-        .placeholder_color = 0x005400,
+        .placeholder_color = 0xe3b505,
         .cursor = {
             .width = 2,
-            .color = 0x009900,
+            .color = 0xe3b505,
             .period = 700
         }
     },
@@ -604,35 +604,35 @@ static const ul_theme ul_themes_pmos_dark = {
             .corner_radius = 3,
             .pad = 8,
             .normal = {
-                .fg_color = 0xffffff,
-                .bg_color = 0x005400,
-                .border_color = 0x005400
+                .fg_color = 0xebf5ee,
+                .bg_color = 0x162427,
+                .border_color = 0x395e66
             },
             .pressed = {
-                .fg_color = 0xffffff,
-                .bg_color = 0x009900,
-                .border_color = 0x009900
+                .fg_color = 0x162427,
+                .bg_color = 0xe3b505,
+                .border_color = 0xe3b505
             }
         },
         .list = {
-            .fg_color = 0xffffff,
-            .bg_color = 0x002000,
-            .selection_fg_color = 0xffffff,
-            .selection_bg_color = 0x009900,
+            .fg_color = 0xebf5ee,
+            .bg_color = 0x162427,
+            .selection_fg_color = 0x162427,
+            .selection_bg_color = 0xe3b505,
             .border_width = 1,
-            .border_color = 0x005400,
+            .border_color = 0x395e66,
             .corner_radius = 0,
             .pad = 8
         }
     },
     .label = {
-        .fg_color = 0xffffff
+        .fg_color = 0xebf5ee
     },
     .msgbox = {
-        .fg_color = 0xffffff,
-        .bg_color = 0x000000,
+        .fg_color = 0xebf5ee,
+        .bg_color = 0x070c0d,
         .border_width = 1,
-        .border_color = 0x005400,
+        .border_color = 0x395e66,
         .corner_radius = 3,
         .pad = 20,
         .buttons = {
@@ -640,8 +640,8 @@ static const ul_theme ul_themes_pmos_dark = {
             .gap = 10
         },
         .dimming = {
-            .color = 0x222222,
-            .opacity = 178
+            .color = 0x070c0d,
+            .opacity = 225
         }
     },
     .bar = {
