@@ -369,45 +369,45 @@ static const ul_theme ul_themes_pmos_light = {
                     .border_color = 0x97bcc4
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xfacb0f,
-                    .border_color = 0xfacb0f
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             },
             .key_non_char = {
                 .normal = {
-                    .fg_color = 0xebf5ee,
-                    .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .fg_color = 0x070c0d,
+                    .bg_color = 0xbed5da,
+                    .border_color = 0x97bcc4
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xfacb0f,
-                    .border_color = 0xfacb0f
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0x162427,
+                    .fg_color = 0xf2f7f8,
                     .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .border_color = 0x008f00
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xfacb0f,
-                    .border_color = 0xfacb0f
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x007a00,
+                    .border_color = 0x007a00
                 }
             },
             .key_mod_inact = {
                 .normal = {
-                    .fg_color = 0xebf5ee,
-                    .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .fg_color = 0x070c0d,
+                    .bg_color = 0xbed5da,
+                    .border_color = 0x97bcc4
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xfacb0f,
-                    .border_color = 0xfacb0f
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x007a00,
+                    .border_color = 0x007a00
                 }
             }
         }
@@ -418,26 +418,26 @@ static const ul_theme ul_themes_pmos_light = {
         .pad = 8,
         .normal = {
             .fg_color = 0x070c0d,
-            .bg_color = 0xd8e6e9,
+            .bg_color = 0xbed5da,
             .border_color = 0x97bcc4
         },
         .pressed = {
-            .fg_color = 0x162427,
-            .bg_color = 0xfacb0f,
-            .border_color = 0xfacb0f
+            .fg_color = 0xf2f7f8,
+            .bg_color = 0x009900,
+            .border_color = 0x009900
         }
     },
     .textarea = {
         .fg_color = 0x070c0d,
-        .bg_color = 0xfffbeb,//0xf2f7f8,
+        .bg_color = 0xebffeb,
         .border_width = 1,
-        .border_color = 0xfacb0f,
+        .border_color = 0x009900,
         .corner_radius = 3,
         .pad = 8,
-        .placeholder_color = 0xfacb0f,
+        .placeholder_color = 0x009900,
         .cursor = {
             .width = 2,
-            .color = 0xfacb0f,
+            .color = 0x009900,
             .period = 700
         }
     },
@@ -448,20 +448,20 @@ static const ul_theme ul_themes_pmos_light = {
             .pad = 8,
             .normal = {
                 .fg_color = 0x070c0d,
-                .bg_color = 0xd8e6e9,
+                .bg_color = 0xbed5da,
                 .border_color = 0x97bcc4
             },
             .pressed = {
-                .fg_color = 0x162427,
-                .bg_color = 0xfacb0f,
-                .border_color = 0xfacb0f
+                .fg_color = 0xf2f7f8,
+                .bg_color = 0x009900,
+                .border_color = 0x009900
             }
         },
         .list = {
             .fg_color = 0x070c0d,
             .bg_color = 0xd8e6e9,
-            .selection_fg_color = 0x162427,
-            .selection_bg_color = 0xfacb0f,
+            .selection_fg_color = 0xf2f7f8,
+            .selection_bg_color = 0x009900,
             .border_width = 1,
             .border_color = 0x97bcc4,
             .corner_radius = 0,
@@ -521,50 +521,50 @@ static const ul_theme ul_themes_pmos_dark = {
             .corner_radius = 3,
             .key_char = {
                 .normal = {
-                    .fg_color = 0xebf5ee,
+                    .fg_color = 0xf2f7f8,
                     .bg_color = 0x162427,
                     .border_color = 0x395e66
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xe3b505,
-                    .border_color = 0xe3b505
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             },
             .key_non_char = {
                 .normal = {
-                    .fg_color = 0xebf5ee,
-                    .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x253c41,
+                    .border_color = 0x395e66
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xe3b505,
-                    .border_color = 0xe3b505
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0x162427,
+                    .fg_color = 0xf2f7f8,
                     .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .border_color = 0x00b800
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xe3b505,
-                    .border_color = 0xe3b505
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x007a00,
+                    .border_color = 0x007a00
                 }
             },
             .key_mod_inact = {
                 .normal = {
-                    .fg_color = 0xebf5ee,
-                    .bg_color = 0x009900,
-                    .border_color = 0x009900
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x253c41,
+                    .border_color = 0x395e66
                 },
                 .pressed = {
-                    .fg_color = 0x162427,
-                    .bg_color = 0xe3b505,
-                    .border_color = 0xe3b505
+                    .fg_color = 0xf2f7f8,
+                    .bg_color = 0x007a00,
+                    .border_color = 0x007a00
                 }
             }
         }
@@ -574,27 +574,27 @@ static const ul_theme ul_themes_pmos_dark = {
         .corner_radius = 3,
         .pad = 8,
         .normal = {
-            .fg_color = 0xebf5ee,
-            .bg_color = 0x162427,
+            .fg_color = 0xf2f7f8,
+            .bg_color = 0x253c41,
             .border_color = 0x395e66
         },
         .pressed = {
-            .fg_color = 0x162427,
-            .bg_color = 0xe3b505,
-            .border_color = 0xe3b505
+            .fg_color = 0xf2f7f8,
+            .bg_color = 0x009900,
+            .border_color = 0x009900
         }
     },
     .textarea = {
-        .fg_color = 0xebf5ee,
-        .bg_color = 0x070c0d,
+        .fg_color = 0xf2f7f8,
+        .bg_color = 0x002900,
         .border_width = 1,
-        .border_color = 0xe3b505,
+        .border_color = 0x009900,
         .corner_radius = 3,
         .pad = 8,
-        .placeholder_color = 0xe3b505,
+        .placeholder_color = 0x009900,
         .cursor = {
             .width = 2,
-            .color = 0xe3b505,
+            .color = 0x009900,
             .period = 700
         }
     },
@@ -604,21 +604,21 @@ static const ul_theme ul_themes_pmos_dark = {
             .corner_radius = 3,
             .pad = 8,
             .normal = {
-                .fg_color = 0xebf5ee,
-                .bg_color = 0x162427,
+                .fg_color = 0xf2f7f8,
+                .bg_color = 0x253c41,
                 .border_color = 0x395e66
             },
             .pressed = {
-                .fg_color = 0x162427,
-                .bg_color = 0xe3b505,
-                .border_color = 0xe3b505
+                .fg_color = 0xf2f7f8,
+                .bg_color = 0x009900,
+                .border_color = 0x009900
             }
         },
         .list = {
-            .fg_color = 0xebf5ee,
+            .fg_color = 0xf2f7f8,
             .bg_color = 0x162427,
-            .selection_fg_color = 0x162427,
-            .selection_bg_color = 0xe3b505,
+            .selection_fg_color = 0xf2f7f8,
+            .selection_bg_color = 0x009900,
             .border_width = 1,
             .border_color = 0x395e66,
             .corner_radius = 0,
@@ -626,10 +626,10 @@ static const ul_theme ul_themes_pmos_dark = {
         }
     },
     .label = {
-        .fg_color = 0xebf5ee
+        .fg_color = 0xf2f7f8,
     },
     .msgbox = {
-        .fg_color = 0xebf5ee,
+        .fg_color = 0xf2f7f8,
         .bg_color = 0x070c0d,
         .border_width = 1,
         .border_color = 0x395e66,
