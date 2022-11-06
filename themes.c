@@ -340,7 +340,7 @@ static const ul_theme ul_themes_breezy_dark = {
     }
 };
 
-/* pmOS light */
+/* pmOS light (based on palette https://coolors.co/009900-395e66-db504a-e3b505-ebf5ee) */
 static const ul_theme ul_themes_pmos_light = {
     .name = "pmos-light",
     .window = {
@@ -473,7 +473,7 @@ static const ul_theme ul_themes_pmos_light = {
     },
     .msgbox = {
         .fg_color = 0x070c0d,
-        .bg_color = 0xf2f7f8,
+        .bg_color = 0xd8e6e9,
         .border_width = 1,
         .border_color = 0x97bcc4,
         .corner_radius = 3,
@@ -497,7 +497,7 @@ static const ul_theme ul_themes_pmos_light = {
     }
 };
 
-/* pmOS dark */
+/* pmOS dark (based on palette https://coolors.co/009900-395e66-db504a-e3b505-ebf5ee) */
 static const ul_theme ul_themes_pmos_dark = {
     .name = "pmos-dark",
     .window = {
@@ -630,7 +630,7 @@ static const ul_theme ul_themes_pmos_dark = {
     },
     .msgbox = {
         .fg_color = 0xf2f7f8,
-        .bg_color = 0x070c0d,
+        .bg_color = 0x162427,
         .border_width = 1,
         .border_color = 0x395e66,
         .corner_radius = 3,
