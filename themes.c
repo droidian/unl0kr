@@ -378,7 +378,7 @@ static const ul_theme ul_themes_pmos_light = {
                 .normal = {
                     .fg_color = 0x070c0d,
                     .bg_color = 0xbed5da,
-                    .border_color = 0x97bcc4
+                    .border_color = 0xb1cdd3
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
@@ -402,7 +402,7 @@ static const ul_theme ul_themes_pmos_light = {
                 .normal = {
                     .fg_color = 0x070c0d,
                     .bg_color = 0xbed5da,
-                    .border_color = 0x97bcc4
+                    .border_color = 0xb1cdd3
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
@@ -419,7 +419,7 @@ static const ul_theme ul_themes_pmos_light = {
         .normal = {
             .fg_color = 0x070c0d,
             .bg_color = 0xbed5da,
-            .border_color = 0x97bcc4
+            .border_color = 0xb1cdd3
         },
         .pressed = {
             .fg_color = 0xf2f7f8,
@@ -449,7 +449,7 @@ static const ul_theme ul_themes_pmos_light = {
             .normal = {
                 .fg_color = 0x070c0d,
                 .bg_color = 0xbed5da,
-                .border_color = 0x97bcc4
+                .border_color = 0xb1cdd3
             },
             .pressed = {
                 .fg_color = 0xf2f7f8,
@@ -535,7 +535,7 @@ static const ul_theme ul_themes_pmos_dark = {
                 .normal = {
                     .fg_color = 0xf2f7f8,
                     .bg_color = 0x253c41,
-                    .border_color = 0x395e66
+                    .border_color = 0x2c484e
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
@@ -559,7 +559,7 @@ static const ul_theme ul_themes_pmos_dark = {
                 .normal = {
                     .fg_color = 0xf2f7f8,
                     .bg_color = 0x253c41,
-                    .border_color = 0x395e66
+                    .border_color = 0x2c484e
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
@@ -576,7 +576,7 @@ static const ul_theme ul_themes_pmos_dark = {
         .normal = {
             .fg_color = 0xf2f7f8,
             .bg_color = 0x253c41,
-            .border_color = 0x395e66
+            .border_color = 0x2c484e
         },
         .pressed = {
             .fg_color = 0xf2f7f8,
@@ -606,7 +606,7 @@ static const ul_theme ul_themes_pmos_dark = {
             .normal = {
                 .fg_color = 0xf2f7f8,
                 .bg_color = 0x253c41,
-                .border_color = 0x395e66
+                .border_color = 0x2c484e
             },
             .pressed = {
                 .fg_color = 0xf2f7f8,
