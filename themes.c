@@ -388,14 +388,14 @@ static const ul_theme ul_themes_pmos_light = {
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0xf2f7f8,
-                    .bg_color = 0x009900,
-                    .border_color = 0x008f00
+                    .fg_color = 0x009900,
+                    .bg_color = 0xbed5da,
+                    .border_color = 0x009900
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
-                    .bg_color = 0x007a00,
-                    .border_color = 0x007a00
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             },
             .key_mod_inact = {
@@ -406,8 +406,8 @@ static const ul_theme ul_themes_pmos_light = {
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
-                    .bg_color = 0x007a00,
-                    .border_color = 0x007a00
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             }
         }
@@ -545,14 +545,14 @@ static const ul_theme ul_themes_pmos_dark = {
             },
             .key_mod_act = {
                 .normal = {
-                    .fg_color = 0xf2f7f8,
-                    .bg_color = 0x009900,
-                    .border_color = 0x00b800
+                    .fg_color = 0x009900,
+                    .bg_color = 0x253c41,
+                    .border_color = 0x009900
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
-                    .bg_color = 0x007a00,
-                    .border_color = 0x007a00
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             },
             .key_mod_inact = {
@@ -563,8 +563,8 @@ static const ul_theme ul_themes_pmos_dark = {
                 },
                 .pressed = {
                     .fg_color = 0xf2f7f8,
-                    .bg_color = 0x007a00,
-                    .border_color = 0x007a00
+                    .bg_color = 0x009900,
+                    .border_color = 0x009900
                 }
             }
         }
