@@ -268,7 +268,7 @@ static void shutdown_btn_clicked_cb(lv_event_t *event) {
     LV_UNUSED(event);
     static const char *btns[] = { "Yes", "No", "" };
     lv_obj_t *mbox = lv_msgbox_create(NULL, NULL, "Shutdown device?", btns, false);
-    lv_obj_set_width(mbox, 400);
+    lv_obj_set_size(mbox, 400, LV_SIZE_CONTENT);
     lv_obj_add_event_cb(mbox, shutdown_mbox_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_center(mbox);
 }

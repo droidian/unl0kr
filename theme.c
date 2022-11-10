@@ -51,6 +51,7 @@ static struct {
     lv_style_t dropdown_list_selected;
     lv_style_t label;
     lv_style_t msgbox;
+    lv_style_t msgbox_label;
     lv_style_t msgbox_btnmatrix;
     lv_style_t msgbox_background;
     lv_style_t bar;
@@ -207,9 +208,13 @@ static void init_styles(const ul_theme *theme) {
     lv_style_set_radius(&(styles.msgbox), lv_dpx(theme->msgbox.corner_radius));
     lv_style_set_pad_all(&(styles.msgbox), lv_dpx(theme->msgbox.pad));
 
+    reset_style(&(styles.msgbox_label));
+    lv_style_set_text_align(&(styles.msgbox_label), LV_TEXT_ALIGN_CENTER);
+    lv_style_set_pad_bottom(&(styles.msgbox_label), lv_dpx(theme->msgbox.gap));
+
     reset_style(&(styles.msgbox_btnmatrix));
-    lv_style_set_pad_top(&(styles.msgbox_btnmatrix), lv_dpx(theme->msgbox.buttons.pad));
     lv_style_set_pad_gap(&(styles.msgbox_btnmatrix), lv_dpx(theme->msgbox.buttons.gap));
+    lv_style_set_min_width(&(styles.msgbox_btnmatrix), LV_PCT(100));
 
     reset_style(&(styles.msgbox_background));
     lv_style_set_bg_color(&(styles.msgbox_background), lv_color_hex(theme->msgbox.dimming.color));
@@ -301,12 +306,8 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
     }
 
     if (lv_obj_check_type(obj, &lv_label_class) && (lv_obj_check_type(lv_obj_get_parent(obj), &lv_msgbox_class) || lv_obj_check_type(lv_obj_get_parent(obj), &lv_msgbox_content_class))) {
+        lv_obj_add_style(obj, &(styles.msgbox_label), 0);
         return; /* Inherit styling from message box */
-    }
-
-    if (lv_obj_check_type(obj, &lv_label_class) || lv_obj_check_type(obj, &lv_spangroup_class)) {
-        lv_obj_add_style(obj, &(styles.label), 0);
-        return;
     }
 
     if (lv_obj_check_type(obj, &lv_btnmatrix_class) && lv_obj_check_type(lv_obj_get_parent(obj), &lv_msgbox_class)) {
@@ -318,6 +319,11 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
 
     if (lv_obj_check_type(obj, &lv_msgbox_backdrop_class)) {
         lv_obj_add_style(obj, &(styles.msgbox_background), 0);
+        return;
+    }
+
+    if (lv_obj_check_type(obj, &lv_label_class) || lv_obj_check_type(obj, &lv_spangroup_class)) {
+        lv_obj_add_style(obj, &(styles.label), 0);
         return;
     }
 

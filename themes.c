@@ -162,9 +162,9 @@ static const ul_theme ul_themes_breezy_light = {
         .border_width = 1,
         .border_color = 0xbdc3c7,
         .corner_radius = 0,
-        .pad = 10,
+        .pad = 20,
+        .gap = 20,
         .buttons = {
-            .pad = 10,
             .gap = 5
         },
         .dimming = {
@@ -320,9 +320,9 @@ static const ul_theme ul_themes_breezy_dark = {
         .border_width = 1,
         .border_color = 0x3b4045,
         .corner_radius = 0,
-        .pad = 10,
+        .pad = 20,
+        .gap = 20,
         .buttons = {
-            .pad = 10,
             .gap = 5
         },
         .dimming = {
@@ -478,8 +478,8 @@ static const ul_theme ul_themes_pmos_light = {
         .border_color = 0x97bcc4,
         .corner_radius = 3,
         .pad = 20,
+        .gap = 20,
         .buttons = {
-            .pad = 20,
             .gap = 10
         },
         .dimming = {
@@ -635,8 +635,8 @@ static const ul_theme ul_themes_pmos_dark = {
         .border_color = 0x395e66,
         .corner_radius = 3,
         .pad = 20,
+        .gap = 20,
         .buttons = {
-            .pad = 20,
             .gap = 10
         },
         .dimming = {

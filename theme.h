@@ -139,7 +139,6 @@ typedef struct {
 
 /* Message box buttons theme */
 typedef struct {
-    lv_coord_t pad;
     lv_coord_t gap;
 } ul_theme_msgbox_buttons;
 
@@ -157,6 +156,7 @@ typedef struct {
     uint32_t border_color;
     lv_coord_t corner_radius;
     lv_coord_t pad;
+    lv_coord_t gap;
     ul_theme_msgbox_buttons buttons;
     ul_theme_msgbox_dimming dimming;
 } ul_theme_msgbox;
