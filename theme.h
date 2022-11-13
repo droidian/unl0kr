@@ -114,16 +114,6 @@ typedef struct {
     ul_theme_textarea_cursor cursor;
 } ul_theme_textarea;
 
-/* Dropdown box theme */
-typedef struct {
-    uint32_t fg_color;
-    uint32_t bg_color;
-    lv_coord_t border_width;
-    uint32_t border_color;
-    lv_coord_t corner_radius;
-    lv_coord_t pad;
-} ul_theme_dropdown_box;
-
 /* Dropdown list theme */
 typedef struct {
     uint32_t fg_color;
@@ -138,7 +128,7 @@ typedef struct {
 
 /* Dropdown theme */
 typedef struct {
-    ul_theme_dropdown_box box;
+    ul_theme_button button;
     ul_theme_dropdown_list list;
 } ul_theme_dropdown;
 
@@ -149,7 +139,6 @@ typedef struct {
 
 /* Message box buttons theme */
 typedef struct {
-    lv_coord_t pad;
     lv_coord_t gap;
 } ul_theme_msgbox_buttons;
 
@@ -167,6 +156,7 @@ typedef struct {
     uint32_t border_color;
     lv_coord_t corner_radius;
     lv_coord_t pad;
+    lv_coord_t gap;
     ul_theme_msgbox_buttons buttons;
     ul_theme_msgbox_dimming dimming;
 } ul_theme_msgbox;

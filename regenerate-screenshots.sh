@@ -57,7 +57,7 @@ default=$1
 
 [input]
 keyboard=true
-mouse=false
+pointer=false
 touchscreen=false
 EOF
 }

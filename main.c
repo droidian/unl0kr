@@ -247,15 +247,8 @@ static void set_keyboard_hidden(bool is_hidden) {
     lv_anim_t keyboard_anim;
     lv_anim_init(&keyboard_anim);
     lv_anim_set_var(&keyboard_anim, keyboard);
-
-    if (is_hidden) {
-        lv_anim_set_values(&keyboard_anim, 0, lv_obj_get_y(keyboard));
-        lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_ease_in_out);
-    } else {
-        lv_anim_set_values(&keyboard_anim, lv_obj_get_height(keyboard), 0);
-        lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_overshoot);
-    }
-
+    lv_anim_set_values(&keyboard_anim, is_hidden ? 0 : lv_obj_get_height(keyboard), is_hidden ? lv_obj_get_y(keyboard) : 0);
+    lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_ease_out);
     lv_anim_set_time(&keyboard_anim, 500);
     lv_anim_set_exec_cb(&keyboard_anim, keyboard_anim_y_cb);
     lv_anim_start(&keyboard_anim);
@@ -275,7 +268,7 @@ static void shutdown_btn_clicked_cb(lv_event_t *event) {
     LV_UNUSED(event);
     static const char *btns[] = { "Yes", "No", "" };
     lv_obj_t *mbox = lv_msgbox_create(NULL, NULL, "Shutdown device?", btns, false);
-    lv_obj_set_width(mbox, 400);
+    lv_obj_set_size(mbox, 400, LV_SIZE_CONTENT);
     lv_obj_add_event_cb(mbox, shutdown_mbox_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_center(mbox);
 }
