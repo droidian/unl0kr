@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+Nothing at the moment
+
+## 0.3.0 (2022-11-13)
+
 - feat: Update lvgl & lv_drivers to git master (2022-10-16)
 - feat: Add config option to customise bullet character (#17)
 - fix: Use actual screen DPI value to compute sizes and spaces
@@ -11,6 +15,7 @@
 - fix: Swap order of KDSKBMODE and KDSETMODE to prevent blank screen (#34)
 - fix: Increase maximum textarea width to prevent clipping on OnePlus 6 (#33)
 - fix: Disable unused fonts, widgets and drivers (#13)
+- fix: Rework pmOS theme to allow for more key space (#30)
 
 ## 0.2.0 (2022-05-27)
 
