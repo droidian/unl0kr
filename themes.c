@@ -280,7 +280,7 @@ static const ul_theme ul_themes_breezy_dark = {
         .placeholder_color = 0x7f8c8d,
         .cursor = {
             .width = 1,
-            .color = 0x232629,
+            .color = 0xeff0f1,
             .period = 700
         }
     },
