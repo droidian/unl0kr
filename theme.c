@@ -46,12 +46,16 @@ static struct {
     lv_style_t textarea_placeholder;
     lv_style_t textarea_cursor;
     lv_style_t dropdown;
+    lv_style_t dropdown_pressed;
     lv_style_t dropdown_list;
     lv_style_t dropdown_list_selected;
     lv_style_t label;
     lv_style_t msgbox;
+    lv_style_t msgbox_label;
     lv_style_t msgbox_btnmatrix;
     lv_style_t msgbox_background;
+    lv_style_t bar;
+    lv_style_t bar_indicator;
 } styles; 
 
 static bool are_styles_initialised = false;
@@ -162,14 +166,19 @@ static void init_styles(const ul_theme *theme) {
     lv_style_set_anim_time(&(styles.textarea_cursor), theme->textarea.cursor.period);
 
     reset_style(&(styles.dropdown));
-    lv_style_set_text_color(&(styles.dropdown), lv_color_hex(theme->dropdown.box.fg_color));
+    lv_style_set_text_color(&(styles.dropdown), lv_color_hex(theme->dropdown.button.normal.fg_color));
     lv_style_set_bg_opa(&(styles.dropdown), LV_OPA_COVER);
-    lv_style_set_bg_color(&(styles.dropdown), lv_color_hex(theme->dropdown.box.bg_color));
+    lv_style_set_bg_color(&(styles.dropdown), lv_color_hex(theme->dropdown.button.normal.bg_color));
     lv_style_set_border_side(&(styles.dropdown), LV_BORDER_SIDE_FULL);
-    lv_style_set_border_width(&(styles.dropdown), lv_dpx(theme->dropdown.box.border_width));
-    lv_style_set_border_color(&(styles.dropdown), lv_color_hex(theme->dropdown.box.border_color));
-    lv_style_set_radius(&(styles.dropdown), lv_dpx(theme->dropdown.box.corner_radius));
-    lv_style_set_pad_all(&(styles.dropdown), lv_dpx(theme->dropdown.box.pad));
+    lv_style_set_border_width(&(styles.dropdown), lv_dpx(theme->dropdown.button.border_width));
+    lv_style_set_border_color(&(styles.dropdown), lv_color_hex(theme->dropdown.button.normal.border_color));
+    lv_style_set_radius(&(styles.dropdown), lv_dpx(theme->dropdown.button.corner_radius));
+    lv_style_set_pad_all(&(styles.dropdown), lv_dpx(theme->dropdown.button.pad));
+
+    reset_style(&(styles.dropdown_pressed));
+    lv_style_set_text_color(&(styles.dropdown_pressed), lv_color_hex(theme->dropdown.button.pressed.fg_color));
+    lv_style_set_bg_color(&(styles.dropdown_pressed), lv_color_hex(theme->dropdown.button.pressed.bg_color));
+    lv_style_set_border_color(&(styles.dropdown_pressed), lv_color_hex(theme->dropdown.button.pressed.border_color));
 
     reset_style(&(styles.dropdown_list));
     lv_style_set_text_color(&(styles.dropdown_list), lv_color_hex(theme->dropdown.list.fg_color));
@@ -199,13 +208,27 @@ static void init_styles(const ul_theme *theme) {
     lv_style_set_radius(&(styles.msgbox), lv_dpx(theme->msgbox.corner_radius));
     lv_style_set_pad_all(&(styles.msgbox), lv_dpx(theme->msgbox.pad));
 
+    reset_style(&(styles.msgbox_label));
+    lv_style_set_text_align(&(styles.msgbox_label), LV_TEXT_ALIGN_CENTER);
+    lv_style_set_pad_bottom(&(styles.msgbox_label), lv_dpx(theme->msgbox.gap));
+
     reset_style(&(styles.msgbox_btnmatrix));
-    lv_style_set_pad_top(&(styles.msgbox_btnmatrix), lv_dpx(theme->msgbox.buttons.pad));
     lv_style_set_pad_gap(&(styles.msgbox_btnmatrix), lv_dpx(theme->msgbox.buttons.gap));
+    lv_style_set_min_width(&(styles.msgbox_btnmatrix), LV_PCT(100));
 
     reset_style(&(styles.msgbox_background));
     lv_style_set_bg_color(&(styles.msgbox_background), lv_color_hex(theme->msgbox.dimming.color));
     lv_style_set_bg_opa(&(styles.msgbox_background), theme->msgbox.dimming.opacity);
+
+    reset_style(&(styles.bar));
+    lv_style_set_border_side(&(styles.bar), LV_BORDER_SIDE_FULL);
+    lv_style_set_border_width(&(styles.bar), lv_dpx(theme->bar.border_width));
+    lv_style_set_border_color(&(styles.bar), lv_color_hex(theme->bar.border_color));
+    lv_style_set_radius(&(styles.bar), lv_dpx(theme->bar.corner_radius));
+
+    reset_style(&(styles.bar_indicator));
+    lv_style_set_bg_opa(&(styles.bar_indicator), LV_OPA_COVER);
+    lv_style_set_bg_color(&(styles.bar_indicator), lv_color_hex(theme->bar.indicator.bg_color));
 
     are_styles_initialised = true;
 }
@@ -245,6 +268,10 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
         return;
     }
 
+    if (lv_obj_check_type(obj, &lv_label_class) && lv_obj_check_type(lv_obj_get_parent(obj), &lv_btn_class)) {
+        return; /* Inherit styling from button */
+    }
+
     if (lv_obj_check_type(obj, &lv_textarea_class)) {
         lv_obj_add_style(obj, &(styles.textarea), 0);
         lv_obj_add_style(obj, &(styles.textarea_placeholder), LV_PART_TEXTAREA_PLACEHOLDER);
@@ -252,8 +279,13 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
         return;
     }
 
+    if (lv_obj_check_type(obj, &lv_label_class) && lv_obj_check_type(lv_obj_get_parent(obj), &lv_textarea_class)) {
+        return; /* Inherit styling from textarea */
+    }
+
     if (lv_obj_check_type(obj, &lv_dropdown_class)) {
         lv_obj_add_style(obj, &(styles.dropdown), 0);
+        lv_obj_add_style(obj, &(styles.dropdown_pressed), LV_STATE_PRESSED);
         return;
     }
 
@@ -264,14 +296,18 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
         return;
     }
 
-    if (lv_obj_check_type(obj, &lv_label_class) || lv_obj_check_type(obj, &lv_spangroup_class)) {
-        lv_obj_add_style(obj, &(styles.label), 0);
-        return;
+    if (lv_obj_check_type(obj, &lv_label_class) && lv_obj_check_type(lv_obj_get_parent(obj), &lv_dropdownlist_class)) {
+        return; /* Inherit styling from dropdown list */
     }
 
     if (lv_obj_check_type(obj, &lv_msgbox_class)) {
         lv_obj_add_style(obj, &(styles.msgbox), 0);
         return;
+    }
+
+    if (lv_obj_check_type(obj, &lv_label_class) && (lv_obj_check_type(lv_obj_get_parent(obj), &lv_msgbox_class) || lv_obj_check_type(lv_obj_get_parent(obj), &lv_msgbox_content_class))) {
+        lv_obj_add_style(obj, &(styles.msgbox_label), 0);
+        return; /* Inherit styling from message box */
     }
 
     if (lv_obj_check_type(obj, &lv_btnmatrix_class) && lv_obj_check_type(lv_obj_get_parent(obj), &lv_msgbox_class)) {
@@ -283,6 +319,17 @@ static void apply_theme_cb(lv_theme_t *theme, lv_obj_t *obj) {
 
     if (lv_obj_check_type(obj, &lv_msgbox_backdrop_class)) {
         lv_obj_add_style(obj, &(styles.msgbox_background), 0);
+        return;
+    }
+
+    if (lv_obj_check_type(obj, &lv_label_class) || lv_obj_check_type(obj, &lv_spangroup_class)) {
+        lv_obj_add_style(obj, &(styles.label), 0);
+        return;
+    }
+
+    if (lv_obj_check_type(obj, &lv_bar_class)) {
+        lv_obj_add_style(obj, &(styles.bar), 0);
+        lv_obj_add_style(obj, &(styles.bar_indicator), LV_PART_INDICATOR);
         return;
     }
 }

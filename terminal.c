@@ -37,6 +37,9 @@
 
 static int current_fd = -1;
 
+static int original_mode = KD_TEXT;
+static int original_kb_mode = K_UNICODE;
+
 
 /**
  * Static prototypes
@@ -87,14 +90,48 @@ static void close_current_terminal(void) {
 
 void ul_terminal_prepare_current_terminal(void) {
     reopen_current_terminal();
-    if (current_fd < 0 || ioctl(current_fd, KDSETMODE, KD_GRAPHICS) != 0) {
-        ul_log(UL_LOG_LEVEL_WARNING, "Could not set current terminal to graphics mode");
+
+    if (current_fd < 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not prepare current terminal");
+        return;
+    }
+
+    // NB: The order of calls appears to matter for some devices. See
+    // https://gitlab.com/cherrypicker/unl0kr/-/issues/34 for further info.
+
+    if (ioctl(current_fd, KDGKBMODE, &original_kb_mode) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not get terminal keyboard mode");
+    }
+
+    if (ioctl(current_fd, KDSKBMODE, K_OFF) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not set terminal keyboard mode to off");
+    }
+
+    if (ioctl(current_fd, KDGETMODE, &original_mode) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not get terminal mode");
+    }
+
+    if (ioctl(current_fd, KDSETMODE, KD_GRAPHICS) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not set terminal mode to graphics");
     }
 }
 
 void ul_terminal_reset_current_terminal(void) {
-    if (current_fd < 0 || ioctl(current_fd, KDSETMODE, KD_TEXT) != 0) {
-        ul_log(UL_LOG_LEVEL_WARNING, "Could not reset current terminal to text mode");
+    if (current_fd < 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not reset current terminal");
+        return;
     }
+
+    // NB: The order of calls appears to matter for some devices. See
+    // https://gitlab.com/cherrypicker/unl0kr/-/issues/34 for further info.
+
+    if (ioctl(current_fd, KDSETMODE, original_mode) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not reset terminal mode");
+    }
+
+    if (ioctl(current_fd, KDSKBMODE, original_kb_mode) != 0) {
+        ul_log(UL_LOG_LEVEL_WARNING, "Could not reset terminal keyboard mode");
+    }
+
     close_current_terminal();
 }

@@ -250,15 +250,8 @@ static void set_keyboard_hidden(bool is_hidden) {
     lv_anim_t keyboard_anim;
     lv_anim_init(&keyboard_anim);
     lv_anim_set_var(&keyboard_anim, keyboard);
-
-    if (is_hidden) {
-        lv_anim_set_values(&keyboard_anim, 0, lv_obj_get_y(keyboard));
-        lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_ease_in_out);
-    } else {
-        lv_anim_set_values(&keyboard_anim, lv_obj_get_height(keyboard), 0);
-        lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_overshoot);
-    }
-
+    lv_anim_set_values(&keyboard_anim, is_hidden ? 0 : lv_obj_get_height(keyboard), is_hidden ? lv_obj_get_y(keyboard) : 0);
+    lv_anim_set_path_cb(&keyboard_anim, lv_anim_path_ease_out);
     lv_anim_set_time(&keyboard_anim, 500);
     lv_anim_set_exec_cb(&keyboard_anim, keyboard_anim_y_cb);
     lv_anim_start(&keyboard_anim);
@@ -278,7 +271,7 @@ static void shutdown_btn_clicked_cb(lv_event_t *event) {
     LV_UNUSED(event);
     static const char *btns[] = { "Yes", "No", "" };
     lv_obj_t *mbox = lv_msgbox_create(NULL, NULL, "Shutdown device?", btns, false);
-    lv_obj_set_width(mbox, 400);
+    lv_obj_set_size(mbox, 400, LV_SIZE_CONTENT);
     lv_obj_add_event_cb(mbox, shutdown_mbox_value_changed_cb, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_center(mbox);
 }
@@ -401,10 +394,10 @@ int main(int argc, char *argv[]) {
 
     /* Override display parameters with command line options if necessary */
     if (cli_opts.hor_res > 0) {
-        hor_res = LV_MIN(hor_res, (uint32_t)cli_opts.hor_res);
+        hor_res = cli_opts.hor_res;
     }
     if (cli_opts.ver_res > 0) {
-        ver_res = LV_MIN(ver_res, (uint32_t)cli_opts.ver_res);
+        ver_res = cli_opts.ver_res;
     }
     if (cli_opts.dpi > 0) {
         dpi = cli_opts.dpi;
@@ -416,16 +409,17 @@ int main(int argc, char *argv[]) {
     lv_color_t *buf = (lv_color_t *)malloc(buf_size * sizeof(lv_color_t));
     lv_disp_draw_buf_init(&disp_buf, buf, NULL, buf_size);    
 
-
     /* Register display driver */
     disp_drv.draw_buf = &disp_buf;
     disp_drv.hor_res = hor_res;
     disp_drv.ver_res = ver_res;
+    disp_drv.offset_x = cli_opts.x_offset;
+    disp_drv.offset_y = cli_opts.y_offset;
     disp_drv.dpi = dpi;
     lv_disp_drv_register(&disp_drv);
 
     /* Connect input devices */
-    ul_indev_auto_connect();
+    ul_indev_auto_connect(conf_opts.input.keyboard, conf_opts.input.pointer, conf_opts.input.touchscreen);
     ul_indev_set_up_mouse_cursor();
 
     /* Hide the on-screen keyboard by default if a physical keyboard is connected */
@@ -445,6 +439,7 @@ int main(int argc, char *argv[]) {
     const int keyboard_height = ver_res > hor_res ? ver_res / 3 : ver_res / 2;
     const int padding = keyboard_height / 8;
     const int label_width = hor_res - 2 * padding;
+    const int textarea_container_max_width = LV_MIN(hor_res, ver_res);
 
     /* Main flexbox */
     lv_obj_t *container = lv_obj_create(lv_scr_act());
@@ -516,14 +511,15 @@ int main(int argc, char *argv[]) {
     }
 
     /* Size label to content */
+    const lv_coord_t label_height = lv_spangroup_get_expand_height(spangroup, label_width);
     lv_obj_set_style_max_height(spangroup, LV_PCT(100), LV_PART_MAIN);
-    lv_obj_set_size(spangroup, label_width, lv_spangroup_get_expand_height(spangroup, label_width));
+    lv_obj_set_size(spangroup, label_width, label_height);
     lv_obj_set_align(spangroup, LV_ALIGN_BOTTOM_MID);
 
     /* Textarea flexbox */
     lv_obj_t *textarea_container = lv_obj_create(container);
     lv_obj_set_size(textarea_container, LV_PCT(100), LV_SIZE_CONTENT);
-    lv_obj_set_style_max_width(textarea_container, 512, LV_PART_MAIN);
+    lv_obj_set_style_max_width(textarea_container, textarea_container_max_width, LV_PART_MAIN);
     lv_obj_set_flex_flow(textarea_container, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(textarea_container, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_obj_set_style_pad_left(textarea_container, padding, LV_PART_MAIN);
@@ -556,6 +552,11 @@ int main(int argc, char *argv[]) {
     lv_obj_set_size(toggle_theme_btn, dropwdown_height, dropwdown_height);
     lv_obj_set_size(toggle_kb_btn, dropwdown_height, dropwdown_height);
     lv_obj_set_size(shutdown_btn, dropwdown_height, dropwdown_height);
+
+    /* Hide label if it clips veritcally */
+    if (label_height > lv_obj_get_height(label_container)) {
+        lv_obj_set_height(spangroup, 0);
+    }
 
     /* Keyboard (after textarea / label so that key popovers are not drawn over) */
     keyboard = lv_keyboard_create(lv_scr_act());

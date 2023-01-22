@@ -274,45 +274,45 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 
 /*Montserrat fonts with ASCII range and some symbols using bpp = 4
  *https://fonts.google.com/specimen/Montserrat*/
-#define LV_FONT_MONTSERRAT_8     1
-#define LV_FONT_MONTSERRAT_10    1
-#define LV_FONT_MONTSERRAT_12    1
-#define LV_FONT_MONTSERRAT_14    1
-#define LV_FONT_MONTSERRAT_16    1
-#define LV_FONT_MONTSERRAT_18    1
-#define LV_FONT_MONTSERRAT_20    1
-#define LV_FONT_MONTSERRAT_22    1
-#define LV_FONT_MONTSERRAT_24    1
-#define LV_FONT_MONTSERRAT_26    1
-#define LV_FONT_MONTSERRAT_28    1
-#define LV_FONT_MONTSERRAT_30    1
-#define LV_FONT_MONTSERRAT_32    1
-#define LV_FONT_MONTSERRAT_34    1
-#define LV_FONT_MONTSERRAT_36    1
-#define LV_FONT_MONTSERRAT_38    1
-#define LV_FONT_MONTSERRAT_40    1
-#define LV_FONT_MONTSERRAT_42    1
-#define LV_FONT_MONTSERRAT_44    1
-#define LV_FONT_MONTSERRAT_46    1
-#define LV_FONT_MONTSERRAT_48    1
+#define LV_FONT_MONTSERRAT_8     0
+#define LV_FONT_MONTSERRAT_10    0
+#define LV_FONT_MONTSERRAT_12    0
+#define LV_FONT_MONTSERRAT_14    0
+#define LV_FONT_MONTSERRAT_16    0
+#define LV_FONT_MONTSERRAT_18    0
+#define LV_FONT_MONTSERRAT_20    0
+#define LV_FONT_MONTSERRAT_22    0
+#define LV_FONT_MONTSERRAT_24    0
+#define LV_FONT_MONTSERRAT_26    0
+#define LV_FONT_MONTSERRAT_28    0
+#define LV_FONT_MONTSERRAT_30    0
+#define LV_FONT_MONTSERRAT_32    0
+#define LV_FONT_MONTSERRAT_34    0
+#define LV_FONT_MONTSERRAT_36    0
+#define LV_FONT_MONTSERRAT_38    0
+#define LV_FONT_MONTSERRAT_40    0
+#define LV_FONT_MONTSERRAT_42    0
+#define LV_FONT_MONTSERRAT_44    0
+#define LV_FONT_MONTSERRAT_46    0
+#define LV_FONT_MONTSERRAT_48    0
 
 /*Demonstrate special features*/
-#define LV_FONT_MONTSERRAT_12_SUBPX      1
-#define LV_FONT_MONTSERRAT_28_COMPRESSED 1  /*bpp = 3*/
-#define LV_FONT_DEJAVU_16_PERSIAN_HEBREW 1  /*Hebrew, Arabic, Perisan letters and all their forms*/
-#define LV_FONT_SIMSUN_16_CJK            1  /*1000 most common CJK radicals*/
+#define LV_FONT_MONTSERRAT_12_SUBPX      0
+#define LV_FONT_MONTSERRAT_28_COMPRESSED 0  /*bpp = 3*/
+#define LV_FONT_DEJAVU_16_PERSIAN_HEBREW 0  /*Hebrew, Arabic, Perisan letters and all their forms*/
+#define LV_FONT_SIMSUN_16_CJK            0  /*1000 most common CJK radicals*/
 
 /*Pixel perfect monospace fonts*/
-#define LV_FONT_UNSCII_8        1
-#define LV_FONT_UNSCII_16       1
+#define LV_FONT_UNSCII_8        0
+#define LV_FONT_UNSCII_16       0
 
 /*Optionally declare custom fonts here.
  *You can use these fonts as default font too and they will be available globally.
  *E.g. #define LV_FONT_CUSTOM_DECLARE   LV_FONT_DECLARE(my_font_1) LV_FONT_DECLARE(my_font_2)*/
-#define LV_FONT_CUSTOM_DECLARE
+#define LV_FONT_CUSTOM_DECLARE  LV_FONT_DECLARE(font_32)
 
 /*Always set a default font*/
-#define LV_FONT_DEFAULT &lv_font_montserrat_14
+#define LV_FONT_DEFAULT &font_32
 
 /*Enable handling large font and/or fonts with a lot of characters.
  *The limit depends on the font size, font face and bpp.
@@ -381,9 +381,9 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 
 /*Documentation of the widgets: https://docs.lvgl.io/latest/en/html/widgets/index.html*/
 
-#define LV_USE_ARC          1
+#define LV_USE_ARC          0
 
-#define LV_USE_ANIMIMG	    1
+#define LV_USE_ANIMIMG	    0
 
 #define LV_USE_BAR          1
 
@@ -391,9 +391,9 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 
 #define LV_USE_BTNMATRIX    1
 
-#define LV_USE_CANVAS       1
+#define LV_USE_CANVAS       0
 
-#define LV_USE_CHECKBOX     1
+#define LV_USE_CHECKBOX     0
 
 
 #define LV_USE_DROPDOWN     1   /*Requires: lv_label*/
@@ -406,23 +406,23 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 #  define LV_LABEL_LONG_TXT_HINT    1   /*Store some extra info in labels to speed up drawing of very long texts*/
 #endif
 
-#define LV_USE_LINE         1
+#define LV_USE_LINE         0
 
-#define LV_USE_ROLLER       1   /*Requires: lv_label*/
+#define LV_USE_ROLLER       0   /*Requires: lv_label*/
 #if LV_USE_ROLLER
 #  define LV_ROLLER_INF_PAGES       7   /*Number of extra "pages" when the roller is infinite*/
 #endif
 
-#define LV_USE_SLIDER       1   /*Requires: lv_bar*/
+#define LV_USE_SLIDER       0   /*Requires: lv_bar*/
 
-#define LV_USE_SWITCH    1
+#define LV_USE_SWITCH    0
 
 #define LV_USE_TEXTAREA   1     /*Requires: lv_label*/
 #if LV_USE_TEXTAREA != 0
 #  define LV_TEXTAREA_DEF_PWD_SHOW_TIME     0    /*ms*/
 #endif
 
-#define LV_USE_TABLE  1
+#define LV_USE_TABLE  0
 
 /*==================
  * EXTRA COMPONENTS
@@ -431,7 +431,7 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 /*-----------
  * Widgets
  *----------*/
-#define LV_USE_CALENDAR     1
+#define LV_USE_CALENDAR     0
 #if LV_USE_CALENDAR
 # define LV_CALENDAR_WEEK_STARTS_MONDAY 0
 # if LV_CALENDAR_WEEK_STARTS_MONDAY
@@ -445,31 +445,31 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 # define LV_USE_CALENDAR_HEADER_DROPDOWN    1
 #endif  /*LV_USE_CALENDAR*/
 
-#define LV_USE_CHART        1
+#define LV_USE_CHART        0
 
-#define LV_USE_COLORWHEEL   1
+#define LV_USE_COLORWHEEL   0
 
-#define LV_USE_IMGBTN       1
+#define LV_USE_IMGBTN       0
 
 #define LV_USE_KEYBOARD     1
 
-#define LV_USE_LED          1
+#define LV_USE_LED          0
 
-#define LV_USE_LIST         1
+#define LV_USE_LIST         0
 
-#define LV_USE_METER        1
+#define LV_USE_METER        0
 
 #define LV_USE_MSGBOX       1
 
-#define LV_USE_SPINBOX      1
+#define LV_USE_SPINBOX      0
 
-#define LV_USE_SPINNER      1
+#define LV_USE_SPINNER      0
 
-#define LV_USE_TABVIEW      1
+#define LV_USE_TABVIEW      0
 
-#define LV_USE_TILEVIEW     1
+#define LV_USE_TILEVIEW     0
 
-#define LV_USE_WIN          1
+#define LV_USE_WIN          0
 
 #define LV_USE_SPAN         1
 #if LV_USE_SPAN
@@ -481,7 +481,7 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
  * Themes
  *----------*/
 /*A simple, impressive and very complete theme*/
-#define LV_USE_THEME_DEFAULT    1
+#define LV_USE_THEME_DEFAULT    0
 #if LV_USE_THEME_DEFAULT
 
 /*0: Light mode; 1: Dark mode*/
@@ -495,10 +495,10 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 #endif /*LV_USE_THEME_DEFAULT*/
 
 /*An very simple them that is a good starting point for a custom theme*/
- #define LV_USE_THEME_BASIC    1
+ #define LV_USE_THEME_BASIC    0
 
 /*A theme designed for monochrome displays*/
-#define LV_USE_THEME_MONO       1
+#define LV_USE_THEME_MONO       0
 
 /*-----------
  * Layouts
@@ -508,7 +508,7 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 #define LV_USE_FLEX     1
 
 /*A layout similar to Grid in CSS.*/
-#define LV_USE_GRID     1
+#define LV_USE_GRID     0
 
 /*==================
 * EXAMPLES

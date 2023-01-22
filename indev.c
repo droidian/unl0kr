@@ -154,13 +154,19 @@ static void libinput_read_cb(lv_indev_drv_t *indev_drv, lv_indev_data_t *data) {
  * Public functions
  */
 
-void ul_indev_auto_connect() {
-    auto_connect(LIBINPUT_CAPABILITY_KEYBOARD, MAX_KEYBOARD_DEVS, &num_keyboard_devs, keyboard_devs, keyboard_indevs,
-                 keyboard_indev_drvs, keyboard_drv_states);
-    auto_connect(LIBINPUT_CAPABILITY_POINTER, MAX_POINTER_DEVS, &num_pointer_devs, pointer_devs, pointer_indevs,
-                 pointer_indev_drvs, pointer_drv_states);
-    auto_connect(LIBINPUT_CAPABILITY_TOUCH, MAX_TOUCHSCREEN_DEVS, &num_touchscreen_devs, touchscreen_devs, touchscreen_indevs,
-                 touchscreen_indev_drvs, touchscreen_drv_states);
+void ul_indev_auto_connect(bool keyboard, bool pointer, bool touchscreen) {
+    if (keyboard) {
+        auto_connect(LIBINPUT_CAPABILITY_KEYBOARD, MAX_KEYBOARD_DEVS, &num_keyboard_devs, keyboard_devs, keyboard_indevs,
+            keyboard_indev_drvs, keyboard_drv_states);
+    }
+    if (pointer) {
+        auto_connect(LIBINPUT_CAPABILITY_POINTER, MAX_POINTER_DEVS, &num_pointer_devs, pointer_devs, pointer_indevs,
+            pointer_indev_drvs, pointer_drv_states);
+    }
+    if (touchscreen) {
+        auto_connect(LIBINPUT_CAPABILITY_TOUCH, MAX_TOUCHSCREEN_DEVS, &num_touchscreen_devs, touchscreen_devs, touchscreen_indevs,
+            touchscreen_indev_drvs, touchscreen_drv_states);
+    }
 }
 
 bool ul_indev_is_keyboard_connected() {
@@ -181,6 +187,9 @@ void ul_indev_set_up_textarea_for_keyboard_input(lv_obj_t *textarea) {
 }
 
 void ul_indev_set_up_mouse_cursor() {
+    if (num_pointer_devs == 0) {
+        return;
+    }
     lv_obj_t *cursor_obj = lv_img_create(lv_scr_act());
     lv_img_set_src(cursor_obj, &ul_cursor_img_dsc);
     for (int i = 0; i < num_pointer_devs; ++i) {

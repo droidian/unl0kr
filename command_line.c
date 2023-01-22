@@ -61,6 +61,8 @@ static void init_opts(ul_cli_opts *opts) {
 
     opts->hor_res = -1;
     opts->ver_res = -1;
+    opts->x_offset = 0;
+    opts->y_offset = 0;
     opts->verbose = false;
 }
 
@@ -73,19 +75,20 @@ static void print_usage() {
         "password is printed to STDOUT. All other output happens on STDERR.\n"
         "\n"
         "Mandatory arguments to long options are mandatory for short options too.\n"
-        "  -c, --config=PATH      Locaton of the main config file. Defaults to\n"
-        "                         /etc/unl0kr.conf.\n"
-        "  -C, --config-override  Location of the config override file. Values in\n"
-        "                         this file override values for the same keys in the\n"
-        "                         main config file. If specified multiple times, the\n"
-        "                         values from consecutive files will be merged in\n"
-        "                         order.\n"
-        "  -g, --geometry=NxM     Force a display size of N horizontal times M\n"
-        "                         vertical pixels\n"
-        "  -d  --dpi=N            Overrides the DPI\n"
-        "  -h, --help             Print this message and exit\n"
-        "  -v, --verbose          Enable more detailed logging output on STDERR\n"
-        "  -V, --version          Print the unl0kr version and exit\n");
+        "  -c, --config=PATH         Locaton of the main config file. Defaults to\n"
+        "                            /etc/unl0kr.conf.\n"
+        "  -C, --config-override     Location of the config override file. Values in\n"
+        "                            this file override values for the same keys in\n"
+        "                            the main config file. If specified multiple\n"
+        "                            times, the values from consecutive files will be\n"
+        "                            merged in order.\n"
+        "  -g, --geometry=NxM[@X,Y]  Force a display size of N horizontal times M\n"
+        "                            vertical pixels, offset horizontally by X\n"
+        "                            pixels and vertically by Y pixels\n"
+        "  -d  --dpi=N               Override the display's DPI value\n"
+        "  -h, --help                Print this message and exit\n"
+        "  -v, --verbose             Enable more detailed logging output on STDERR\n"
+        "  -V, --version             Print the unl0kr version and exit\n");
         /*-------------------------------- 78 CHARS --------------------------------*/
 }
 
@@ -125,9 +128,11 @@ void ul_cli_parse_opts(int argc, char *argv[], ul_cli_opts *opts) {
             opts->num_config_files++;
             break;
         case 'g':
-            if (sscanf(optarg, "%ix%i", &(opts->hor_res), &(opts->ver_res)) != 2) {
-                ul_log(UL_LOG_LEVEL_ERROR, "Invalid geometry argument \"%s\"\n", optarg);
-                exit(EXIT_FAILURE);
+            if (sscanf(optarg, "%ix%i@%i,%i", &(opts->hor_res), &(opts->ver_res), &(opts->x_offset), &(opts->y_offset)) != 4) {
+                if (sscanf(optarg, "%ix%i", &(opts->hor_res), &(opts->ver_res)) != 2) {
+                    ul_log(UL_LOG_LEVEL_ERROR, "Invalid geometry argument \"%s\"\n", optarg);
+                    exit(EXIT_FAILURE);
+                }
             }
             break;
         case 'd':
