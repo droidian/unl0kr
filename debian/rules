@@ -6,7 +6,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 	dh $@
 
 override_dh_auto_configure:
-	dh_auto_configure -- -Dwith-minui=enabled
+	dh_auto_configure -- -Dwith-minui=enabled -Ddefault_library=static
 
 override_dh_installinitramfs:
 	dh_installinitramfs --no-scripts
