@@ -26,6 +26,8 @@ project(
 
 add_project_arguments('-DUL_VERSION="@0@"'.format(meson.project_version()), language: ['c'])
 
+enable_static = (get_option('default_library') == 'static')
+
 unl0kr_sources = [
   'backends.c',
   'command_line.c',
@@ -46,24 +48,24 @@ squeek2lvgl_sources = [
 ]
 
 unl0kr_dependencies = [
-  dependency('inih'),
-  dependency('libinput'),
-  dependency('xkbcommon'),
+  dependency('inih', static: enable_static),
+  dependency('libinput', static: enable_static),
+  dependency('xkbcommon', static: enable_static),
 ]
 
 cc = meson.get_compiler('c')
 
-libdrm_dep = dependency('libdrm', required: get_option('with-drm'))
+libdrm_dep = dependency('libdrm', required: get_option('with-drm'), static: enable_static)
 if libdrm_dep.found()
   unl0kr_dependencies += [libdrm_dep]
   add_project_arguments('-DUSE_DRM=1', language: ['c'])
 endif
 
-minui_dep = dependency('minui', required: get_option('with-minui'))
+minui_dep = dependency('minui', required: get_option('with-minui'), static: enable_static)
 if minui_dep.found()
   unl0kr_dependencies += [
     minui_dep,
-    cc.find_library('m', required : false)
+    cc.find_library('m', required : false, static: enable_static)
   ]
   add_project_arguments('-DUSE_MINUI=1', language: ['c'])
 
