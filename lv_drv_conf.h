@@ -434,7 +434,7 @@
 #    define XKB_KEY_MAP       { .rules = NULL, \
                                 .model = "pc101", \
                                 .layout = "us", \
-                                .variant = NULL, \
+                                .variant = "altgr-intl", \
                                 .options = NULL } /*"setxkbmap -query" can help find the right values for your keyboard*/
 #  endif  /*USE_XKB*/
 #endif  /*USE_LIBINPUT || USE_BSD_LIBINPUT || USE_EVDEV || USE_BSD_EVDEV*/
